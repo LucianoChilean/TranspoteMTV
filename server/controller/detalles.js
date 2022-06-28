@@ -1,12 +1,37 @@
 const {request,response} = require('express');
 const Detalle = require('../models/detalle');
+const Puerto = require('../models/puerto');
+const Direccion = require('../models/direccion');
 
 
+const getDetalleByDespacho = async (req, res = response) =>{
+    
+    const {id} = req.params;
 
+    const detalles = await Detalle.findAll({
+        include: [{ model: Puerto, 
+            attributes:['nombre']},
+            {model: Direccion,
+            attributes: ['direccion']
+             }],         
+        where:{
+            despacho_id : id
+        }
+    });
+
+    res.json({detalles});
+
+}
 
 const getDetalles = async(req, res = response) =>{
 
-    const detalles = await Detalle.findAll();
+    const detalles = await Detalle.findAll({
+        include: [{ model: Puerto, 
+            attributes:['nombre']},
+            {model: Direccion,
+            attributes: ['direccion']
+             }]
+    });
 
     res.json({detalles});
 
@@ -92,4 +117,5 @@ module.exports = {getDetalles,
     getDetalle,
     postDetalle,
     putDetalle,
-    deleteDetalle}
+    deleteDetalle,
+    getDetalleByDespacho}

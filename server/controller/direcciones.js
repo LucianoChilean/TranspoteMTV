@@ -3,6 +3,20 @@ const {request,response} = require('express');
 const Direccion = require('../models/direccion');
 
 
+const getDireccionbyCliente = async(req, res = response) =>{
+    
+    const {id} = req.params;
+
+    const direcciones = await Direccion.findAll({
+        where:{
+            cliente_id: id
+        }
+    });
+
+    res.json({direcciones});
+
+}
+
 const getDirecciones = async(req, res = response) =>{
 
     /*const {page =2 ,size = 5} = req.query;
@@ -100,4 +114,5 @@ module.exports = {getDirecciones,
                   getDireccion,
                   postDireccion,
                   putDireccion,
-                  deleteDireccion}
+                  deleteDireccion,
+                  getDireccionbyCliente}

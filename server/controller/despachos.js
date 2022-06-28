@@ -1,12 +1,23 @@
 const {request,response} = require('express');
 const Despacho = require('../models/despacho');
+const Puerto = require('../models/puerto');
+const Conductor = require('../models/conductor');
+const Cliente = require('../models/cliente');
 
 
 
 
 const getDespachos = async(req, res = response) =>{
 
-    const despachos = await Despacho.findAll();
+    const despachos = await Despacho.findAll({
+        include: [{ model: Puerto, 
+            attributes:['puerto_id','nombre']},
+            {model: Conductor,
+            attributes: ['conductor_id','nombre','paterno','materno']},
+            {model: Cliente,
+            attributes: ['cliente_id','nombre']
+            }]         
+        });
 
     res.json({despachos});
 
@@ -26,7 +37,7 @@ const getDespacho = async(req, res = response) =>{
 const postDespacho = async(req, res = response) => {
 
    
-    const {numero,descripcion,nave,estado,puerto_id,conductor_id,cliente_id} = req.body;
+    const {numero,descripcion,nave,estado = 'Proceso',puerto_id,conductor_id,cliente_id} = req.body;
 
     const despacho = Despacho.build({numero,descripcion,nave,estado,puerto_id,conductor_id,cliente_id});
 

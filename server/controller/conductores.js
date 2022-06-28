@@ -14,9 +14,9 @@ const getCondutores = async(req, res = response) =>{
 
     const { count, rows } = await Condutor.findAndCountAll(options);*/
 
-    const condutores = await Condutor.findAll();
+    const conductores = await Condutor.findAll();
 
-    res.json({condutores});
+    res.json({conductores});
 
 
 }
