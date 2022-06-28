@@ -38,11 +38,15 @@ class Server{
        this.port = process.env.PORT;
 
        this.paths = {
-        usuarios:   '/api/usuarios',
-        detalles:   '/api/detalles',
-        despachos:  '/api/despachos',
-        swagger:    '/api-doc',
-        auth:       '/api/auth',
+        usuarios:     '/api/usuarios',
+        detalles:     '/api/detalles',
+        despachos:    '/api/despachos',
+        swagger:      '/api-doc',
+        auth:         '/api/auth',
+        puertos:      '/api/puertos',
+        direcciones:  '/api/direcciones',
+        conductores:  '/api/conductores',
+        clientes:     '/api/clientes'
        };
 
        this.connectDB();
@@ -77,6 +81,10 @@ class Server{
         this._app.use(this.paths.usuarios,require('../routes/usuarios'));
         this._app.use(this.paths.despachos,require('../routes/despachos'));
         this._app.use(this.paths.detalles,require('../routes/detalles'));
+        this._app.use(this.paths.puertos,require('../routes/puertos'));
+        this._app.use(this.paths.direcciones,require('../routes/direcciones'));
+        this._app.use(this.paths.conductores,require('../routes/conductores'));
+        this._app.use(this.paths.clientes,require('../routes/clientes'));
         this._app.use(this.paths.swagger,swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 

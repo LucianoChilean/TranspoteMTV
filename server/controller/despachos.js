@@ -26,9 +26,9 @@ const getDespacho = async(req, res = response) =>{
 const postDespacho = async(req, res = response) => {
 
    
-    const {numero,descripcion,nave} = req.body;
+    const {numero,descripcion,nave,estado,puerto_id,conductor_id,cliente_id} = req.body;
 
-    const despacho = Despacho.build({numero,descripcion,nave});
+    const despacho = Despacho.build({numero,descripcion,nave,estado,puerto_id,conductor_id,cliente_id});
 
 
     await despacho.save();
@@ -48,7 +48,7 @@ const putDespacho = async(req,res = response) => {
         const despacho = await Despacho.findByPk(id);
         if(!despacho){
             return res.status(404).json({
-                msg: `no existe un ticket con el id ${id}`
+                msg: `no existe un Despacho con el id ${id}`
             })
         }
 
@@ -73,10 +73,10 @@ const deleteDespacho = async(req, res = response) =>{
     const despacho = await Despacho.findByPk(id);
     if(!despacho){
         return res.status(404).json({
-            msg: `no existe un ticket con el id ${id}`
+            msg: `no existe un Despacho con el id ${id}`
         })
     }
-    
+
     //Cambiar borrado por estado
     await despacho.destroy({
         where: {

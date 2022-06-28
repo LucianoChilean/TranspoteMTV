@@ -29,18 +29,15 @@ const Detalle = db.define('Detalle',{
     devolucion:{
         type: DataTypes.STRING
     },
-    estado:{
-        type: DataTypes.STRING
-    },
     despacho_id:{
         type : DataTypes.INTEGER.UNSIGNED
-    }/*,
+    },
     puerto_id:{
         type : DataTypes.INTEGER.UNSIGNED
     },
     direccion_id:{
         type : DataTypes.INTEGER.UNSIGNED
-    }*/
+    }
 });
 
 module.exports = Detalle; 

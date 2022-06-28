@@ -2,33 +2,27 @@ const { DataTypes } = require('sequelize');
 const db            = require('../db/connection');
 
 
-const Despacho = db.define('Despacho',{
-    despacho_id:{
+const Direccion = db.define('Direccion',{
+    direccion_id:{
         type : DataTypes.INTEGER.UNSIGNED,
         primaryKey : true,
         autoIncrement : true
     },
-    numero:{
-        type: DataTypes.INTEGER(30),
+    direccion:{
+        type: DataTypes.STRING
     },
     descripcion:{
         type: DataTypes.TEXT
     },
-    nave:{
-        type: DataTypes.STRING(155)
-    },
-    estado:{
-        type: DataTypes.STRING(155)
-    },
-    puerto_id:{
-        type : DataTypes.INTEGER.UNSIGNED
-    },
-    conductor_id:{
-        type : DataTypes.INTEGER.UNSIGNED
-    },
     cliente_id:{
-        type: DataTypes.INTEGER.UNSIGNED
+        type : DataTypes.INTEGER.UNSIGNED
+    },
+    region_id:{
+        type : DataTypes.INTEGER.UNSIGNED
+    },
+    comuna_id:{
+        type : DataTypes.INTEGER.UNSIGNED
     }
 });
 
-module.exports = Despacho; 
+module.exports = Direccion; 

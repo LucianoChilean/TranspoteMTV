@@ -1,5 +1,4 @@
 const {request,response} = require('express');
-const jwt = require('jsonwebtoken');
 const Cliente = require('../models/cliente');
 
 
@@ -27,9 +26,9 @@ const getCliente = async(req, res = response) =>{
 const postCliente = async(req, res = response) => {
 
    
-    const {titulo,descripcion,estatus = 'Pendiente'} = req.body;
+    const {rut,nombre,giro,tipo_cliente_id = 1,direccion} = req.body;
 
-    const cliente = Cliente.build({titulo,descripcion,estatus});
+    const cliente = Cliente.build({rut,nombre,giro,tipo_cliente_id,direccion});
 
 
     await cliente.save();
@@ -42,27 +41,19 @@ const postCliente = async(req, res = response) => {
 const putCliente = async(req,res = response) => {
 
     const {id} = req.params;
-    const {titulo,descripcion,estatus} = req.body;
+    const {rut,nombre,giro,tipo_cliente_id = 1,direccion} = req.body;
  
     try{
 
         const cliente = await Cliente.findByPk(id);
         if(!cliente){
             return res.status(404).json({
-                msg: `no existe un ticket con el id ${id}`
+                msg: `no existe un cliente con el id ${id}`
             })
         }
 
-        var   auth       = req.header('Authorization');
-        const TokenSplit = auth.split(" ");
 
-   
-        const token = (TokenSplit[0] === 'Bearer') ? TokenSplit[1] : auth;
-
-        const {uid} = jwt.verify(token, 'test');
-        const UsuarioId = uid;
-
-        await cliente.update({titulo,descripcion,estatus,UsuarioId});
+        await cliente.update({rut,nombre,giro,tipo_cliente_id,direccion});
 
         res.json(cliente);
         
@@ -82,16 +73,16 @@ const deleteCliente = async(req, res = response) =>{
     const cliente = await Cliente.findByPk(id);
     if(!cliente){
         return res.status(404).json({
-            msg: `no existe un ticket con el id ${id}`
+            msg: `no existe un cliente con el id ${id}`
         })
     }
     
     //Cambiar borrado por estado
-    /*await ticket.destroy({
+    await cliente.destroy({
         where: {
            id : id
         }
-    })*/
+    })
 
     res.json(cliente);
 

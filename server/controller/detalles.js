@@ -26,9 +26,9 @@ const getDetalle = async(req, res = response) =>{
 const postDetalle = async(req, res = response) => {
 
    
-    const {descripcion,tipo,peso,fecha_retiro,tarjeton,fecha_entrega,devolucion,estado = true,despacho_id} = req.body;
+    const {descripcion,tipo,peso,fecha_retiro,tarjeton,fecha_entrega,devolucion,despacho_id,puerto_id,direccion_id} = req.body;
 
-    const detalle = Detalle.build({descripcion,tipo,peso,fecha_retiro,tarjeton,fecha_entrega,devolucion,estado,despacho_id});
+    const detalle = Detalle.build({descripcion,tipo,peso,fecha_retiro,tarjeton,fecha_entrega,devolucion,despacho_id,puerto_id,direccion_id});
 
     await detalle.save();
     
@@ -47,7 +47,7 @@ const putDetalle = async(req,res = response) => {
         const detalle = await Detalle.findByPk(id);
         if(!detalle){
             return res.status(404).json({
-                msg: `no existe un ticket con el id ${id}`
+                msg: `no existe un Detalle con el id ${id}`
             })
         }
 
@@ -72,7 +72,7 @@ const deleteDetalle = async(req, res = response) =>{
     const detalle = await Detalle.findByPk(id);
     if(!detalle){
         return res.status(404).json({
-            msg: `no existe un ticket con el id ${id}`
+            msg: `no existe un detalle con el id ${id}`
         })
     }
     
