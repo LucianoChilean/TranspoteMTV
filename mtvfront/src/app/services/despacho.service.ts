@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Despacho, FetchAllResponse } from '../interfaces/despacho.interafece';
+
 
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
@@ -34,17 +35,24 @@ export class DespachoService {
 
   private transform( resp: FetchAllResponse ) {
 
-
-   // console.log(resp);
-
     const DespachotList: Despacho[] = resp.despachos.map( despacho => {
  
-     // const email =  (ticket.Usuario)? ticket.Usuario.email: '';
+
      return{
       despacho_id: despacho.despacho_id,
       numero: despacho.numero,
       descripcion: despacho.descripcion,
-      nave: despacho.nave
+      nave: despacho.nave,
+      estado:despacho.estado,
+      Puerto: despacho.Puerto,
+      puerto_id: despacho.Puerto.puerto_id,
+      Puertonombre: despacho.Puerto.nombre,
+      conductor: despacho.conductor,
+      conductor_id: despacho.conductor.conductor_id,
+      cname: despacho.conductor.nombre+' '+despacho.conductor.paterno+' '+despacho.conductor.materno,
+      Cliente: despacho.Cliente,
+      cliente_id: despacho.Cliente.cliente_id,
+      cliname: despacho.Cliente.nombre
      }
     })
 
