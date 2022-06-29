@@ -4,11 +4,13 @@ import { Cliente } from 'src/app/interfaces/cliente.interface';
 import { Conductor } from 'src/app/interfaces/conductor.interface';
 import { Despacho } from 'src/app/interfaces/despacho.interafece';
 import { Detalle } from 'src/app/interfaces/detalle.interface';
+import { Direccion } from 'src/app/interfaces/direccion.interface';
 import { Puerto } from 'src/app/interfaces/puerto.interface';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ConductorService } from 'src/app/services/conductor.service';
 import { DespachoService } from 'src/app/services/despacho.service';
 import { DetalleService } from 'src/app/services/detalle.service';
+import { DireccionService } from 'src/app/services/direccion.service';
 import { PuertoService } from 'src/app/services/puerto.service';
 import Swal from 'sweetalert2';
 
@@ -19,6 +21,7 @@ import Swal from 'sweetalert2';
 })
 export class DespachosComponent implements OnInit {
 
+  public direcciones: Direccion[] = [];
   public detalles: Detalle[] = [];
   public clientes: Cliente[] = [];
   public conductores: Conductor[] = [];
@@ -43,6 +46,19 @@ export class DespachosComponent implements OnInit {
     cliente_id: 0
   }
 
+  public Detalle = {
+    id: 0,
+    descripcion: '',
+    tipo: '',
+    peso: '',
+    fecha_retiro: '2022-06-28 08:00:19',
+    tarjeton: '',
+    fecha_entrega:'2022-06-28 08:00:19',
+    despacho_id: 0,
+    puerto_id: 0,
+    direccion_id: 0
+  
+  }
  
 
   public desForm = this.fb.group({
@@ -57,6 +73,7 @@ export class DespachosComponent implements OnInit {
     private puerto:PuertoService,
     private conductor:ConductorService,
     private cliente:ClienteService,
+    private direccion:DireccionService,
     private fb:FormBuilder
   ) { }
 
@@ -182,7 +199,7 @@ export class DespachosComponent implements OnInit {
   
     Swal.fire({
       title: 'Esta seguro?',
-      text:  `Eliminara el Ticket N° ${despacho.despacho_id}`,
+      text:  `Eliminara el Despacho N° ${despacho.despacho_id}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -212,11 +229,22 @@ export class DespachosComponent implements OnInit {
   }
 
 
-  CargaDetalle(despacho:Despacho){
+  CargaDetalle(idDespacho:number,idCliente:number,NGuia:string){
 
-    this.FormText = despacho.numero;
+    this.FormText = NGuia;
+    this.Detalle.despacho_id = idDespacho;
 
-    this.detalle.GetDetalles(despacho.despacho_id)
+    this.Despacho.cliente_id = idCliente;
+    this.Despacho.id = idDespacho;
+    this.Despacho.numero = NGuia;
+
+
+    this.direccion.GetDirecciones(idCliente)
+    .subscribe(direcciones =>{
+      this.direcciones = direcciones;
+    })
+
+    this.detalle.GetDetalles(idDespacho)
     .subscribe(detalles =>{
       this.detalles = detalles;
     });
@@ -233,6 +261,53 @@ export class DespachosComponent implements OnInit {
     this.ngSelectCliente = 0;
    
 
+  }
+
+  crearDetalle(){
+
+    console.log(this.Despacho);
+    
+    this.detalle.CrearDetalle(this.Detalle)
+    .subscribe(detalle =>{
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: `El detalle se creo exitosamente`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+        this.CargaDetalle(this.Despacho.id,this.Despacho.cliente_id,this.Despacho.numero);
+    });
+
+  }
+
+  CierreGuia(){
+    this.LimpiarCampos();
+  }
+
+  EliminarGuia(id:number){
+
+    Swal.fire({
+      title: 'Esta seguro?',
+      text:  `Eliminara el detalle`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if(result.isConfirmed) {
+        Swal.fire(
+          `se ha Eliminado el detalle`,
+          '',
+          'success'
+        )
+        this.detalle.EliminarDetalle(id)
+        .subscribe(despacho=>{
+          this.CargaDetalle(this.Despacho.id,this.Despacho.cliente_id,this.Despacho.numero);
+        })
+      }
+    })
   }
   
 

@@ -53,4 +53,13 @@ export class DetalleService {
     return DetalleList;
   }
 
+
+  CrearDetalle(Detalle:object){
+    return this.http.post(`${base_url}/detalles/`,Detalle);
+  }
+
+  EliminarDetalle(id:number){
+    return this.http.delete(`${base_url}/detalles/${id}`);
+  }
+
 }

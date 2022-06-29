@@ -26,10 +26,10 @@
 
               <div class="form-group col-md-4 col-lg-4">
                 <label for="exampleFormControlSelect1">Puerto</label>
-                <select class="form-control" id="puerto" name="puerto"  [(ngModel)]="Despacho.puerto_id">
+                <select class="form-select" id="puerto" name="puerto"  [(ngModel)]="Despacho.puerto_id">
                   <option value="0">Seleccione Puerto</option>
                   <option  *ngFor="let puerto of puertos" 
-                  [selected]="puerto.puerto_id === ngSelectPuerto">{{puerto.nombre}}</option>
+                  [selected]="puerto.puerto_id === ngSelectPuerto" value="{{puerto.puerto_id}}">{{puerto.nombre}}</option>
                 </select>
               </div>
             
@@ -40,19 +40,19 @@
                 
             <div class="form-group col-md-3 col-lg-3">
               <label for="exampleFormControlSelect1">Conductor</label>
-              <select  class="form-control" id="conductor" name="conductor"  [(ngModel)]="Despacho.conductor_id">
+              <select  class="form-select" id="conductor" name="conductor"  [(ngModel)]="Despacho.conductor_id">
                 <option value="0">Seleccione Conductor</option>
                 <option  *ngFor="let conductor of conductores" 
-                [selected]="conductor.conductor_id === ngSelectConductor">{{conductor.nombre}}</option>
+                [selected]="conductor.conductor_id === ngSelectConductor" value="{{conductor.conductor_id}}">{{conductor.nombre}}</option>
               </select>
             </div>
 
             <div class="form-group col-md-3 col-lg-3">
               <label for="exampleFormControlSelect1">Cliente</label>
-              <select  class="form-control" id="cliente" name="cliente" [(ngModel)]="Despacho.cliente_id">
+              <select  class="form-select" id="cliente" name="cliente" [(ngModel)]="Despacho.cliente_id">
                 <option value="0">Seleccione Cliente</option>
                 <option  *ngFor="let cliente of clientes"
-                [selected]="cliente.cliente_id === ngSelectCliente">{{cliente.nombre}}</option>
+                [selected]="cliente.cliente_id === ngSelectCliente" value="{{cliente.cliente_id}}">{{cliente.nombre}}</option>
               </select>
             </div>
 
@@ -111,15 +111,15 @@
                             <td>{{ despacho.Puertonombre}}</td>
                             <td>{{ despacho.cname}}</td>
                             <td>{{ despacho.cliname}}</td>
-                            <td *ngIf="despacho.estado == 'Finalizado'"><span >{{ despacho.estado}}</span></td>
-                            <td *ngIf="despacho.estado == 'Proceso'"><span >{{ despacho.estado}}</span></td>
+                            <td *ngIf="despacho.estado == 'Finalizado'"><span class="badge bg-success">{{ despacho.estado}}</span></td>
+                            <td *ngIf="despacho.estado == 'Proceso'"><span class="badge bg-warning">{{ despacho.estado}}</span></td>
                             <td>
                               <button 
                               type="button" 
                               class="btn btn-success"
                               data-bs-toggle="modal"
                               data-bs-target="#exampleModal"
-                              (click)="CargaDetalle(despacho)">Ingresar Detalle</button>
+                              (click)="CargaDetalle(despacho.despacho_id,despacho.Cliente.cliente_id,despacho.numero)">Ingresar Detalle</button>
 
                             </td>
                             <td><div 
@@ -158,7 +158,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Guia N° {{FormText}}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CierreGuia()"></button>
           </div>
           <div class="modal-body">
             <form
@@ -166,22 +166,22 @@
                 <div class="row">
                   <div class="form-group col-md-4 col-lg-4">
                       <label for="inputEmail4">Cod Contenedor/Detalle</label>
-                      <input type="text" class="form-control" id="descripcion" name="descripcion" [(ngModel)]="Despacho.numero">
+                      <input type="text" class="form-control" id="descripcion" name="descripcion" [(ngModel)]="Detalle.descripcion">
                   </div>
     
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="inputPassword4">tipo</label>
-                    <input type="text" class="form-control" id="tipo" name="tipo" [(ngModel)]="Despacho.descripcion">  
+                    <input type="text" class="form-control" id="tipo" name="tipo" [(ngModel)]="Detalle.tipo">  
                    </div>
      
                   <div class="form-group col-md-2 col-lg-2">
                     <label for="inputAddress">peso</label>
-                    <input type="text" class="form-control" id="peso" name="peso" [(ngModel)]="Despacho.nave" >
+                    <input type="text" class="form-control" id="peso" name="peso" [(ngModel)]="Detalle.peso" >
                   </div>
     
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="exampleFormControlSelect1">Fecha Retiro</label>
-                    <input type="text" class="form-control" id="fechar" name="fechar" [(ngModel)]="Despacho.nave" >
+                    <input type="text" class="form-control" id="fechar" name="fechar" [(ngModel)]="Detalle.fecha_retiro" >
                   </div>
                 
                 </div>
@@ -190,30 +190,33 @@
 
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="exampleFormControlSelect1">Tarjeton</label>
-                    <input type="text" class="form-control" id="tarjeton" name="tarjeton" [(ngModel)]="Despacho.nave" >
+                    <input type="text" class="form-control" id="tarjeton" name="tarjeton" [(ngModel)]="Detalle.tarjeton" >
                   </div>
 
 
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="exampleFormControlSelect1">Fecha entrega</label>
-                    <input type="text" class="form-control" id="fechae" name="fechae" [(ngModel)]="Despacho.nave" >
+                    <input type="text" class="form-control" id="fechae" name="fechae" [(ngModel)]="Detalle.fecha_entrega" >
                   </div>
 
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="exampleFormControlSelect1">Puerto Devolucion</label>
-                    <select class="form-control" id="puertod" name="puertod"  [(ngModel)]="Despacho.puerto_id">
+                    <select class="form-select" id="puertod" name="puertod"  [(ngModel)]="Detalle.puerto_id">
                       <option value="0">Seleccione Puerto</option>
                       <option  *ngFor="let puerto of puertos" 
-                      [selected]="puerto.puerto_id === ngSelectPuerto">{{puerto.nombre}}</option>
+                      [selected]="puerto.puerto_id === ngSelectPuerto"
+                      value="{{puerto.puerto_id}}">{{puerto.nombre}}</option>
                     </select>
                   </div>
 
 
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="exampleFormControlSelect1">Direcciones</label>
-                    <select class="form-control" id="direccion" name="direccion"  [(ngModel)]="Despacho.puerto_id">
+                    <select class="form-select" id="direccion" name="direccion"  [(ngModel)]="Detalle.direccion_id">
                       <option value="0">Seleccione Direccion</option>
-                      <option ></option>
+                      <option *ngFor="let direccion of direcciones"
+                      [selected]="direccion.direccion_id === 0"
+                      value="{{direccion.direccion_id}}">{{direccion.direccion}}</option>
                     </select>
                   </div>
     
@@ -224,7 +227,7 @@
                 <div class="row">
                   <div class="form-group col-md-3 col-lg-3">
                     <br>
-                  <button *ngIf="ocultarRegistro" type="button" class="btn btn-success" (click)="crearDespacho()">Agregar detalle</button>
+                  <button *ngIf="ocultarRegistro" type="button" class="btn btn-success" (click)="crearDetalle()">Agregar detalle</button>
                   <div *ngIf="ocultarEditar">
                   <button  type="button" class="btn btn-primary" (click)="actualizaDespacho()">Editar</button>
                   &nbsp;
@@ -248,6 +251,7 @@
                       <th  scope="col">fecha entrega</th>
                       <th  scope="col">Dev. Puerto</th>
                       <th  scope="col">Direccion</th>
+                      <th  scope="col">Acciones</th>
                   </tr>
               </thead>
               
@@ -262,8 +266,12 @@
                       <td>{{detalle.fecha_entrega}}</td>
                       <td>{{detalle.pname}}</td>
                       <td>{{detalle.dname}}</td>
-                    
-                      
+                      <td>
+                        <button 
+                        type="button" 
+                        class="btn btn-danger"
+                        (click)="EliminarGuia(detalle.detalle_id)">Eliminar Guia</button>
+                      </td>    
                   </tr>
 
               </tbody>
