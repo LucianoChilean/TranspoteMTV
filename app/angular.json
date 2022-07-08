@@ -102,5 +102,11 @@
       }
     }
   },
+<<<<<<< HEAD:app/angular.json
   "defaultProject": "app"
+=======
+  "cli": {
+    "analytics": false
+  }
+>>>>>>> 0133a3098cd39a8a69286a748a308018c84ab1e8:mtvfront/angular.json
 }
