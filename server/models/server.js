@@ -46,7 +46,10 @@ class Server{
         puertos:      '/api/puertos',
         direcciones:  '/api/direcciones',
         conductores:  '/api/conductores',
-        clientes:     '/api/clientes'
+        clientes:     '/api/clientes',
+        tarifas:      '/api/tarifas',
+        tarifasD:     '/api/tarifasd',
+        tarifasC:     '/api/tarifasc'
        };
 
        this.connectDB();
@@ -58,7 +61,7 @@ class Server{
    async connectDB(){
      try {
         await db.authenticate();
-        //await db.sync({force:true}); 
+        await db.sync({force:true}); 
      }catch(e){
         console.log(e)
         throw new Error('error en conectar BD');

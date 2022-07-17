@@ -20,6 +20,9 @@ const Tarifa = db.define('Tarifa',{
     costo:{
         type: DataTypes.INTEGER
     },
+    estado:{
+        type: DataTypes.BOOLEAN
+    },
     valor_interno:{
         type: DataTypes.INTEGER
     },
