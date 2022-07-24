@@ -23,7 +23,8 @@ const login = async(req, res = response) => {
 
         if(!usuario){
             return res.status(400).json({
-                msg: 'Usuario / contraseña no son correctos - correo'
+                type: 'Login',
+                msg: 'Usuario y/o contraseña no son correctos - correo'
             });
         }
        
@@ -34,7 +35,8 @@ const login = async(req, res = response) => {
         const validPassword = await bcryptjs.compareSync(body.password, usuario.password);
         if(!validPassword){
             return res.status(400).json({
-                msg: 'Usuario / contraseña no son correctos - password'
+                type: 'Login',
+                msg: 'Usuario y/o contraseña no son correctos - password'
             });
         }
 

@@ -1,0 +1,378 @@
+
+
+    <div class="container-fluid px-2">
+      <h1 class="mt-4">Despachos</h1>
+      <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item"><a routerLink="dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item active">Despachos</li>
+      </ol>
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+           Formulario Registro
+        </div>
+          <div class="card-body">
+
+        <form
+        autocomplete="off" 
+        id="Despachoform"
+        [formGroup]="despachoForm">
+            <div class="row">
+              <div class="form-group col-md-2 col-lg-2">
+                  <label for="inputGuia">Guia</label>
+                  <input 
+                  type="text" 
+                  class="form-control" 
+                  [(ngModel)]="Despacho.numero"
+                  formControlName="guia">
+              </div>
+
+              <div class="form-group col-md-3 col-lg-3">
+                <label for="inputDescripcion">Descripcion</label>
+                <input 
+                type="text" 
+                class="form-control"
+                [(ngModel)]="Despacho.descripcion"
+                formControlName="descripcion">  
+               </div>
+ 
+              <div class="form-group col-md-3 col-lg-3">
+                <label for="inputnave">Nave</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="Despacho.nave" 
+                formControlName="nave">
+              </div>
+
+              <div class="form-group col-md-4 col-lg-4">
+                <label for="inputPuerto">Puerto</label>
+                <select 
+                class="form-select" 
+                [(ngModel)]="Despacho.puerto_id"
+                formControlName="puerto">
+                  <option value="0">Seleccione Puerto</option>
+                  <option  
+                  *ngFor="let puerto of puertos" 
+                  [selected]="puerto.puerto_id === ngSelectPuerto"
+                  value="{{puerto.puerto_id}}"
+                  >{{puerto.nombre}}</option>
+                </select>
+              </div>
+            
+            </div>
+           
+            <div class="row">
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="SelectFormConductor">Conductor</label>
+              <select  
+              class="form-select" 
+              [(ngModel)]="Despacho.conductor_id"
+              formControlName="conductor">
+                <option value="0">Seleccione Conductor</option>
+                <option  
+                *ngFor="let conductor of conductores" 
+                [selected]="conductor.conductor_id === ngSelectConductor"
+                value="{{conductor.conductor_id}}"
+                >{{conductor.nombre}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="SelectFormCliente">Cliente</label>
+              <select  
+               class="form-select"
+               [(ngModel)]="Despacho.cliente_id"
+               formControlName="cliente">
+                <option value="0">Seleccione Cliente</option>
+                <option  
+                *ngFor="let cliente of clientes"
+                [selected]="cliente.cliente_id === ngSelectCliente"
+                value="{{cliente.cliente_id}}"
+                >{{cliente.nombre}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <br>
+            <button *ngIf="ocultarRegistro" type="button" class="btn btn-success" (click)="crearDespacho()">Crear guia</button>
+            <div *ngIf="ocultarEditar">
+            <button  type="button" class="btn btn-primary" (click)="actualizaDespacho()">Editar</button>
+            &nbsp;
+            <button  type="button" class="btn btn-danger" (click)="cancelarUpdate()">Cancelar</button>
+            </div>
+            </div>
+
+            </div>
+
+          </form>
+          
+        </div>
+      </div>
+        
+          <br>
+          <br>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+               Despachos
+            </div>
+            
+            <div class="card-body">
+
+                <input type="text"
+                class="form-control col-lg-3"
+                placeholder="Buscar guia por descripcion" 
+                #txtbuscar
+                (keyup)="buscarDespacho(txtbuscar.value)"/>
+                <br>
+                <br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th  scope="col">Guia</th>
+                            <th  scope="col">Descripcion</th>
+                            <th  scope="col">nave</th>
+                            <th  scope="col">Puerto</th>
+                            <th  scope="col">Conductor</th>
+                            <th  scope="col">Cliente</th>
+                            <th  scope="col">Estado</th>
+                            <th  scope="col">Detalle</th>
+                            <th  scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr *ngFor="let despacho of despachos | filtro:page:buscar">
+                            <td>{{ despacho.numero}}</td>
+                            <td>{{ despacho.descripcion}}</td>
+                            <td>{{ despacho.nave}}</td>
+                            <td>{{ despacho.Puertonombre}}</td>
+                            <td>{{ despacho.cname}}</td>
+                            <td>{{ despacho.cliname}}</td>
+                            <td *ngIf="despacho.estado == 'Finalizado'"><span >{{ despacho.estado}}</span></td>
+                            <td *ngIf="despacho.estado == 'Proceso'"><span >{{ despacho.estado}}</span></td>
+                            <td>
+                              <div 
+                              class="btn-group" 
+                              role="group" aria-label="Button group with nested dropdown">
+                              <button 
+                              type="button" 
+                              class="btn btn-outline-secondary"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              (click)="CargaDetalle(despacho)">Detalle</button>
+                              <button 
+                              type="button" 
+                              class="btn btn-outline-dark"
+                              data-bs-toggle="costos"
+                              data-bs-target="#costosModal"
+                              (click)="Costos()">Costos</button>
+                            </div>
+                            </td>
+                            <td><div 
+                              class="btn-group" 
+                              role="group" aria-label="Button group with nested dropdown">
+                              <button 
+                              type="button" 
+                              class="btn btn-primary"
+                              (click)="editarDespacho(despacho)">Editar</button>
+                              <button 
+                              type="button" 
+                              class="btn btn-danger"
+                              (click)="eliminarDespacho(despacho)">Eliminar</button>
+                            </div></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                
+  <br>
+  <button class="btn btn-primary"
+   (click)="prevPage()"> Anterior</button>
+  &nbsp;
+  <button class="btn btn-primary"
+  (click)="nextPage()"
+  [disabled]="(despachos | filtro:page:buscar).length === 0"> Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+
+  
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Guia N° {{FormText}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form
+            autocomplete="off" 
+            id="DetalleForm"
+            [formGroup]="detalleForm"
+            (ngSubmit)="crearDetalle()">
+                <div class="row">
+                  <div class="form-group col-md-4 col-lg-4">
+                      <label for="inputdetalle">Cod Contenedor/Detalle</label>
+                      <input 
+                      type="text" 
+                      class="form-control" 
+                      placeholder="detalle"
+                      formControlName="detalle">
+                  </div>
+    
+                  <div class="form-group col-md-3 col-lg-3">
+                    <label for="inputtipo">tipo</label>
+                    <input type="text" 
+                    class="form-control" 
+                    placeholder="tipo"
+                    formControlName="tipo">  
+                   </div>
+     
+                  <div class="form-group col-md-2 col-lg-2">
+                    <label for="inputpeso">peso</label>
+                    <input type="text" 
+                    class="form-control" 
+                    placeholder="peso"
+                    formControlName="peso">
+                  </div>
+    
+                  <div class="form-group col-md-3 col-lg-3">
+                    <label for="inputfecharetiro">Fecha Retiro</label>
+                    <input type="datetime-local" 
+                    class="form-control" 
+                    formControlName="fecha_retiro">
+                  </div>
+                
+                </div>
+               <br>
+                <div class="row">
+
+                  <div class="form-group col-md-3 col-lg-3">
+                    <label for="inputTarjeton">Tarjeton</label>
+                    <input type="text" 
+                    class="form-control" 
+                    placeholder="tarjeton"
+                    formControlName="tarjeton">
+                  </div>
+
+
+                  <div class="form-group col-md-3 col-lg-3">
+                    <label for="exampleFormControlSelect1">Fecha entrega</label>
+                    <input 
+                    type="datetime-local" 
+                    class="form-control" 
+                    placeholder="fecha_entrega"
+                    formControlName="fecha_entrega">
+                  </div>
+
+                  <div class="form-group col-md-3 col-lg-3">
+                    <label for="exampleFormControlSelect1">Puerto Devolucion</label>
+                    <select class="form-select" 
+                    formControlName="puerto_devolucion">
+                      <option value="0">Seleccione Puerto</option>
+                      <option  
+                      *ngFor="let puerto of puertos" 
+                      [selected]="puerto.puerto_id === ngSelectPuerto"
+                      value="{{puerto.puerto_id}}"
+                      >{{puerto.nombre}}</option>
+                    </select>
+                  </div>
+
+
+                  <div class="form-group col-md-3 col-lg-3">
+                    <label for="exampleFormControlSelect1">Direcciones </label>
+                    <select class="form-select"
+                    formControlName="direccion">
+                      <option value="0">Seleccione Direccion</option>
+                      <option ></option>
+                    </select>
+                  </div>
+    
+               
+    
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-3 col-lg-3">
+                    <br>
+                  <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Agregar detalle</button>
+                  <div *ngIf="ocultarEditar">
+                  <button  type="button" class="btn btn-primary" >Editar</button>
+                  &nbsp;
+                  <button  type="button" class="btn btn-danger" >Cancelar</button>
+                  </div>
+                  </div>
+                </div>
+    
+              </form>
+
+            <br><br>
+            <table class="table table-bordered">
+              <thead>
+                  <tr>
+                   
+                      <th  scope="col">Descripcion</th>
+                      <th  scope="col">tipo</th>
+                      <th  scope="col">peso</th>
+                      <th  scope="col">fecha retiro</th>
+                      <th  scope="col">tarjeton</th>
+                      <th  scope="col">fecha entrega</th>
+                      <th  scope="col">Dev. Puerto</th>
+                      <th  scope="col">Direccion</th>
+                  </tr>
+              </thead>
+              
+              <tbody>
+                  <tr *ngFor="let detalle of detalles">
+                 
+                      <td>{{detalle.descripcion}}</td>
+                      <td>{{detalle.tipo}}</td>
+                      <td>{{detalle.peso}}</td>
+                      <td>{{detalle.fecha_retiro}}</td>
+                      <td>{{detalle.tarjeton}}</td>
+                      <td>{{detalle.fecha_entrega}}</td>
+                      <td>{{detalle.pname}}</td>
+                      <td>{{detalle.dname}}</td>
+                    
+                      
+                  </tr>
+
+              </tbody>
+          </table>
+          </div>
+
+
+          <div class="modal-footer">
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
