@@ -60,6 +60,7 @@
                   class="btn btn-outline-secondary"
                   data-bs-toggle="modal"
                   data-bs-target="#detalle"
+                  (click)="CargaDetalle(despacho)"
                   >Detalle</button>
                 </div>
             </td>
@@ -88,10 +89,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="form-check form-switch">
+          <div *ngFor="let tarifadespacho of tarifadespachos"  class="form-check form-switch">
          
 
-            <ul *ngFor="let tarifadespacho of tarifadespachos" 
+            <ul 
             class="list-group list-group-horizontal">
               <li class="list-group-item">{{tarifadespacho.Tarifa.nombre}}</li>
               <li class="list-group-item">$</li>
@@ -115,7 +116,7 @@
     <div class="modal-dialog  modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Guia N° </h5>
+          <h5 class="modal-title" id="exampleModalLabel">Guia N° {{FormText}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -134,22 +135,22 @@
                     <th  scope="col">fecha entrega</th>
                     <th  scope="col">Dev. Puerto</th>
                     <th  scope="col">Direccion</th>
-                    <th  scope="col">Acciones</th>
+                  
                 </tr>
             </thead>
             
             <tbody>
-                <tr >
+                <tr *ngFor="let detalle of detalles">
                
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                   
+                    <td>{{detalle.descripcion}}</td>
+                    <td>{{detalle.tipo}}</td>
+                    <td>{{detalle.peso}}</td>
+                    <td>{{detalle.fecha_retiro}}</td>
+                    <td>{{detalle.tarjeton}}</td>
+                    <td>{{detalle.fecha_entrega}}</td>
+                    <td>{{detalle.pname}}</td>
+                    <td>{{detalle.dname}}</td>
+                    
                   
                     
                 </tr>

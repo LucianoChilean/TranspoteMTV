@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Despacho } from 'src/app/interfaces/despacho.interafece';
+import { Detalle } from 'src/app/interfaces/detalle.interface';
 import { Tarifadespacho } from 'src/app/interfaces/tarifasdespacho.interface';
 import { DespachoService } from 'src/app/services/despacho.service';
+import { DetalleService } from 'src/app/services/detalle.service';
 import { TarifadespachoService } from 'src/app/services/tarifadespacho.service';
 
 @Component({
@@ -14,6 +16,9 @@ export class FacturasComponent implements OnInit {
 
   public despachos: Despacho[] = [];
   public tarifadespachos: Tarifadespacho[] = [];
+  public detalles: Detalle[] = [];
+  public FormText: string = '';
+
 
   public Despacho = {
     id: 0,
@@ -34,6 +39,7 @@ export class FacturasComponent implements OnInit {
   constructor(
     private despacho:DespachoService,
     private tarifadesp:TarifadespachoService,
+    private detalle:DetalleService,
     private fb:FormBuilder
   ) { }
 
@@ -77,6 +83,22 @@ export class FacturasComponent implements OnInit {
       })
       
 
+  }
+
+  
+  CargaDetalle(despacho:Despacho){
+
+    this.FormText = despacho.numero;
+    
+    this.LoadDet(despacho.despacho_id);
+
+  }
+
+  LoadDet(id:number){
+    this.detalle.GetDetalles(id)
+    .subscribe(detalles =>{
+      this.detalles = detalles;
+    });
   }
 
 }
