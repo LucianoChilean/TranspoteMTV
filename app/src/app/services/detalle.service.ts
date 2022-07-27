@@ -53,15 +53,15 @@ export class DetalleService {
     return DetalleList;
   }
 
-  EliminaDespacho(id:number){
+  EliminaDetalle(id:number){
     return this.http.delete(`${base_url}/detalles/${id}`);
  }
 
- CreaDespacho(detalles:object){
+ CreaDetalle(detalles:object){
    return this.http.post(`${base_url}/detalles/`,detalles);
  }
 
- EditaDespacho(id:number,detalles:object){
+ EditaDetalle(id:number,detalles:object){
    return this.http.put(`${base_url}/detalles/${id}`,detalles);
 }
 

@@ -16,7 +16,28 @@ const getDespachos = async(req, res = response) =>{
             attributes: ['conductor_id','nombre','paterno','materno']},
             {model: Cliente,
             attributes: ['cliente_id','nombre']
-            }]         
+            }]      
+        });
+
+    res.json({despachos});
+
+}
+
+const getDespachoByEstado = async(req, res = response) =>{
+
+    const {estado} = req.params;
+
+    const despachos = await Despacho.findAll({
+        include: [{ model: Puerto, 
+            attributes:['puerto_id','nombre']},
+            {model: Conductor,
+            attributes: ['conductor_id','nombre','paterno','materno']},
+            {model: Cliente,
+            attributes: ['cliente_id','nombre']
+            }],         
+            where:{
+                estado: estado
+            }           
         });
 
     res.json({despachos});
@@ -77,6 +98,35 @@ const putDespacho = async(req,res = response) => {
 
 }
 
+const putDespachoByEstado = async(req, res = response) => {
+
+    const {id} = req.params;
+    const {estado} = req.body;
+
+
+    try{
+
+        const despacho = await Despacho.findByPk(id);
+        if(!despacho){
+            return res.status(404).json({
+                msg: `no existe un Despacho con el id ${id}`
+            })
+        }
+
+
+        await despacho.update({estado});
+
+        res.json(despacho);
+        
+    }catch(error){
+        console.log(error);
+        res.status(505).json({
+            msg:'Hable con el administrador'
+        })
+    }
+
+}
+
 const deleteDespacho = async(req, res = response) =>{
 
     const {id} = req.params;
@@ -97,11 +147,13 @@ const deleteDespacho = async(req, res = response) =>{
 
     res.json(despacho);
 
-
 }
+
 
 module.exports = {getDespachos,
     getDespacho,
     postDespacho,
     putDespacho,
-    deleteDespacho}
+    deleteDespacho,
+    getDespachoByEstado,
+    putDespachoByEstado}

@@ -15,7 +15,7 @@ export interface Detalle {
     tarjeton: string;
     fecha_entrega: string;
     Puerto: {
-        nombre:string
+        nombre:string 
     };
     pname:string;
     Direccion:{

@@ -3,7 +3,7 @@ const db            = require('../db/connection');
 
 
 const Tarifadespacho = db.define('Tarifadespacho',{
-    Tarifadespacho_id:{
+    tarifadespacho_id:{
         type : DataTypes.INTEGER.UNSIGNED,
         primaryKey : true,
         autoIncrement : true

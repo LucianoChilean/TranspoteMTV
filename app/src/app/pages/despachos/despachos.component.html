@@ -140,7 +140,6 @@
                             <th  scope="col">Conductor</th>
                             <th  scope="col">Cliente</th>
                             <th  scope="col">Estado</th>
-                            <th  scope="col">Detalle</th>
                             <th  scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -153,8 +152,8 @@
                             <td>{{ despacho.Puertonombre}}</td>
                             <td>{{ despacho.cname}}</td>
                             <td>{{ despacho.cliname}}</td>
-                            <td *ngIf="despacho.estado == 'Finalizado'"><span >{{ despacho.estado}}</span></td>
-                            <td *ngIf="despacho.estado == 'Proceso'"><span >{{ despacho.estado}}</span></td>
+                            <td *ngIf="despacho.estado == 'Finalizado'"><span class="badge bg-success" >{{ despacho.estado}}</span></td>
+                            <td *ngIf="despacho.estado == 'Proceso'" ><span class="badge bg-warning">{{ despacho.estado}}</span></td>
                             <td>
                               <div 
                               class="btn-group" 
@@ -168,22 +167,30 @@
                               <button 
                               type="button" 
                               class="btn btn-outline-dark"
-                              data-bs-toggle="costos"
+                              data-bs-toggle="modal"
                               data-bs-target="#costosModal"
-                              (click)="Costos()">Costos</button>
-                            </div>
-                            </td>
-                            <td><div 
-                              class="btn-group" 
-                              role="group" aria-label="Button group with nested dropdown">
+                              (click)="Costos(despacho)">Costos</button>
+
+                              <button *ngIf="despacho.estado == 'Proceso'"
+                              type="button" 
+                              class="btn btn-outline-success"
+                              (click)="finalizarDespacho(despacho)">Finalizar</button>
+                         
                               <button 
+                              data-bs-toggle="tooltip" 
+                              data-bs-placement="top"
+                              title="Editar"
                               type="button" 
                               class="btn btn-primary"
-                              (click)="editarDespacho(despacho)">Editar</button>
+                              (click)="editarDespacho(despacho)"><i class="fa-solid fa-pen-to-square"></i></button>
+                              
                               <button 
+                              data-bs-toggle="tooltip" 
+                              data-bs-placement="top"
+                              title="Eliminar"
                               type="button" 
                               class="btn btn-danger"
-                              (click)="eliminarDespacho(despacho)">Eliminar</button>
+                              (click)="eliminarDespacho(despacho)"><i class="fa-solid fa-eraser"></i></button>
                             </div></td>
                         </tr>
 
@@ -224,7 +231,8 @@
                       type="text" 
                       class="form-control" 
                       placeholder="detalle"
-                      formControlName="detalle">
+                      formControlName="descripcion"
+                      required>
                   </div>
     
                   <div class="form-group col-md-3 col-lg-3">
@@ -232,7 +240,8 @@
                     <input type="text" 
                     class="form-control" 
                     placeholder="tipo"
-                    formControlName="tipo">  
+                    formControlName="tipo"
+                    required>  
                    </div>
      
                   <div class="form-group col-md-2 col-lg-2">
@@ -240,14 +249,16 @@
                     <input type="text" 
                     class="form-control" 
                     placeholder="peso"
-                    formControlName="peso">
+                    formControlName="peso"
+                    required>
                   </div>
     
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="inputfecharetiro">Fecha Retiro</label>
                     <input type="datetime-local" 
                     class="form-control" 
-                    formControlName="fecha_retiro">
+                    formControlName="fecha_retiro"
+                    required>
                   </div>
                 
                 </div>
@@ -259,7 +270,8 @@
                     <input type="text" 
                     class="form-control" 
                     placeholder="tarjeton"
-                    formControlName="tarjeton">
+                    formControlName="tarjeton"
+                    required>
                   </div>
 
 
@@ -269,13 +281,15 @@
                     type="datetime-local" 
                     class="form-control" 
                     placeholder="fecha_entrega"
-                    formControlName="fecha_entrega">
+                    formControlName="fecha_entrega"
+                    required>
                   </div>
 
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="exampleFormControlSelect1">Puerto Devolucion</label>
                     <select class="form-select" 
-                    formControlName="puerto_devolucion">
+                    formControlName="puerto_id"
+                    required>
                       <option value="0">Seleccione Puerto</option>
                       <option  
                       *ngFor="let puerto of puertos" 
@@ -289,9 +303,14 @@
                   <div class="form-group col-md-3 col-lg-3">
                     <label for="exampleFormControlSelect1">Direcciones </label>
                     <select class="form-select"
-                    formControlName="direccion">
+                    formControlName="direccion_id"
+                    required>
                       <option value="0">Seleccione Direccion</option>
-                      <option ></option>
+                      <option 
+                      *ngFor="let direcciones of direcciones"
+                      [selected]="direcciones.direccion_id === ngSelectDirecciones"
+                      value="{{direcciones.direccion_id}}"
+                      >{{direcciones.direccion}}</option>
                     </select>
                   </div>
     
@@ -326,6 +345,7 @@
                       <th  scope="col">fecha entrega</th>
                       <th  scope="col">Dev. Puerto</th>
                       <th  scope="col">Direccion</th>
+                      <th  scope="col">Acciones</th>
                   </tr>
               </thead>
               
@@ -340,6 +360,12 @@
                       <td>{{detalle.fecha_entrega}}</td>
                       <td>{{detalle.pname}}</td>
                       <td>{{detalle.dname}}</td>
+                      <td>
+                        <button 
+                        type="button" 
+                        class="btn btn-danger"
+                        (click)="EliminarDetalle(detalle)">Eliminar</button>
+                      </td>
                     
                       
                   </tr>
@@ -359,20 +385,37 @@
 
 
     <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="costosModal" tabindex="-1" aria-labelledby="costosModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+      <form 
+      autocomplete="off" 
+      id="TarifaForm"
+      [formGroup]="tarifaForm"
+      (ngSubmit)="GuardarTarifa()">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Costos extras</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <div *ngFor="let tarifa of tarifas" class="form-check form-switch">
+          <input 
+          class="form-check-input" 
+          type="checkbox" 
+          role="switch" 
+          id="flexSwitchCheckDefault"
+          value="{{tarifa.tarifa_id }}" 
+          (change)="onCheckboxChange($event)">
+          <label class="form-check-label" for="flexSwitchCheckDefault">
+            {{tarifa.nombre}}
+          </label>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
+     </form>
     </div>
   </div>
 </div>

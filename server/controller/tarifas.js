@@ -1,4 +1,5 @@
 const {response} = require('express');
+const { Op } = require('sequelize');
 
 const Tarifa = require('../models/tarifa');
 
@@ -21,10 +22,24 @@ const getTarifa = async(req, res = response) => {
 
 }
 
+const getTarifaIn = async(req, res = response) => {
+
+    const {params} = req;
+
+    /*const tarifa = await Tarifa.findAll({
+        where: {
+            tarifa_id: {[Op.in]:[id]}
+        }
+    })*/
+ 
+    res.json(params);
+
+}
+
 const postTarifa = async(req, res = response) => {
 
-    const {nombre} = req.body;
-    const tarifa = Tarifa.build({nombre});
+    const {body} = req;
+    const tarifa = Tarifa.build(body);
 
     await tarifa.save();
     
@@ -72,7 +87,7 @@ const deleteTarifa = async(req, res = response) => {
         })
     }
     
-    await puerto.update({estado:false});
+    await tarifa.update({estado:false});
 
     res.json(tarifa);
 
@@ -83,4 +98,5 @@ module.exports = {getTarifas,
                   getTarifa,
                   postTarifa,
                   putTarifa,
-                  deleteTarifa}
+                  deleteTarifa,
+                  getTarifaIn}

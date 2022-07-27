@@ -23,8 +23,8 @@ const getClientet = async(req, res = response) => {
 
 const postClientet = async(req, res = response) => {
 
-    const {nombre} = req.body;
-    const clientetarifa = Clientetarifa.build({nombre});
+    const {body} = req;
+    const clientetarifa = Clientetarifa.build(body);
 
     await clientetarifa.save();
     

@@ -88,6 +88,9 @@ class Server{
         this._app.use(this.paths.direcciones,require('../routes/direcciones'));
         this._app.use(this.paths.conductores,require('../routes/conductores'));
         this._app.use(this.paths.clientes,require('../routes/clientes'));
+        this._app.use(this.paths.tarifas,require('../routes/tarifas'));
+        this._app.use(this.paths.tarifasC,require('../routes/clientetarifas'));
+        this._app.use(this.paths.tarifasD,require('../routes/tarifasdespachos'));
         this._app.use(this.paths.swagger,swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 

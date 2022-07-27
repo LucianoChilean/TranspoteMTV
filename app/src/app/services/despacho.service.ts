@@ -32,6 +32,14 @@ export class DespachoService {
 
   }
 
+  GetDespachosByEstado(estado:string): Observable<Despacho[]>{
+
+    return this.http.get<FetchAllResponse>(`${base_url}/despachos/ByEstado/${estado}`)
+    .pipe(
+      map(this.transform)
+    );
+
+  }
 
   private transform( resp: FetchAllResponse ) {
 
@@ -70,6 +78,10 @@ export class DespachoService {
 
  EditaDespacho(id:number,Despacho:object){
    return this.http.put(`${base_url}/despachos/${id}`,Despacho);
+}
+
+EditaDespachoEstado(id:number,Despacho:object){
+  return this.http.put(`${base_url}/despachos/ByEstado/${id}`,Despacho);
 }
 
 }

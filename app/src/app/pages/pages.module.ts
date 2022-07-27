@@ -11,6 +11,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { PagesComponent } from './pages.component';
 import { FiltroPipe } from './despachos/pipes/filtro.pipe';
 import { FacturasComponent } from './facturas/facturas.component';
+import { FacturacionComponent } from './facturacion/facturacion.component';
 
 
 
@@ -28,6 +29,7 @@ import { FacturasComponent } from './facturas/facturas.component';
     UsuariosComponent,
     FiltroPipe,
     FacturasComponent,
+    FacturacionComponent
   ],
   exports: [
     PagesComponent,
