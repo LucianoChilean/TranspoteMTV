@@ -49,7 +49,8 @@ class Server{
         clientes:     '/api/clientes',
         tarifas:      '/api/tarifas',
         tarifasD:     '/api/tarifasd',
-        tarifasC:     '/api/tarifasc'
+        tarifasC:     '/api/tarifasc',
+        tarifasDet:   '/api/tarifasdet'
        };
 
        this.connectDB();
@@ -62,6 +63,7 @@ class Server{
      try {
         await db.authenticate();
         //await db.sync({force:true}); 
+        //await db.sync();
      }catch(e){
         console.log(e)
         throw new Error('error en conectar BD');
@@ -91,6 +93,7 @@ class Server{
         this._app.use(this.paths.tarifas,require('../routes/tarifas'));
         this._app.use(this.paths.tarifasC,require('../routes/clientetarifas'));
         this._app.use(this.paths.tarifasD,require('../routes/tarifasdespachos'));
+        this._app.use(this.paths.tarifasDet,require('../routes/tarifasdetalles'));
         this._app.use(this.paths.swagger,swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 

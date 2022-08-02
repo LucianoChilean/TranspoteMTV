@@ -130,7 +130,9 @@
                 (keyup)="buscarDespacho(txtbuscar.value)"/>
                 <br>
                 <br>
-                <table class="table table-bordered">
+
+
+              <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th  scope="col">Guia</th>
@@ -145,7 +147,7 @@
                     </thead>
                     
                     <tbody>
-                        <tr *ngFor="let despacho of despachos | filtro:page:buscar">
+                        <tr *ngFor="let despacho of despachos | paginate:{itemsPerPage: 5, currentPage: p}">
                             <td>{{ despacho.numero}}</td>
                             <td>{{ despacho.descripcion}}</td>
                             <td>{{ despacho.nave}}</td>
@@ -162,14 +164,9 @@
                               type="button" 
                               class="btn btn-outline-secondary"
                               data-bs-toggle="modal"
-                              data-bs-target="#exampleModal"
-                              (click)="CargaDetalle(despacho)">Detalle</button>
-                              <button 
-                              type="button" 
-                              class="btn btn-outline-dark"
-                              data-bs-toggle="modal"
-                              data-bs-target="#costosModal"
-                              (click)="Costos(despacho)">Costos</button>
+                              data-bs-target="#detalle"
+                              (click)="goToLoadModal(true,despacho.despacho_id,despacho.Cliente.cliente_id)">Detalle</button>
+                             
 
                               <button *ngIf="despacho.estado == 'Proceso'"
                               type="button" 
@@ -196,226 +193,23 @@
 
                     </tbody>
                 </table>
-
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 
   <br>
-  <button class="btn btn-primary"
-   (click)="prevPage()"> Anterior</button>
-  &nbsp;
-  <button class="btn btn-primary"
-  (click)="nextPage()"
-  [disabled]="(despachos | filtro:page:buscar).length === 0"> Siguiente</button>
             </div>
         </div>
     </div>
 
 
+ 
+     <div class="modal fade" id="detalle" tabindex="-1" aria-hidden="true" >
+       <div class="modal-dialog  modal-xl">
+        <app-modal-detalle   
+          *ngIf="ocultarModalDetalle" 
+          [idDetails]="idDetalle" 
+          [idCliente]="idCliente" 
+          (cerrar)="goToLoadModal($event,0,0)">
+        </app-modal-detalle>
+       </div>
+    </div>
   
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog  modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Guia N° {{FormText}}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form
-            autocomplete="off" 
-            id="DetalleForm"
-            [formGroup]="detalleForm"
-            (ngSubmit)="crearDetalle()">
-                <div class="row">
-                  <div class="form-group col-md-4 col-lg-4">
-                      <label for="inputdetalle">Cod Contenedor/Detalle</label>
-                      <input 
-                      type="text" 
-                      class="form-control" 
-                      placeholder="detalle"
-                      formControlName="descripcion"
-                      required>
-                  </div>
-    
-                  <div class="form-group col-md-3 col-lg-3">
-                    <label for="inputtipo">tipo</label>
-                    <input type="text" 
-                    class="form-control" 
-                    placeholder="tipo"
-                    formControlName="tipo"
-                    required>  
-                   </div>
-     
-                  <div class="form-group col-md-2 col-lg-2">
-                    <label for="inputpeso">peso</label>
-                    <input type="text" 
-                    class="form-control" 
-                    placeholder="peso"
-                    formControlName="peso"
-                    required>
-                  </div>
-    
-                  <div class="form-group col-md-3 col-lg-3">
-                    <label for="inputfecharetiro">Fecha Retiro</label>
-                    <input type="datetime-local" 
-                    class="form-control" 
-                    formControlName="fecha_retiro"
-                    required>
-                  </div>
-                
-                </div>
-               <br>
-                <div class="row">
-
-                  <div class="form-group col-md-3 col-lg-3">
-                    <label for="inputTarjeton">Tarjeton</label>
-                    <input type="text" 
-                    class="form-control" 
-                    placeholder="tarjeton"
-                    formControlName="tarjeton"
-                    required>
-                  </div>
-
-
-                  <div class="form-group col-md-3 col-lg-3">
-                    <label for="exampleFormControlSelect1">Fecha entrega</label>
-                    <input 
-                    type="datetime-local" 
-                    class="form-control" 
-                    placeholder="fecha_entrega"
-                    formControlName="fecha_entrega"
-                    required>
-                  </div>
-
-                  <div class="form-group col-md-3 col-lg-3">
-                    <label for="exampleFormControlSelect1">Puerto Devolucion</label>
-                    <select class="form-select" 
-                    formControlName="puerto_id"
-                    required>
-                      <option value="0">Seleccione Puerto</option>
-                      <option  
-                      *ngFor="let puerto of puertos" 
-                      [selected]="puerto.puerto_id === ngSelectPuerto"
-                      value="{{puerto.puerto_id}}"
-                      >{{puerto.nombre}}</option>
-                    </select>
-                  </div>
-
-
-                  <div class="form-group col-md-3 col-lg-3">
-                    <label for="exampleFormControlSelect1">Direcciones </label>
-                    <select class="form-select"
-                    formControlName="direccion_id"
-                    required>
-                      <option value="0">Seleccione Direccion</option>
-                      <option 
-                      *ngFor="let direcciones of direcciones"
-                      [selected]="direcciones.direccion_id === ngSelectDirecciones"
-                      value="{{direcciones.direccion_id}}"
-                      >{{direcciones.direccion}}</option>
-                    </select>
-                  </div>
-    
-               
-    
-                </div>
-
-                <div class="row">
-                  <div class="form-group col-md-3 col-lg-3">
-                    <br>
-                  <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Agregar detalle</button>
-                  <div *ngIf="ocultarEditar">
-                  <button  type="button" class="btn btn-primary" >Editar</button>
-                  &nbsp;
-                  <button  type="button" class="btn btn-danger" >Cancelar</button>
-                  </div>
-                  </div>
-                </div>
-    
-              </form>
-
-            <br><br>
-            <table class="table table-bordered">
-              <thead>
-                  <tr>
-                   
-                      <th  scope="col">Descripcion</th>
-                      <th  scope="col">tipo</th>
-                      <th  scope="col">peso</th>
-                      <th  scope="col">fecha retiro</th>
-                      <th  scope="col">tarjeton</th>
-                      <th  scope="col">fecha entrega</th>
-                      <th  scope="col">Dev. Puerto</th>
-                      <th  scope="col">Direccion</th>
-                      <th  scope="col">Acciones</th>
-                  </tr>
-              </thead>
-              
-              <tbody>
-                  <tr *ngFor="let detalle of detalles">
-                 
-                      <td>{{detalle.descripcion}}</td>
-                      <td>{{detalle.tipo}}</td>
-                      <td>{{detalle.peso}}</td>
-                      <td>{{detalle.fecha_retiro}}</td>
-                      <td>{{detalle.tarjeton}}</td>
-                      <td>{{detalle.fecha_entrega}}</td>
-                      <td>{{detalle.pname}}</td>
-                      <td>{{detalle.dname}}</td>
-                      <td>
-                        <button 
-                        type="button" 
-                        class="btn btn-danger"
-                        (click)="EliminarDetalle(detalle)">Eliminar</button>
-                      </td>
-                    
-                      
-                  </tr>
-
-              </tbody>
-          </table>
-          </div>
-
-
-          <div class="modal-footer">
-           
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-    <!-- Modal -->
-<div class="modal fade" id="costosModal" tabindex="-1" aria-labelledby="costosModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form 
-      autocomplete="off" 
-      id="TarifaForm"
-      [formGroup]="tarifaForm"
-      (ngSubmit)="GuardarTarifa()">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Costos extras</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div *ngFor="let tarifa of tarifas" class="form-check form-switch">
-          <input 
-          class="form-check-input" 
-          type="checkbox" 
-          role="switch" 
-          id="flexSwitchCheckDefault"
-          value="{{tarifa.tarifa_id }}" 
-          (change)="onCheckboxChange($event)">
-          <label class="form-check-label" for="flexSwitchCheckDefault">
-            {{tarifa.nombre}}
-          </label>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-     </form>
-    </div>
-  </div>
-</div>

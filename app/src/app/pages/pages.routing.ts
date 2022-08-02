@@ -9,6 +9,10 @@ import { DespachosComponent } from './despachos/despachos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FacturasComponent } from './facturas/facturas.component';
 import { FacturacionComponent } from './facturacion/facturacion.component';
+import { TarifaComponent } from './tarifa/tarifa.component';
+import { ConductorComponent } from './conductor/conductor.component';
+import { ClienteComponent } from './cliente/cliente.component';
+import { VehiculosComponent } from './vehiculos/vehiculos.component';
 
 
 
@@ -23,6 +27,11 @@ const routes: Routes = [
             { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' }},
             { path: 'facturas', component: FacturasComponent, data: { titulo: 'Facturas' }},
             { path: 'facturacion', component: FacturacionComponent, data: { titulo: 'Facturacion' }},
+            { path: 'tarifa', component: TarifaComponent, data: { titulo: 'Tarifa' }},
+            { path: 'conductor', component: ConductorComponent, data: { titulo: 'Conductor' }},
+            { path: 'cliente', component: ClienteComponent, data: { titulo: 'Cliente' }},
+            { path: 'vehiculos', component: VehiculosComponent, data: { titulo: 'Vehiculos' }},
+            { path: 'tarifa', component: TarifaComponent, data: { titulo: 'Tarifa' }}
         
         ]
     },

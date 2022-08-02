@@ -12,12 +12,12 @@ import { PagesComponent } from './pages.component';
 import { FiltroPipe } from './despachos/pipes/filtro.pipe';
 import { FacturasComponent } from './facturas/facturas.component';
 import { FacturacionComponent } from './facturacion/facturacion.component';
-
-
-
-// Modulos
-//import { SharedModule } from '../shared/shared.module';
-//import { ComponentsModule } from '../components/components.module';
+import { TarifaComponent } from './tarifa/tarifa.component';
+import { ClienteComponent } from './cliente/cliente.component';
+import { ConductorComponent } from './conductor/conductor.component';
+import { VehiculosComponent } from './vehiculos/vehiculos.component';
+import { SharedUiModule } from '../ui/shared-ui.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -29,20 +29,26 @@ import { FacturacionComponent } from './facturacion/facturacion.component';
     UsuariosComponent,
     FiltroPipe,
     FacturasComponent,
-    FacturacionComponent
+    FacturacionComponent,
+    TarifaComponent,
+    ClienteComponent,
+    ConductorComponent,
+    VehiculosComponent
   ],
   exports: [
     PagesComponent,
     DashboardComponent,
     DespachosComponent,
-    UsuariosComponent
+    UsuariosComponent,
   ],
   imports: [ 
     CommonModule,
     RouterModule,
     FormsModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedUiModule,
+    NgxPaginationModule
    
   ]
 })

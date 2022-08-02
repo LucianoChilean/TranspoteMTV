@@ -40,6 +40,10 @@ export class DespachoService {
     );
 
   }
+  
+  dtGet(estado:string){
+    return this.http.get(`${base_url}/despachos/ByEstado/${estado}`);
+  }
 
   private transform( resp: FetchAllResponse ) {
 

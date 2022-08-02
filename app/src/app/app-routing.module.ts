@@ -9,7 +9,8 @@ import { PagesRoutingModule } from './pages/pages.routing';
 const routes: Routes = [
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', component: NopagefoundComponent }
+  { path: '**', component: NopagefoundComponent },
+  
 
 ];
 

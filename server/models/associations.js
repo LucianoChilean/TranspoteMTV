@@ -11,6 +11,7 @@ const Conductor = require('./conductor');
 const Tarifa = require('./tarifa');
 const Clientetarifa = require('./clientetarifa');
 const Tarifadespacho = require('./tarifadespacho');
+const Tarifadetalle = require('./tarifadetalle');
 
 
 Usuario.belongsTo(Rol,{as:'rolId', foreignKey : "rol_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
@@ -54,7 +55,15 @@ Tarifa.hasMany(Tarifadespacho,{ foreignKey: "tarifa_id",onDelete: 'NO ACTION',on
 
 Tarifadespacho.belongsTo(Despacho,{ foreignKey: "despacho_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 Despacho.hasMany(Tarifadespacho,{ foreignKey: "despacho_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+//Tarifa Detalle
+Tarifadetalle.belongsTo(Tarifa,{ foreignKey: "tarifa_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Tarifa.hasMany(Tarifadetalle,{ foreignKey: "tarifa_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 
+Tarifadetalle.belongsTo(Detalle,{ foreignKey: "detalle_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Detalle.hasMany(Tarifadetalle,{ foreignKey: "detalle_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+
+//Cliente
 Clientetarifa.belongsTo(Cliente,{ foreignKey: "cliente_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 Cliente.hasMany(Clientetarifa,{ foreignKey: "cliente_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 

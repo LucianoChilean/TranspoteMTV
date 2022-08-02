@@ -25,12 +25,13 @@ export class FacturacionComponent implements OnInit {
 
   getDespachos(){
 
+    /*
     this.despacho.GetDespachosByEstado('Confirmado').subscribe(
       despachos =>{
         this.despachos = despachos;
       }
     );
-
+*/
 
 }
 
