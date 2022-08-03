@@ -1,1 +1,183 @@
-<p>tarifa works!</p>
+<div class="container-fluid px-2">
+    <h1 class="mt-4">Tarifas</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a routerLink="dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active">Tarifas</li>
+    </ol>
+
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-table me-1"></i>
+         Formulario Registro
+      </div>
+        <div class="card-body">
+
+      <!--  <form
+      autocomplete="off" 
+      id="TarifaForm"
+        >
+          <div class="row">
+            <div class="form-group col-md-2 col-lg-2">
+                <label for="inputGuia">Guia</label>
+                <input 
+                type="text" 
+                class="form-control" 
+              
+                formControlName="guia">
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="inputDescripcion">Descripcion</label>
+              <input 
+              type="text" 
+              class="form-control"
+          
+              formControlName="descripcion">  
+             </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="inputnave">Nave</label>
+              <input 
+              type="text" 
+              class="form-control" 
+          
+              formControlName="nave">
+            </div>
+
+            <div class="form-group col-md-4 col-lg-4">
+              <label for="inputPuerto">Puerto</label>
+              <select 
+              class="form-select" 
+            
+              formControlName="puerto">
+                <option value="0">Seleccione Puerto</option>
+              <option  
+                *ngFor="let puerto of puertos" 
+                [selected]="puerto.puerto_id === ngSelectPuerto"
+                value="{{puerto.puerto_id}}"
+                >{{puerto.nombre}}</option>
+              </select>
+            </div>
+          
+          </div>
+         
+          <div class="row">
+
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormConductor">Conductor</label>
+            <select  
+            class="form-select" 
+      
+            formControlName="conductor">
+              <option value="0">Seleccione Conductor</option>
+            
+            </select>
+          </div>
+
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormCliente">Cliente</label>
+            <select  
+             class="form-select"
+           
+             formControlName="cliente">
+              <option value="0">Seleccione Cliente</option>
+           
+            </select>
+          </div>
+
+          <div class="form-group col-md-3 col-lg-3">
+            <br>
+          <button  type="button" class="btn btn-success" >Crear guia</button>
+          <div >
+          <button  type="button" class="btn btn-primary" >Editar</button>
+          &nbsp;
+          <button  type="button" class="btn btn-danger">Cancelar</button>
+          </div>
+          </div>
+
+          </div>
+
+        </form>-->
+        
+      </div>
+    </div>
+      
+        <br>
+        <br>
+      
+      <div class="card mb-4">
+          <div class="card-header">
+              <i class="fas fa-table me-1"></i>
+             Tarifas
+          </div>
+          
+          <div class="card-body">
+              <br>
+              <br>
+
+
+            <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th  scope="col">Nombre</th>
+                          <th  scope="col">Descripción</th>
+                          <th  scope="col">Regla</th>
+                          <th  scope="col">Costo</th>
+                          <th  scope="col">Estado</th>
+                          <th  scope="col">Valor Interno</th>
+                          <th  scope="col">Valor Externo</th>
+                          <th  scope="col">Acciones</th>
+                      </tr>
+                  </thead>
+                  
+                  <tbody>
+                      <tr *ngFor="let item of tarifas | paginate:{itemsPerPage: 5, currentPage: p}">
+                          <td>{{item.nombre}}</td>
+                          <td>{{item.descripcion}}</td>
+                          <td>{{item.regla}}</td>
+                          <td>{{item.costo}}</td>
+                          <td>{{item.estado}}</td>
+                          <td>{{item.valor_interno}}</td>
+                          <td>{{item.valor_externo}}</td>
+                          <td>
+                            <div 
+                            class="btn-group" 
+                            role="group" aria-label="Button group with nested dropdown">
+                            <button 
+                            type="button" 
+                            class="btn btn-outline-secondary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#detalle"
+                            >Detalle</button>
+                    
+                       
+                            <button 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top"
+                            title="Editar"
+                            type="button" 
+                            class="btn btn-primary"
+                            ><i class="fa-solid fa-pen-to-square"></i></button>
+                            
+                            <button 
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top"
+                            title="Eliminar"
+                            type="button" 
+                            class="btn btn-danger"
+                            ><i class="fa-solid fa-eraser"></i></button>
+                          </div></td>
+                      </tr>
+
+                  </tbody>
+              </table>
+            <pagination-controls (pageChange)="p = $event"
+            previousLabel="Anterior"
+            nextLabel="Siguiente">
+           
+        </pagination-controls>
+              
+<br>
+          </div>
+      </div>
+  </div>

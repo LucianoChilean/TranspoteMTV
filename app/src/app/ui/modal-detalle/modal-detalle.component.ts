@@ -160,7 +160,7 @@ export class ModalDetalleComponent implements OnInit {
 
   getTarifas(){
 
-    this.tarifa.GetTarifas().subscribe(
+    this.tarifa.getTarifas().subscribe(
       tarifas =>{
       this.tarifas = tarifas;
     });

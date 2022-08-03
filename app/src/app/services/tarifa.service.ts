@@ -20,19 +20,19 @@ export class TarifaService {
   ) { }
 
 
-    EliminarTarifa(id:number){
+    deleteTarifa(id:number){
       return this.http.delete(`${base_url}/tarifas/${id}`);
     }
 
-    CrearTarifa(Tarifa:object){
+    createTarifa(Tarifa:object){
       return this.http.post(`${base_url}/tarifas/`,Tarifa);
     }
 
-    EditaTarifa(id:number,Tarifa:object){
+    updateTarifa(id:number,Tarifa:object){
       return this.http.put(`${base_url}/tarifas/${id}`,Tarifa);
     }
 
-    GetTarifas(): Observable<Tarifa[]>{
+    getTarifas(): Observable<Tarifa[]>{
 
       return this.http.get<FetchAllResponse>(`${base_url}/tarifas`)
       .pipe(
