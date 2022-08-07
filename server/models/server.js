@@ -50,7 +50,8 @@ class Server{
         tarifas:      '/api/tarifas',
         tarifasD:     '/api/tarifasd',
         tarifasC:     '/api/tarifasc',
-        tarifasDet:   '/api/tarifasdet'
+        tarifasDet:   '/api/tarifasdet',
+        vehiculos:    '/api/vehiculos'
        };
 
        this.connectDB();
@@ -94,6 +95,7 @@ class Server{
         this._app.use(this.paths.tarifasC,require('../routes/clientetarifas'));
         this._app.use(this.paths.tarifasD,require('../routes/tarifasdespachos'));
         this._app.use(this.paths.tarifasDet,require('../routes/tarifasdetalles'));
+        this._app.use(this.paths.vehiculos,require('../routes/vehiculos'));
         this._app.use(this.paths.swagger,swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 

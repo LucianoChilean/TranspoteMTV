@@ -40,7 +40,6 @@ export class ConductorService {
 
      }
     })
-
    
     return ConductorList;
   }

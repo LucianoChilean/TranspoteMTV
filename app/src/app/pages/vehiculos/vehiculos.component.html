@@ -1,1 +1,35 @@
-<p>vehiculos works!</p>
+<div class="container-fluid px-2">
+    <h1 class="mt-4">Vehículos</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">List</li>
+        <li class="breadcrumb-item active">Vehículos</li>
+    </ol>
+
+      <div class="card mb-4">
+          <div class="card-body">
+            <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th  scope="col">Patente</th>
+                          <th  scope="col">Fecha</th>
+                          <th  scope="col">Chasis</th>
+                          <th  scope="col">Motor</th>
+                          <th  scope="col">Propietario Rut</th>
+                  </thead>
+                
+                  <tbody>
+                    <tr *ngFor="let vehi of vehiculo ">
+                        <td>{{ vehi.patente}}</td>
+                        <td>{{ vehi.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{ vehi.chasis}}</td>
+                        <td>{{ vehi.motor}}</td>
+                        <td>{{ vehi.propietario_rut }}</td>
+                    </tr>
+
+                  </tbody>
+              </table>
+             <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+
+          </div>
+      </div>
+  </div>
