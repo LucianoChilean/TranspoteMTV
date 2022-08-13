@@ -18,6 +18,8 @@ import { ConductorComponent } from './conductor/conductor.component';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { SharedUiModule } from '../ui/shared-ui.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PuertoComponent } from './puerto/puerto.component';
+
 
 
 
@@ -33,7 +35,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TarifaComponent,
     ClienteComponent,
     ConductorComponent,
-    VehiculosComponent
+    VehiculosComponent,
+    PuertoComponent
   ],
   exports: [
     PagesComponent,

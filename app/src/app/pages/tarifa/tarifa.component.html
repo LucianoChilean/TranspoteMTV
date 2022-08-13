@@ -12,92 +12,86 @@
       </div>
         <div class="card-body">
 
-      <!--  <form
+        <form
       autocomplete="off" 
       id="TarifaForm"
-        >
+      [formGroup]="tarifasForm"
+      (ngSubmit)="createTarifa()">
           <div class="row">
             <div class="form-group col-md-2 col-lg-2">
-                <label for="inputGuia">Guia</label>
+                <label>Nombre</label>
                 <input 
                 type="text" 
                 class="form-control" 
-              
-                formControlName="guia">
+                placeholder="Nombre"
+                formControlName="nombre">
+               
+                 
             </div>
-
+          
             <div class="form-group col-md-3 col-lg-3">
-              <label for="inputDescripcion">Descripcion</label>
+              <label>Descripcion</label>
               <input 
               type="text" 
+              name="descripcion"
               class="form-control"
-          
+              placeholder="Descripción"
               formControlName="descripcion">  
              </div>
 
             <div class="form-group col-md-3 col-lg-3">
-              <label for="inputnave">Nave</label>
+              <label for="inputnave">Regla</label>
               <input 
               type="text" 
               class="form-control" 
-          
-              formControlName="nave">
+              placeholder="Regla"
+              formControlName="regla">
             </div>
 
-            <div class="form-group col-md-4 col-lg-4">
-              <label for="inputPuerto">Puerto</label>
-              <select 
-              class="form-select" 
-            
-              formControlName="puerto">
-                <option value="0">Seleccione Puerto</option>
-              <option  
-                *ngFor="let puerto of puertos" 
-                [selected]="puerto.puerto_id === ngSelectPuerto"
-                value="{{puerto.puerto_id}}"
-                >{{puerto.nombre}}</option>
-              </select>
-            </div>
-          
           </div>
          
           <div class="row">
 
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="SelectFormConductor">Costo de la tarifa</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Ingresar precio costo de la tarifa"
+              formControlName="costo">
+            </div>
+
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormConductor">Conductor</label>
-            <select  
-            class="form-select" 
-      
-            formControlName="conductor">
-              <option value="0">Seleccione Conductor</option>
-            
-            </select>
+            <label for="SelectFormConductor">Valor Cliente Interno</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Precio para clientes internos"
+            formControlName="valor_interno">
           </div>
 
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormCliente">Cliente</label>
-            <select  
-             class="form-select"
-           
-             formControlName="cliente">
-              <option value="0">Seleccione Cliente</option>
-           
-            </select>
+            <label for="SelectFormCliente">Valor Cliente externo</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Precio para clientes externos"
+            formControlName="valor_externo">
           </div>
 
           <div class="form-group col-md-3 col-lg-3">
             <br>
-          <button  type="button" class="btn btn-success" >Crear guia</button>
-          <div >
-          <button  type="button" class="btn btn-primary" >Editar</button>
+          <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
+          <div *ngIf="ocultarEditar" >
+          <button  type="button"  class="btn btn-primary" >Editar</button>
           &nbsp;
-          <button  type="button" class="btn btn-danger">Cancelar</button>
+          <button  type="button" (click)="cancelUpdate()" class="btn btn-danger">Cancelar</button>
           </div>
           </div>
 
           </div>
 
-        </form>-->
+        </form>
         
       </div>
     </div>
@@ -119,7 +113,7 @@
             <table class="table table-bordered">
                   <thead>
                       <tr>
-                          <th  scope="col">Nombre</th>
+                          <th  scope="col">Concepto</th>
                           <th  scope="col">Descripción</th>
                           <th  scope="col">Regla</th>
                           <th  scope="col">Costo</th>
@@ -135,23 +129,18 @@
                           <td>{{item.nombre}}</td>
                           <td>{{item.descripcion}}</td>
                           <td>{{item.regla}}</td>
-                          <td>{{item.costo}}</td>
-                          <td>{{item.estado}}</td>
-                          <td>{{item.valor_interno}}</td>
-                          <td>{{item.valor_externo}}</td>
+                          <td>$ {{item.costo}}</td>
+                          <td *ngIf="item.estado"><span class="badge rounded-pill bg-success">ACTIVADO</span></td>
+                          <td *ngIf="!item.estado"><span class="badge rounded-pill bg-danger">DESACTIVADO</span></td>
+                          <td>$ {{item.valor_interno}}</td>
+                          <td>$ {{item.valor_externo}}</td>
                           <td>
                             <div 
                             class="btn-group" 
                             role="group" aria-label="Button group with nested dropdown">
+                           
                             <button 
-                            type="button" 
-                            class="btn btn-outline-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#detalle"
-                            >Detalle</button>
-                    
-                       
-                            <button 
+                            (click)="editTarifa(item)"
                             data-bs-toggle="tooltip" 
                             data-bs-placement="top"
                             title="Editar"
@@ -160,6 +149,7 @@
                             ><i class="fa-solid fa-pen-to-square"></i></button>
                             
                             <button 
+                            (click)="deleteTarifa(item.tarifa_id)"
                             data-bs-toggle="tooltip" 
                             data-bs-placement="top"
                             title="Eliminar"

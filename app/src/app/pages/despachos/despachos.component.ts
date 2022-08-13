@@ -77,7 +77,6 @@ export class DespachosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.ocultarEditar = false;
     this.ocultarRegistro = true;
     this.getDespachos();
     this.getPuertos();
@@ -94,7 +93,7 @@ export class DespachosComponent implements OnInit {
   }
  
   getCliente(){
-    this.cliente.GetClientes().subscribe(
+    this.cliente.getClientes().subscribe(
       clientes =>{
         this.clientes = clientes;
       }

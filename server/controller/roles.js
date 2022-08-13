@@ -13,6 +13,7 @@ const getRoles = async(req, res = response) =>{
 
 }
 
+
 const getRol = async(req, res = response) =>{
 
    
@@ -27,9 +28,9 @@ const getRol = async(req, res = response) =>{
 const postRol = async(req, res = response) => {
 
    
-    const {titulo,descripcion,estatus = 'Pendiente'} = req.body;
+    const {nombre,descripcion} = req.body;
 
-    const rol = Rol.build({titulo,descripcion,estatus});
+    const rol = Rol.build({nombre,descripcion});
 
     await rol.save();
     
@@ -41,27 +42,19 @@ const postRol = async(req, res = response) => {
 const putRol = async(req,res = response) => {
 
     const {id} = req.params;
-    const {titulo,descripcion,estatus} = req.body;
+    const {nombre,descripcion} = req.body;
  
     try{
 
         const rol = await Rol.findByPk(id);
         if(!rol){
             return res.status(404).json({
-                msg: `no existe un ticket con el id ${id}`
+                msg: `no existe un Rol con el id ${id}`
             })
         }
 
-        var   auth       = req.header('Authorization');
-        const TokenSplit = auth.split(" ");
 
-   
-        const token = (TokenSplit[0] === 'Bearer') ? TokenSplit[1] : auth;
-
-        const {uid} = jwt.verify(token, 'test');
-        const UsuarioId = uid;
-
-        await rol.update({titulo,descripcion,estatus,UsuarioId});
+        await rol.update({nombre,descripcion});
 
         res.json(rol);
         
@@ -81,16 +74,16 @@ const deleteRol = async(req, res = response) =>{
     const rol = await Rol.findByPk(id);
     if(!rol){
         return res.status(404).json({
-            msg: `no existe un ticket con el id ${id}`
+            msg: `no existe un Rol con el id ${id}`
         })
     }
     
     //Cambiar borrado por estado
-    /*await ticket.destroy({
+    await rol.destroy({
         where: {
            id : id
         }
-    })*/
+    })
 
     res.json(rol);
 

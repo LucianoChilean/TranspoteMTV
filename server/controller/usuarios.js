@@ -1,7 +1,8 @@
 const {request,response} = require('express');
 const bcryptjs = require('bcryptjs');
-
+const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario');
+
 
 
 const getUsuarios = async(req, res = response) =>{
@@ -22,6 +23,23 @@ const getUsuarios = async(req, res = response) =>{
 
 }
 
+const getRolUsuario = async(req, res = response)=>{
+
+    const token = req.header('Authorization');
+  
+    const {uid} = jwt.verify(token, 'test');
+        
+    const usuario = await Usuario.findAll({
+        attributes:['rol_id'],
+            where:{
+                usuario_id: uid
+            }           
+        });
+
+    res.json({usuario})
+
+}
+
 const getUsuario = async(req, res = response) =>{
 
     const {id} = req.params;
@@ -34,7 +52,7 @@ const getUsuario = async(req, res = response) =>{
 
 const postUsuario = async(req, res = response) => {
 
-    const {nombre,paterno,materno,email,password,estado,rol_id} = req.body;
+    const {nombre,paterno,materno,email,password,estado = 1,rol_id = 1} = req.body;
     const usuario = Usuario.build({nombre,paterno,materno,email,password,estado,rol_id});
 
     const salt = bcryptjs.genSaltSync();
@@ -97,4 +115,5 @@ module.exports = {getUsuarios,
                   getUsuario,
                   postUsuario,
                   putUsuario,
-                  deleteUsuario}
+                  deleteUsuario,
+                  getRolUsuario}

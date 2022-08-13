@@ -1,1 +1,160 @@
-<p>usuarios works!</p>
+<div class="container-fluid px-2">
+    <h1 class="mt-4">Usuarios</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a routerLink="dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active">Usuarios</li>
+    </ol>
+    
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-table me-1"></i>
+         Formulario Registro
+      </div>
+        <div class="card-body">
+
+        <form
+      autocomplete="off" 
+      id="TarifaForm"
+      [formGroup]="usuarioForm"
+      (ngSubmit)="createUser()">
+          <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label>Nombre</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Nombre"
+                formControlName="nombre">
+               
+                 
+            </div>
+          
+            <div class="form-group col-md-3 col-lg-3">
+              <label>Apellido paterno</label>
+              <input 
+              type="text" 
+              name="paterno"
+              class="form-control"
+              placeholder="paterno"
+              formControlName="paterno">  
+             </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="inputnave">Apellido materno</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="materno"
+              formControlName="materno">
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+                <label for="SelectFormCliente">E-mail</label>
+                <input 
+                type="email" 
+                class="form-control" 
+                placeholder="email@mtvlog.cl"
+                formControlName="email">
+              </div>
+    
+
+          </div>
+         <br>
+          <div class="row">
+
+         
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormCliente">Contraseña</label>
+            <input 
+            type="password" 
+            class="form-control" 
+            placeholder="Clave usuario"
+            formControlName="password">
+          </div>
+
+          <div class="form-group col-md-3 col-lg-3">
+            <br>
+          <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
+          <div *ngIf="ocultarEditar" >
+          <button  type="button" (click)="updateUser()" class="btn btn-primary" >Editar</button>
+          &nbsp;
+          <button  type="button" (click)="cancelUpdate()" class="btn btn-danger">Cancelar</button>
+          </div>
+          </div>
+
+          </div>
+
+        </form>
+        
+      </div>
+    </div>
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+    Usuarios
+    </div>
+
+
+    
+    <div class="card-body">
+        <br>
+        <br>
+
+
+      <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th  scope="col">Nombre Usuario</th>
+                    <th  scope="col">Email</th>
+                    <th  scope="col">Estado</th>
+                    <th  scope="col">Acciones</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr *ngFor="let item of usuarios | paginate:{itemsPerPage: 5, currentPage: p}">
+                    <td>{{item.nombre_completo}}</td>
+                    <td>{{item.email}}</td>
+                    <td *ngIf="item.estado"><span class="badge rounded-pill bg-success">ACTIVO</span></td>
+                    <td *ngIf="!item.estado"><span class="badge rounded-pill bg-danger">INACTIVO</span></td>
+                    <td>
+                      <div 
+                      class="btn-group" 
+                      role="group" aria-label="Button group with nested dropdown">
+                    
+              
+                 
+                      <button 
+                      (click)="getDataUser(item)"
+                      data-bs-toggle="tooltip" 
+                      data-bs-placement="top"
+                      title="Editar"
+                      type="button" 
+                      class="btn btn-primary"
+                      ><i class="fa-solid fa-pen-to-square"></i></button>
+                      
+                      <button 
+                      (click)="eraseUser(item.usuario_id)"
+                      data-bs-toggle="tooltip" 
+                      data-bs-placement="top"
+                      title="Eliminar"
+                      type="button" 
+                      class="btn btn-danger"
+                      ><i class="fa-solid fa-eraser"></i></button>
+                    </div></td>
+                </tr>
+
+            </tbody>
+        </table>
+      <pagination-controls (pageChange)="p = $event"
+      previousLabel="Anterior"
+      nextLabel="Siguiente">
+     
+  </pagination-controls> 
+        
+<br>
+    </div>
+</div>
+</div>

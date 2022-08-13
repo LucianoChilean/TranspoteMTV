@@ -13,6 +13,7 @@ import { TarifaComponent } from './tarifa/tarifa.component';
 import { ConductorComponent } from './conductor/conductor.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
+import { PuertoComponent } from './puerto/puerto.component';
 
 
 
@@ -31,7 +32,9 @@ const routes: Routes = [
             { path: 'conductor', component: ConductorComponent, data: { titulo: 'Conductor' }},
             { path: 'cliente', component: ClienteComponent, data: { titulo: 'Cliente' }},
             { path: 'vehiculos', component: VehiculosComponent, data: { titulo: 'Vehiculos' }},
-            { path: 'tarifa', component: TarifaComponent, data: { titulo: 'Tarifa' }}
+            { path: 'tarifa', component: TarifaComponent, data: { titulo: 'Tarifa' }},
+            { path: 'puerto', component: PuertoComponent, data: { titulo: 'Puerto' }}
+
         
         ]
     },

@@ -18,7 +18,7 @@ export class ClienteService {
   ) { }
 
 
-  GetClientes(): Observable<Cliente[]>{
+  getClientes(): Observable<Cliente[]>{
     return this.http.get<FetchAllResponse>(`${base_url}/clientes`)
     .pipe(
       map(this.transform)
@@ -34,11 +34,27 @@ export class ClienteService {
      return{
       cliente_id:cliente.cliente_id,
       nombre:cliente.nombre,
-    
+      rut:cliente.rut,
+      giro:cliente.giro,
+      direccion:cliente.direccion
      }
     })
 
    
     return ClienteList;
   }
+
+  setCliente(Cliente:object){
+    return this.http.post(`${base_url}/clientes/`,Cliente);
+  }
+
+  deleteCliente(id:number){
+    return this.http.delete(`${base_url}/clientes/${id}`);
+  }
+
+  putCliente(id:number,Cliente:object){
+    return this.http.put(`${base_url}/clientes/${id}`,Cliente);
+  }
+
+
 }

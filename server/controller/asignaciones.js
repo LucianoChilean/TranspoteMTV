@@ -1,6 +1,7 @@
 const {request,response} = require('express');
 const jwt = require('jsonwebtoken');
 const Asignacion = require('../models/asignacion');
+const modulo = require('../models/modulo');
 
 
 
@@ -10,6 +11,25 @@ const getAsignaciones = async(req, res = response) =>{
     const asignaciones = await Asignacion.findAll();
 
     res.json({asignaciones});
+
+}
+
+const getModulosByIdRol = async(req, res = response)=>{
+
+    const {id} = req.params;
+
+    const UserModule = await Asignacion.findAll({
+        include:[{
+            model:modulo,
+            as:modulo,
+            attribute:["nombre","descripcion"]
+        }],
+        where:{
+            rol_id: id
+        }
+    });
+
+    res.json({UserModule});
 
 }
 
@@ -27,9 +47,9 @@ const getAsignacion = async(req, res = response) =>{
 const postAsignacion = async(req, res = response) => {
 
    
-    const {titulo,descripcion,estatus = 'Pendiente'} = req.body;
+    const {rol_id,modulo_id} = req.body;
 
-    const asignacion = Asignacion.build({titulo,descripcion,estatus});
+    const asignacion = Asignacion.build({rol_id,modulo_id});
 
 
     await asignacion.save();
@@ -42,27 +62,18 @@ const postAsignacion = async(req, res = response) => {
 const putAsignacion = async(req,res = response) => {
 
     const {id} = req.params;
-    const {titulo,descripcion,estatus} = req.body;
+    const {rol_id,modulo_id} = req.body;
  
     try{
 
         const asignacion = await Asignacion.findByPk(id);
         if(!asignacion){
             return res.status(404).json({
-                msg: `no existe un ticket con el id ${id}`
+                msg: `no existe un asignacion con el id ${id}`
             })
         }
 
-        var   auth       = req.header('Authorization');
-        const TokenSplit = auth.split(" ");
-
-   
-        const token = (TokenSplit[0] === 'Bearer') ? TokenSplit[1] : auth;
-
-        const {uid} = jwt.verify(token, 'test');
-        const UsuarioId = uid;
-
-        await asignacion.update({titulo,descripcion,estatus,UsuarioId});
+        await asignacion.update({rol_id,modulo_id});
 
         res.json(asignacion);
         
@@ -82,16 +93,16 @@ const deleteAsignacion = async(req, res = response) =>{
     const asignacion = await Asignacion.findByPk(id);
     if(!asignacion){
         return res.status(404).json({
-            msg: `no existe un ticket con el id ${id}`
+            msg: `no existe un Asignación con el id ${id}`
         })
     }
     
     //Cambiar borrado por estado
-    /*await ticket.destroy({
+    await asignacion.destroy({
         where: {
            id : id
         }
-    })*/
+    })
 
     res.json(asignacion);
 
@@ -102,4 +113,6 @@ module.exports = {getAsignaciones,
     getAsignacion,
     postAsignacion,
     putAsignacion,
-    deleteAsignacion}
+    deleteAsignacion,
+    getModulosByIdRol
+}

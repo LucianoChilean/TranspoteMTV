@@ -27,9 +27,9 @@ const getModulo = async(req, res = response) =>{
 const postModulo = async(req, res = response) => {
 
    
-    const {titulo,descripcion,estatus = 'Pendiente'} = req.body;
+    const {nombre,descripcion,estatus = 'Pendiente'} = req.body;
 
-    const modulo = Modulo.build({titulo,descripcion,estatus});
+    const modulo = Modulo.build({nombre,descripcion,estatus});
 
 
     await modulo.save();
@@ -42,7 +42,7 @@ const postModulo = async(req, res = response) => {
 const putModulo = async(req,res = response) => {
 
     const {id} = req.params;
-    const {titulo,descripcion,estatus} = req.body;
+    const {nombre,descripcion} = req.body;
  
     try{
 
@@ -53,16 +53,8 @@ const putModulo = async(req,res = response) => {
             })
         }
 
-        var   auth       = req.header('Authorization');
-        const TokenSplit = auth.split(" ");
 
-   
-        const token = (TokenSplit[0] === 'Bearer') ? TokenSplit[1] : auth;
-
-        const {uid} = jwt.verify(token, 'test');
-        const UsuarioId = uid;
-
-        await modulo.update({titulo,descripcion,estatus,UsuarioId});
+        await modulo.update({nombre,descripcion});
 
         res.json(modulo);
         
@@ -86,12 +78,11 @@ const deleteModulo = async(req, res = response) =>{
         })
     }
     
-    //Cambiar borrado por estado
-    /*await ticket.destroy({
+    await modulo.destroy({
         where: {
            id : id
         }
-    })*/
+    })
 
     res.json(modulo);
 

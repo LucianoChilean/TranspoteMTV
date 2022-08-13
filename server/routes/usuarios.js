@@ -38,7 +38,8 @@ const {getUsuarios,
        getUsuario,
        postUsuario,
        putUsuario, 
-       deleteUsuario } = require('../controller/usuarios');
+       deleteUsuario,
+       getRolUsuario } = require('../controller/usuarios');
 
 const router = Router();
 
@@ -172,6 +173,8 @@ router.put('/:id',[validarJWT],putUsuario);
  */
 router.delete('/:id',[validarJWT],deleteUsuario);
 
+
+router.get('/modules/:m',[validarJWT],getRolUsuario);
 
 
 

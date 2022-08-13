@@ -8,4 +8,8 @@ export interface FetchAllResponse{
 export interface Cliente {
     cliente_id:number;
     nombre: string;
+    rut: string;
+    giro:string;
+    direccion: string;
+
 }

@@ -14,84 +14,56 @@
 
       <form
       autocomplete="off" 
-      id="TarifaForm"
-        >
+      id="ClienteForm"
+      [formGroup]="clienteForm"
+      (ngSubmit)="setCliente()">
           <div class="row">
             <div class="form-group col-md-2 col-lg-2">
-                <label for="inputGuia">Guia</label>
+                <label for="inputGuia">Nombre</label>
                 <input 
                 type="text" 
                 class="form-control" 
-              
-                formControlName="guia">
+                formControlName="nombre">
             </div>
 
             <div class="form-group col-md-3 col-lg-3">
-              <label for="inputDescripcion">Descripcion</label>
+              <label for="inputDescripcion">Rut</label>
               <input 
               type="text" 
               class="form-control"
-          
-              formControlName="descripcion">  
+              formControlName="rut">  
              </div>
 
             <div class="form-group col-md-3 col-lg-3">
-              <label for="inputnave">Nave</label>
+              <label for="inputnave">Giro</label>
               <input 
               type="text" 
               class="form-control" 
-          
-              formControlName="nave">
+              formControlName="giro">
             </div>
 
-            <div class="form-group col-md-4 col-lg-4">
-              <label for="inputPuerto">Puerto</label>
-              <select 
-              class="form-select" 
-            
-              formControlName="puerto">
-                <option value="0">Seleccione Puerto</option>
-              <!--  <option  
-                *ngFor="let puerto of puertos" 
-                [selected]="puerto.puerto_id === ngSelectPuerto"
-                value="{{puerto.puerto_id}}"
-                >{{puerto.nombre}}</option>-->
-              </select>
-            </div>
           
           </div>
          
           <div class="row">
 
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormConductor">Conductor</label>
-            <select  
-            class="form-select" 
-      
-            formControlName="conductor">
-              <option value="0">Seleccione Conductor</option>
-            
-            </select>
+            <label for="SelectFormConductor">direccion</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="direccion">
           </div>
 
-          <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormCliente">Cliente</label>
-            <select  
-             class="form-select"
-           
-             formControlName="cliente">
-              <option value="0">Seleccione Cliente</option>
-           
-            </select>
-          </div>
+        
 
           <div class="form-group col-md-3 col-lg-3">
             <br>
-          <button  type="button" class="btn btn-success" >Crear guia</button>
-          <div >
-          <button  type="button" class="btn btn-primary" >Editar</button>
+          <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
+          <div  *ngIf="ocultarEditar">
+          <button  type="button" (click)="updateCliente()" class="btn btn-primary" >Editar</button>
           &nbsp;
-          <button  type="button" class="btn btn-danger">Cancelar</button>
+          <button  type="button" (click)="cancelUpdate()"  class="btn btn-danger">Cancelar</button>
           </div>
           </div>
 
@@ -108,61 +80,36 @@
       <div class="card mb-4">
           <div class="card-header">
               <i class="fas fa-table me-1"></i>
-             Despachos
+             Clientes
           </div>
           
           <div class="card-body">
-
-              <input type="text"
-              class="form-control col-lg-3"
-              placeholder="Buscar guia por descripcion" 
-              #txtbuscar/>
               <br>
-              <br>
-
-
             <table class="table table-bordered">
                   <thead>
                       <tr>
                           <th  scope="col">Nombre</th>
-                          <th  scope="col">Descripción</th>
-                          <th  scope="col">Regla</th>
-                          <th  scope="col">Costo</th>
-                          <th  scope="col">Estado</th>
-                          <th  scope="col">Valor Interno</th>
-                          <th  scope="col">Valor</th>
+                          <th  scope="col">rut</th>
+                          <th  scope="col">giro</th>
+                          <th  scope="col">direccion</th>
                           <th  scope="col">Acciones</th>
                       </tr>
                   </thead>
                   
                   <tbody>
-                      <tr >
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td ><span class="badge bg-success" ></span></td>
-                          <td  ><span class="badge bg-warning"></span></td>
+                      <tr *ngFor="let item of clientes | paginate:{itemsPerPage: 5, currentPage: p}">
+                          <td>{{item.nombre}}</td>
+                          <td>{{item.rut}}</td>
+                          <td>{{item.giro}}</td>
+                          <td>{{item.direccion}}</td>
                           <td>
                             <div 
                             class="btn-group" 
                             role="group" aria-label="Button group with nested dropdown">
-                            <button 
-                            type="button" 
-                            class="btn btn-outline-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#detalle"
-                            >Detalle</button>
-                           
 
-                            <button 
-                            type="button" 
-                            class="btn btn-outline-success"
-                            >Finalizar</button>
                        
                             <button 
+                            (click)="getDataClient(item)"
                             data-bs-toggle="tooltip" 
                             data-bs-placement="top"
                             title="Editar"
@@ -171,6 +118,7 @@
                             ><i class="fa-solid fa-pen-to-square"></i></button>
                             
                             <button 
+                            (click)="eraseCliente(item.cliente_id)"
                             data-bs-toggle="tooltip" 
                             data-bs-placement="top"
                             title="Eliminar"
@@ -182,7 +130,9 @@
 
                   </tbody>
               </table>
-             <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+              <pagination-controls (pageChange)="p = $event"
+              previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
               
 <br>
           </div>

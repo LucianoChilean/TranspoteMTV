@@ -12,10 +12,16 @@ const {
         emailExiste,
         ExisteUsuarioPorId } = require('../helpers/db-validators');
 */
-const { getAsignaciones, getAsignacion, postAsignacion, putAsignacion, deleteAsignacion } = require('../controller/asignaciones');
+const { getAsignaciones, 
+        getAsignacion, 
+        getModulosByIdRol,
+        postAsignacion, 
+        putAsignacion, 
+        deleteAsignacion } = require('../controller/asignaciones');
 
 const router = Router();
 
+router.get('/getModule/:id',[validarJWT],getModulosByIdRol);
 
 router.get('/',[validarJWT],getAsignaciones);
 

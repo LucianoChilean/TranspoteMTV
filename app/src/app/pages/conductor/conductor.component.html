@@ -1,1 +1,166 @@
-<p>conductor works!</p>
+<div class="container-fluid px-2">
+    <h1 class="mt-4">Clientes</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a routerLink="dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active">Clientes</li>
+    </ol>
+
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-table me-1"></i>
+         Formulario Registro
+      </div>
+        <div class="card-body">
+
+      <form
+      autocomplete="off" 
+      id="ConductorForm"
+      [formGroup]="conductorForm"
+      (ngSubmit)="setConductor()">
+          <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label for="inputGuia">Nombre</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                formControlName="nombre">
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="inputDescripcion">paterno</label>
+              <input 
+              type="text" 
+              class="form-control"
+              formControlName="paterno">  
+             </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="inputnave">materno</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              formControlName="materno">
+            </div>
+
+            
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormConductor">rut</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="rut">
+          </div>
+          
+          </div>
+         
+          <div class="row">
+
+
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormConductor">fono</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="fono">
+          </div>
+
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormConductor">email</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="email">
+          </div>
+
+          
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormConductor">Giro</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="giro">
+          </div>
+
+          <div class="form-group col-md-3 col-lg-3">
+            <br>
+          <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
+          <div  *ngIf="ocultarEditar">
+          <button  type="button" (click)="updateConductor()" class="btn btn-primary" >Editar</button>
+          &nbsp;
+          <button  type="button" (click)="cancelUpdate()"  class="btn btn-danger">Cancelar</button>
+          </div>
+          </div>
+
+          </div>
+
+        </form>
+        
+      </div>
+    </div>
+      
+        <br>
+        <br>
+      
+      <div class="card mb-4">
+          <div class="card-header">
+              <i class="fas fa-table me-1"></i>
+             Clientes
+          </div>
+          
+          <div class="card-body">
+              <br>
+            <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th  scope="col">Nombre</th>
+                          <th  scope="col">rut</th>
+                          <th  scope="col">giro</th>
+                          <th  scope="col">fono</th>
+                          <th  scope="col">email</th>
+                          <th  scope="col">Acciones</th>
+                      </tr>
+                  </thead>
+                  
+                  <tbody>
+                      <tr *ngFor="let item of conductores | paginate:{itemsPerPage: 5, currentPage: p}">
+                          <td>{{item.nombre_completo}}</td>
+                          <td>{{item.rut}}</td>
+                          <td>{{item.fono}}</td>
+                          <td>{{item.email}}</td>
+                          <td>{{item.giro}}</td>
+                          <td>
+                            <div 
+                            class="btn-group" 
+                            role="group" aria-label="Button group with nested dropdown">
+
+                       
+                            <button 
+                            (click)="getDataDrive(item)"
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top"
+                            title="Editar"
+                            type="button" 
+                            class="btn btn-primary"
+                            ><i class="fa-solid fa-pen-to-square"></i></button>
+                            
+                            <button 
+                            (click)="eraseConductor(item.conductor_id)"
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top"
+                            title="Eliminar"
+                            type="button" 
+                            class="btn btn-danger"
+                            ><i class="fa-solid fa-eraser"></i></button>
+                          </div></td>
+                      </tr>
+
+                  </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"
+              previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
+              
+<br>
+          </div>
+      </div>
+  </div>
