@@ -33,10 +33,11 @@ export class AsignacionService {
     const usuariosList: UserModule[] = resp.usermodule.map( userm => {
  
      return{
-      asignacion_id: userm.asignacion_id,
       Modulo: userm.Modulo,
       nombre_modulo: userm.Modulo.nombre,
-      descrip_modulo: userm.Modulo.descripcion
+      descrip_modulo: userm.Modulo.descripcion,
+      padre: userm.Modulo.modulo_padre,
+      icons: userm.Modulo.icons
 
      }
     })

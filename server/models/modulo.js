@@ -13,6 +13,18 @@ const Modulo = db.define('Modulo',{
     },
     descripcion:{
         type: DataTypes.TEXT
+    },
+    modulo_padre:{
+        type: DataTypes.STRING
+    },
+    modulo_orden:{
+        type: DataTypes.STRING
+    },
+    padre_orden:{
+        type: DataTypes.STRING
+    },
+    icons:{
+        type: DataTypes.STRING
     }
 });
 

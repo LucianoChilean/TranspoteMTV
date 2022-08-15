@@ -18,18 +18,36 @@ const getModulosByIdRol = async(req, res = response)=>{
 
     const {id} = req.params;
 
-    const UserModule = await Asignacion.findAll({
+    const usermodule = await Asignacion.findAll({
+        attributes:{
+            exclude:[
+                'asignacion_id',
+                'rol_id',
+                'modulo_id',
+                'createdAt',
+                'updatedAt',
+        ]
+        },
         include:[{
             model:modulo,
             as:modulo,
-            attribute:["nombre","descripcion"]
+            attributes:["nombre",
+                        "descripcion",
+                        "modulo_padre",
+                        "modulo_orden",
+                        "padre_orden",
+                        "icons"]
         }],
+        order: [
+            [ modulo, 'padre_orden', 'ASC' ], 
+            [ modulo, 'modulo_orden', 'ASC' ]
+          ],
         where:{
             rol_id: id
         }
     });
 
-    res.json({UserModule});
+    res.json({usermodule});
 
 }
 

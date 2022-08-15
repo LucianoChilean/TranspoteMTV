@@ -2,54 +2,76 @@
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
-                <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Inicio</div>
-                    <a class="nav-link puntero" routerLink="/dashboard">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Dashboard
+                <div *ngFor="let item of usermodulos" class="nav">
+               
+                    <div *ngIf="item.padre === 'Inicio'"
+                    class="sb-sidenav-menu-heading">Inicio</div>
+                    <a *ngIf="item.nombre_modulo === 'Dashboard'" 
+                    class="nav-link puntero" 
+                    routerLink="/dashboard">
+                        <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
+                        {{item.nombre_modulo}}
                     </a>
-                    <a class="nav-link puntero" routerLink="despachos">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-box"></i></div>
-                        Despachos
+                    <a *ngIf="item.nombre_modulo === 'Despachos'" 
+                       class="nav-link puntero" 
+                       routerLink="despachos">
+                        <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
+                        {{item.nombre_modulo}}
                     </a>
                  
                
 
-                    <div class="sb-sidenav-menu-heading">Supervision</div>
-                    <a class="nav-link puntero" routerLink="cliente">
+                    <div *ngIf="item.padre === 'Supervision'" class="sb-sidenav-menu-heading">Supervision</div>
+                    <a *ngIf="item.nombre_modulo === 'Clientes'" 
+                       class="nav-link puntero" 
+                       routerLink="cliente">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
-                        Clientes
+                        {{item.nombre_modulo}}
                     </a>
-                    <a class="nav-link puntero" routerLink="conductor">
+                    <a *ngIf="item.nombre_modulo === 'Conductor'" 
+                       class="nav-link puntero" 
+                       routerLink="conductor">
                         <div class="sb-nav-link-icon"><i class="fa-regular fa-id-card"></i></div>
-                        Conductor
+                        {{item.nombre_modulo}}
                     </a>
-                    <a class="nav-link puntero" routerLink="vehiculos">
+                    <a *ngIf="item.nombre_modulo === 'Vehiculos'"  
+                       class="nav-link puntero" 
+                       routerLink="vehiculos">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-truck-fast"></i></div>
-                        Vehiculos
+                        {{item.nombre_modulo}}
                     </a>
 
-                   <a class="nav-link puntero" routerLink="facturas">
+                   <a *ngIf="item.nombre_modulo === 'PreFacturas'" 
+                      class="nav-link puntero" 
+                      routerLink="facturas">
                          <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                        PreFacturas
+                         {{item.nombre_modulo}}
                     </a>
-                    <a class="nav-link puntero" routerLink="facturacion">
+                    <a *ngIf="item.nombre_modulo === 'Facturación'"  
+                       class="nav-link puntero" 
+                       routerLink="facturacion">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                       Facturación
+                        {{item.nombre_modulo}}
                    </a>
-                   <a class="nav-link puntero" routerLink="puerto">
+                   <a *ngIf="item.nombre_modulo === 'Puertos'" 
+                      class="nav-link puntero" 
+                      routerLink="puerto">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-ferry"></i></div>
-                   Puertos
+                    {{item.nombre_modulo}}
                </a>
                    
                   
-                    <div class="sb-sidenav-menu-heading">Administrar</div>
-                    <a class="nav-link puntero" routerLink="usuarios">
+                    <div *ngIf="item.padre === 'Administrador'" class="sb-sidenav-menu-heading">Administrar</div>
+                    <a *ngIf="item.nombre_modulo === 'Usuarios'"  
+                       class="nav-link puntero" 
+                       routerLink="usuarios">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                         Usuarios
                     </a>
 
-                    <a class="nav-link puntero" routerLink="tarifa">
+                    <a *ngIf="item.nombre_modulo === 'Tarifas'"  
+                       class="nav-link puntero" 
+                       routerLink="tarifa">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                         Tarifas
                     </a>
