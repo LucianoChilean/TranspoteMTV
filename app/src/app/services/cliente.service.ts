@@ -26,6 +26,13 @@ export class ClienteService {
 
   }
 
+  getClientById(id:number): Observable<Cliente[]>{
+    return this.http.get<FetchAllResponse>(`${base_url}/clientes/${id}`) 
+    .pipe(
+      map(this.transform)
+    );
+  }
+
 
   private transform( resp: FetchAllResponse ) {
 

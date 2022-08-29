@@ -22,5 +22,11 @@ export interface Detalle {
         direccion:string,
      };
     dname:string;
- 
+    Despacho:{
+        numero:number,
+        cliente_id:number
+    }
+    guia:number;
+    idClient:number;
+    estado:string;
 }

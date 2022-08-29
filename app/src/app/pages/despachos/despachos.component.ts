@@ -36,6 +36,7 @@ export class DespachosComponent implements OnInit {
   public ocultarModalDetalle : boolean = false;
   public idDetalle: number = 0;
   public idCliente: number = 0;
+  public guia: string = '';
   public ngSelectPuerto = 0;
   public ngSelectConductor = 0;
   public ngSelectCliente = 0;
@@ -52,11 +53,7 @@ export class DespachosComponent implements OnInit {
     cliente_id: 0
   }
 
-  public tarifasIn = {
-    despacho_id : 0,
-    tarifa_id : 0
-  }
-
+ 
   public despachoForm = this.fb.group({
     guia:['',Validators.required],
     descripcion:['',Validators.required],
@@ -85,11 +82,12 @@ export class DespachosComponent implements OnInit {
 
   }
 
-  goToLoadModal(evento:boolean,despacho:number,cliente:number){
+  goToLoadModal(evento:boolean,despacho:number,cliente:number,guia:string){
 
     this.ocultarModalDetalle = evento;
     this.idDetalle = despacho;
     this.idCliente = cliente;
+    this.guia = guia;
   }
  
   getCliente(){

@@ -27,9 +27,9 @@ const getModulo = async(req, res = response) =>{
 const postModulo = async(req, res = response) => {
 
    
-    const {nombre,descripcion,estatus = 'Pendiente'} = req.body;
+    const {nombre,descripcion,modulo_padre,modulo_orden,padre_orden,icons} = req.body;
 
-    const modulo = Modulo.build({nombre,descripcion,estatus});
+    const modulo = Modulo.build({nombre,descripcion,modulo_padre,modulo_orden,padre_orden,icons});
 
 
     await modulo.save();

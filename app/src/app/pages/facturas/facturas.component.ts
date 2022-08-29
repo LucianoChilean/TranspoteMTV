@@ -18,8 +18,10 @@ export class FacturasComponent implements OnInit {
   public tarifadespachos: Tarifadespacho[] = [];
   public detalles: Detalle[] = [];
   public FormText: string = '';
+  public ocultarModalFactura: boolean = false;
 
-
+  p: number = 1;
+  
   public Despacho = {
     id: 0,
     numero: '',
@@ -30,7 +32,10 @@ export class FacturasComponent implements OnInit {
     cliente_id: 0
   }
 
+  public idDespacho = 0;
   public idDetalle = 0;
+  public idClient = 0;
+  public Estado = '';
   public EstadoD = {
     estado: ''
   }
@@ -45,17 +50,25 @@ export class FacturasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getDespachos();
+    this.getAllDetalle();
 
   }
 
-  getDespachos(){
+  goToLoadModal(event:boolean,idDetails:number,idClient:number,estado:string,idDespacho:number){
+    this.ocultarModalFactura = event;
+    this.idDetalle = idDetails;
+    this.idClient = idClient;
+    this.Estado = estado;
+    this.idDespacho = idDespacho;
+  }
 
-    this.despacho.GetDespachos().subscribe(
-      despachos =>{
-        this.despachos = despachos;
-      }
-    );
+  getAllDetalle(){
+
+    this.detalle.getAllDetalles()
+    .subscribe(alldetalle=>{
+      this.detalles = alldetalle
+      console.log(this.detalles)
+    })
   }
 
 
@@ -79,7 +92,7 @@ export class FacturasComponent implements OnInit {
    
     this.despacho.EditaDespachoEstado(this.idDetalle,this.EstadoD).subscribe(
       despachos =>{
-        this.getDespachos();
+        this.getAllDetalle();
       })
       
 

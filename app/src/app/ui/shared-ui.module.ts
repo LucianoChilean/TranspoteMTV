@@ -1,21 +1,30 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { ModalDetalleComponent } from './modal-detalle/modal-detalle.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalPrefacturaComponent } from './modal-prefactura/modal-prefactura.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 
 
 @NgModule({
   declarations: [
-    ModalDetalleComponent
+    ModalDetalleComponent,
+    ModalPrefacturaComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   exports:[
-    ModalDetalleComponent
+    ModalDetalleComponent,
+    ModalPrefacturaComponent
+  ],
+  providers:[
+    DecimalPipe
   ]
 })
 export class SharedUiModule { }

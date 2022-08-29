@@ -29,6 +29,9 @@ const Detalle = db.define('Detalle',{
     devolucion:{
         type: DataTypes.STRING
     },
+    estado:{
+        type: DataTypes.STRING
+    },
     despacho_id:{
         type : DataTypes.INTEGER.UNSIGNED
     },

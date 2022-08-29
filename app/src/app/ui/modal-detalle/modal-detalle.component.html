@@ -2,7 +2,7 @@
 
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Guia N° {{idDetails}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Guia N° {{guia}}</h5>
         <button type="button" class="btn-close" (click)="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -21,7 +21,7 @@
                   <input 
                   type="text" 
                   class="form-control" 
-                  placeholder="detalle"
+                  placeholder="descripcion"
                   formControlName="descripcion"
                   required>
               </div>
@@ -152,7 +152,7 @@
             </thead>
             
             <tbody>
-                <tr *ngFor="let detalle of detalles">
+                <tr *ngFor="let detalle of detalles | paginate:{itemsPerPage: 5, currentPage: p}">
                
                     <td>{{detalle.descripcion}}</td>
                     <td>{{detalle.tipo}}</td>
@@ -173,6 +173,9 @@
   
             </tbody>
         </table>
+        <pagination-controls (pageChange)="p = $event"
+        previousLabel="Anterior"
+            nextLabel="Siguiente"></pagination-controls>
       </div>
       <div class="modal-footer">
       </div>

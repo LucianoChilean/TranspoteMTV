@@ -19,12 +19,12 @@ export class TarifaComponent implements OnInit {
 
   public tarifasForm = this.fb.group({
     tarifa_id:[''],
-    nombre:['',[Validators.required,Validators.pattern("/^[a-zA-Z ]+$/")]],
+    nombre:['',[Validators.required]],
     descripcion:['',Validators.required],
     regla:['',Validators.required],
-    costo:['',[Validators.required,Validators.pattern("^[0-9]*$")]],
-    valor_interno:['',[Validators.required,Validators.pattern("^[0-9]*$")]],
-    valor_externo:['',[Validators.required,Validators.pattern("^[0-9]*$")]]
+    costo:['',[Validators.required]],
+    valor_interno:['',[Validators.required]],
+    valor_externo:['',[Validators.required]]
   });
 
   constructor(
@@ -77,8 +77,16 @@ export class TarifaComponent implements OnInit {
         title: 'El Despacho se creo exitosamente'
       })
       this.getTarifas();
-      //this.tarifaValues([]);
-      console.log(tarifa)
+      this.tarifasForm.setValue({
+        tarifa_id: '',
+        nombre : '',
+        descripcion: '',
+        regla: '',
+        costo : '',
+        valor_interno: '',
+        valor_externo: ''
+      });
+  
     })
     }
 

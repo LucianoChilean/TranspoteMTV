@@ -5,11 +5,32 @@ const Tarifa = require('../models/tarifa');
 
 const getTarifas = async(req, res = response) => {
 
+    
+
     const tarifas = await Tarifa.findAll({
         order:[
             ['tarifa_id','DESC']
         ]
+    
     });
+
+    res.json({tarifas});
+
+}
+
+const getTarifasByEstado = async(req, res = response) => {
+
+    const {estado} = req.params;
+
+    const tarifas = await Tarifa.findAll({
+        order:[
+            ['tarifa_id','DESC']
+        ],
+        where:{
+            estado
+        }
+    })
+
 
     res.json({tarifas});
 
@@ -108,4 +129,5 @@ module.exports = {getTarifas,
                   postTarifa,
                   putTarifa,
                   deleteTarifa,
-                  getTarifaIn}
+                  getTarifaIn,
+                  getTarifasByEstado}

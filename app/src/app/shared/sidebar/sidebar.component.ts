@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserModule } from 'src/app/interfaces/userModule.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { AsignacionService } from 'src/app/services/asignacion.service';
@@ -13,7 +13,9 @@ export class SidebarComponent implements OnInit {
 
   public id:string ='';
   public usermodulos:UserModule[] =[];
-  public ocultaInicio:boolean = true;
+  public ocultaInicio:boolean = false;
+  public ocultaSupervisor: boolean = false;
+  public ocultaAdministrador: boolean = false;
 
 
   constructor(
@@ -27,15 +29,6 @@ export class SidebarComponent implements OnInit {
    this.getUserModules();
   
   }
-
-  show(menu:string){
-
-    
-
-    console.log(menu)
-
-  }
-
 
   getUserModules(){
     this.id = localStorage.getItem('rol') || '';  

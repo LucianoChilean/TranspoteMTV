@@ -27,12 +27,20 @@ export class ModalDetalleComponent implements OnInit {
   public ngSelectPuerto = 0;
   public ocultarEditar : boolean = false;
   public ocultarRegistro : boolean = false;
+  public detalle_id : number = 0;
 
-  
+  p: number = 1;
+
   @Input() idDetails = 0;
   @Input() idCliente = 0;
+  @Input() guia = '';
 
   @Output() cerrar = new EventEmitter<boolean>();
+
+  public tarifasIn = {
+    detalle_id : 0,
+    tarifa_id : 0
+  }
 
 
   public detalleForm = this.fb.group({
@@ -46,6 +54,10 @@ export class ModalDetalleComponent implements OnInit {
     checkArray: this.fb.array([]),
     despacho_id: ['']
   });
+
+  public tForm = this.fb.group({
+    checkArray: this.fb.array([])
+  })
 
   constructor(
     private direccion:DireccionService,
@@ -65,7 +77,15 @@ export class ModalDetalleComponent implements OnInit {
     this.loadAddress(this.idCliente);
     this.getPuertos();
     this.getTarifas();
+    this.getTarifaDetalle(this.idDetails);
     
+  }
+
+  getTarifaDetalle(id:number){
+    this.tarifad.getTarifaDetalle(id)
+    .subscribe(tarifadetalle =>{
+          console.log(tarifadetalle)
+    })
   }
 
   getPuertos(){
@@ -111,11 +131,11 @@ export class ModalDetalleComponent implements OnInit {
       })
     }else{
       this.detalleForm.value.despacho_id = this.idDetails;
-      this.detalle.CreaDetalle(this.detalleForm.value)
+     this.detalle.CreaDetalle(this.detalleForm.value)
       .subscribe(detalle =>{
         this.loadDet(this.idDetails);
+        this.GuardarTarifa(detalle);
       });
-
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -160,31 +180,36 @@ export class ModalDetalleComponent implements OnInit {
 
   getTarifas(){
 
-    this.tarifa.getTarifas().subscribe(
+    this.tarifa.getTarifasByEstado().subscribe(
       tarifas =>{
       this.tarifas = tarifas;
     });
 
   }
-  /*
-  GuardarTarifa(){
-    this.tarifaForm.value.despacho_id = this.Despacho.id;
+  
+  
+  GuardarTarifa(id:any){
+  
+   const checkArray: FormArray = this.tForm.get('checkArray') as FormArray;
+   checkArray.push(new FormControl('15'));
 
-    this.tarifaForm.value.checkArray.forEach((item:number) =>{
-      this.tarifasIn.despacho_id = this.Despacho.id;
-      this.tarifasIn.tarifa_id = item;
-      this.tarifad.CrearTarifa(this.tarifasIn)
+   //Agregar if para ver si devolución es cruzada
+
+    this.tForm.value.checkArray.forEach((item:number) =>{
+      this.tarifasIn.detalle_id = id;
+      this.tarifasIn.tarifa_id = item; 
+     this.tarifad.createTaridaDetalle(this.tarifasIn)
       .subscribe(tarifad =>{
         console.log(tarifad)
       });
     })
    
-  }*/
+  }
   
  
 
   onCheckboxChange(e:any) {
-    const checkArray: FormArray = this.detalleForm.get('checkArray') as FormArray;
+    const checkArray: FormArray = this.tForm.get('checkArray') as FormArray;
     if(e.target.checked){
       checkArray.push(new FormControl(e.target.value));
     }else{

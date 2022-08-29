@@ -1,0 +1,121 @@
+<div class="modal-content">
+    <form 
+    autocomplete="off" 
+    id="TarifaForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Pre Facturación</h5>
+      <button type="button" class="btn-close" (click)="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      
+
+        <div class="container">
+            <div class="card animate__animated animate__fadeIn">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-6 col-md-6">
+                    N° Despacho
+                    <strong> {{idDespacho}} </strong>
+                  </div>
+                    <div class="col-4 col-md-4">
+                      Fecha hoy
+                      <strong> 25-08-2022 </strong>
+                    </div>
+                    <div class="col-2 col-md-2">
+                      <span class="float-right"> <strong>Estado: </strong> <span class="badge rounded-pill bg-success"> {{Estado}} </span></span>
+                    </div>
+                  </div>
+                   
+                </div>
+                <div class="card-body">
+                    
+                  <div  *ngFor="let item of clientes" class="row mb-4">
+                        <div class="col-8 col-md-8">
+                            <h6 class="mb-2">Razon Social: {{item.nombre}}</h6>
+                            <div>Rut: {{item.rut}}</div>
+                            <div>Giro: {{item.giro}}</div>
+                            <div>Dirección: {{item.direccion}}</div>
+                            <div>Comuna: Viña del mar</div>
+                         
+                        </div>
+    
+                        <div class="col-4 col-md-4">
+                          <div>Ciudad: Valparaiso</div>
+                          <div>Email: test@gmail.com</div>
+                          <div>Contacto: +56 9 4587 5241</div>
+                          <div>Fecha Emisión: 25-08-2022</div>
+                        
+                      </div>
+    
+                    </div>
+    
+                    <div class="table-responsive-sm">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="2%" class="center">#</th>
+                                    <th scope="col" width="20%">Tarifa</th>
+                                    <th scope="col" class="d-none d-sm-table-cell" width="30%">Descripción</th>
+    
+                  
+                                    <th scope="col" width="10%" class="text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr *ngFor="let item of detalles">
+                                    <td class="text-left">1</td>
+                                    <td class="item_name">{{item.tnombre}}</td>
+                                    <td class="item_desc d-none d-sm-table-cell"> {{item.tnombre}}</td>
+                                    <td class="text-right">${{item.tvalore | number}}</td>
+                                  
+                                </tr>
+                               
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-5">
+                        </div>
+    
+                        <div class="col-lg-4 col-sm-5 ml-auto">
+                            <table class="table table-sm table-clear">
+                                <tbody>
+                                    <tr>
+                                        <td class="left">
+                                            <strong>Total Neto</strong>
+                                        </td>
+                                        <td class="text-right bg-light">${{total |number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left">
+                                            <strong>I.V.A (19%)</strong>
+                                        </td>
+                                        <td class="text-right bg-light">${{iva |number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left">
+                                            <strong>Total Bruto</strong>
+                                        </td>
+                                        <td class="text-right bg-light">${{bruto |number}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+    
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+   
+  
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" >Confirmar</button>
+      <button type="button" class="btn btn-secondary"  (click)="cerrarModal()" data-bs-dismiss="modal">Cerrar</button>
+    </div>
+   </form>
+  </div>

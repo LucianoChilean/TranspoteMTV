@@ -28,6 +28,15 @@ export class DetalleService {
 
   }
 
+  getAllDetalles(): Observable<Detalle[]>{
+
+    return this.http.get<FetchAllResponse>(`${base_url}/detalles`)
+    .pipe(
+      map(this.transform)
+    );
+
+  }
+
 
   private transform( resp: FetchAllResponse ) {
 
@@ -45,7 +54,11 @@ export class DetalleService {
       Puerto: detalles.Puerto,
       pname: detalles.Puerto.nombre,
       Direccion: detalles.Direccion,
-      dname: detalles.Direccion.direccion
+      dname: detalles.Direccion.direccion,
+      Despacho: detalles.Despacho,
+      guia: detalles.Despacho.numero,
+      idClient: detalles.Despacho.cliente_id,
+      estado: detalles.estado
      }
     })
 

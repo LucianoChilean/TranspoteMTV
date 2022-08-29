@@ -18,7 +18,7 @@ const getTarifaDetalleByDid = async(req, res = response) =>{
 
     const tarifadetalles = await Tarifadetalle.findAll({
        include:[{model:Tarifa,
-            attributes:['nombre','valor_externo']
+            attributes:['nombre','valor_externo','valor_interno']
         }],
         where:{
             detalle_id : id

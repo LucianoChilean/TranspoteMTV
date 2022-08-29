@@ -2,6 +2,7 @@ const {request,response} = require('express');
 const Detalle = require('../models/detalle');
 const Puerto = require('../models/puerto');
 const Direccion = require('../models/direccion');
+const Despacho = require('../models/despacho');
 
 
 const getDetalleByDespacho = async (req, res = response) =>{
@@ -13,6 +14,9 @@ const getDetalleByDespacho = async (req, res = response) =>{
             attributes:['nombre']},
             {model: Direccion,
             attributes: ['direccion']
+             },{
+                model:Despacho,
+                attributes:['numero','cliente_id']
              }],         
         where:{
             despacho_id : id
@@ -30,6 +34,9 @@ const getDetalles = async(req, res = response) =>{
             attributes:['nombre']},
             {model: Direccion,
             attributes: ['direccion']
+             },{
+                model:Despacho,
+                attributes:['numero','cliente_id']
              }]
     });
 
@@ -51,13 +58,13 @@ const getDetalle = async(req, res = response) =>{
 const postDetalle = async(req, res = response) => {
 
    
-    const {descripcion,tipo,peso,fecha_retiro,tarjeton,fecha_entrega,devolucion,despacho_id,puerto_id,direccion_id} = req.body;
+    const {descripcion,tipo,peso,fecha_retiro,tarjeton,fecha_entrega,devolucion,estado='Proceso',despacho_id,puerto_id,direccion_id} = req.body;
 
-    const detalle = Detalle.build({descripcion,tipo,peso,fecha_retiro,tarjeton,fecha_entrega,devolucion,despacho_id,puerto_id,direccion_id});
+    const detalle = Detalle.build({descripcion,tipo,peso,fecha_retiro,tarjeton,fecha_entrega,devolucion,estado,despacho_id,puerto_id,direccion_id});
 
     await detalle.save();
     
-    res.json({detalle})
+    res.json(detalle.detalle_id);
 
 }
 

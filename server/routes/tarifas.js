@@ -18,7 +18,8 @@ const {
      postTarifa, 
      putTarifa, 
      deleteTarifa,
-     getTarifaIn} = require('../controller/tarifas');
+     getTarifaIn,
+     getTarifasByEstado} = require('../controller/tarifas');
 
 const router = Router();
 
@@ -28,6 +29,8 @@ router.get('/',[validarJWT],getTarifas);
 router.get('/:id',[validarJWT],getTarifa);
 
 router.get('/In',[validarJWT],getTarifaIn);
+
+router.get('/byEstado/:estado',[validarJWT],getTarifasByEstado);
 
 router.post('/',[validarJWT],postTarifa);
 

@@ -4,7 +4,7 @@
             <div class="sb-sidenav-menu">
                 <div *ngFor="let item of usermodulos" class="nav">
                
-                    <div *ngIf="item.padre === 'Inicio'"
+                    <div *ngIf="ocultaInicio"
                     class="sb-sidenav-menu-heading">Inicio</div>
                     <a *ngIf="item.nombre_modulo === 'Dashboard'" 
                     class="nav-link puntero" 
@@ -21,7 +21,7 @@
                  
                
 
-                    <div *ngIf="item.padre === 'Supervision'" class="sb-sidenav-menu-heading">Supervision</div>
+                    <div *ngIf="ocultaSupervisor" class="sb-sidenav-menu-heading">Supervision</div>
                     <a *ngIf="item.nombre_modulo === 'Clientes'" 
                        class="nav-link puntero" 
                        routerLink="cliente">
@@ -61,19 +61,19 @@
                </a>
                    
                   
-                    <div *ngIf="item.padre === 'Administrador'" class="sb-sidenav-menu-heading">Administrar</div>
+                    <div *ngIf="ocultaAdministrador" class="sb-sidenav-menu-heading">Administrar</div>
                     <a *ngIf="item.nombre_modulo === 'Usuarios'"  
                        class="nav-link puntero" 
                        routerLink="usuarios">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                        Usuarios
+                        {{item.nombre_modulo}}
                     </a>
 
                     <a *ngIf="item.nombre_modulo === 'Tarifas'"  
                        class="nav-link puntero" 
                        routerLink="tarifa">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                        Tarifas
+                        {{item.nombre_modulo}}
                     </a>
                 
                 </div>

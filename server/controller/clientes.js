@@ -17,9 +17,13 @@ const getCliente = async(req, res = response) =>{
    
     const {id} = req.params;
 
-    const cliente = await Cliente.findByPk(id);
+    const clientes = await Cliente.findAll({
+        where:{
+            cliente_id:id
+        }
+    });
 
-    res.json({cliente});
+    res.json({clientes});
 
 }
 

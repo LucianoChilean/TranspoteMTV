@@ -1,7 +1,9 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
+
 
 
 @Injectable({
@@ -11,6 +13,7 @@ export class TokenInterceptorService implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
+    
 
    const headers = new HttpHeaders({
         'Authorization': localStorage.getItem('token') || ''
@@ -48,7 +51,7 @@ export class TokenInterceptorService implements HttpInterceptor{
       reverseButtons: true
     })
 
-   
+ 
    
     return throwError('error personalizado');
   }

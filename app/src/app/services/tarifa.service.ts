@@ -40,6 +40,15 @@ export class TarifaService {
       );
   
     }
+
+    getTarifasByEstado(): Observable<Tarifa[]>{
+
+      return this.http.get<FetchAllResponse>(`${base_url}/tarifas/byEstado/1`)
+      .pipe(
+        map(this.transform)
+      );
+  
+    }
   
   
     private transform( resp: FetchAllResponse ) {

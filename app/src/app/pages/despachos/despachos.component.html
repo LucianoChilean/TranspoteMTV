@@ -165,7 +165,7 @@
                               class="btn btn-outline-secondary"
                               data-bs-toggle="modal"
                               data-bs-target="#detalle"
-                              (click)="goToLoadModal(true,despacho.despacho_id,despacho.Cliente.cliente_id)">Detalle</button>
+                              (click)="goToLoadModal(true,despacho.despacho_id,despacho.Cliente.cliente_id,despacho.numero)">Detalle</button>
                              
 
                               <button *ngIf="despacho.estado == 'Proceso'"
@@ -193,7 +193,9 @@
 
                     </tbody>
                 </table>
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                <pagination-controls (pageChange)="p = $event"
+                previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
                 
   <br>
             </div>
@@ -208,7 +210,8 @@
           *ngIf="ocultarModalDetalle" 
           [idDetails]="idDetalle" 
           [idCliente]="idCliente" 
-          (cerrar)="goToLoadModal($event,0,0)">
+          [guia]="guia"
+          (cerrar)="goToLoadModal($event,0,0,'')">
         </app-modal-detalle>
        </div>
     </div>
