@@ -1,8 +1,16 @@
 
+ <div class="container-fluid px-2">
+  <h1 class="mt-4">Facturación</h1>
+  <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a routerLink="dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item active">Facturación</li>
+  </ol>
+
+
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
-       Despachos
+       Facturacion
     </div>
     
     <div class="card-body">
@@ -16,75 +24,44 @@
         <br>
         <table class="table table-bordered">
             <thead>
-                <tr>
-                    <th  scope="col">Guia</th>
-                    <th  scope="col">Descripcion</th>
-                    <th  scope="col">nave</th>
-                    <th  scope="col">Puerto</th>
-                    <th  scope="col">Conductor</th>
-                    <th  scope="col">Cliente</th>
-                    <th  scope="col">Estado</th>
-                    <th  scope="col">Ver</th>
-                  
-                </tr>
+              <tr>
+                <th  scope="col">N° Despacho</th>
+                <th  scope="col">Descripcion</th>
+                <th  scope="col">Tipo</th>
+                <th  scope="col">Peso</th>
+                <th  scope="col">Fecha retiro</th>
+                <th  scope="col">Fecha entrega</th>
+                <th  scope="col">Puerto Devolución</th>
+                <th  scope="col">Dirección Entrega</th>
+                <th  scope="col">Estado</th>
+            </tr>
             </thead>
             
             <tbody>
-                <tr *ngFor="let despacho of despachos ">
-                    <td>{{ despacho.numero}}</td>
-                    <td>{{ despacho.descripcion}}</td>
-                    <td>{{ despacho.nave}}</td>
-                    <td>{{ despacho.Puertonombre}}</td>
-                    <td>{{ despacho.cname}}</td>
-                    <td>{{ despacho.cliname}}</td>
-                    <td *ngIf="despacho.estado == 'Finalizado'"><span class="badge bg-success" >{{ despacho.estado}}</span></td>
-                    <td *ngIf="despacho.estado == 'Proceso'" ><span class="badge bg-warning">{{ despacho.estado}}</span></td>
-                    <td *ngIf="despacho.estado == 'Confirmado'" ><span class="badge bg-info">{{ despacho.estado}}</span></td>
-                    <td>
-                       
-                      <button 
-                      type="button" 
-                      class="btn btn-outline-info"
-                      data-bs-toggle="modal"
-                      data-bs-target="#factura"
-                      >PreFactura</button>
-                    
-                  
-                </td>
-                </tr>
+              <tr *ngFor="let item of detalles  | paginate:{itemsPerPage: 5, currentPage: p}">
+                <td>{{ item.guia}}</td>
+                <td>{{ item.descripcion}}</td>
+                <td>{{ item.tipo}}</td>
+                <td>{{ item.peso}}</td>
+                <td>{{ item.fecha_retiro}}</td>
+                <td>{{ item.fecha_entrega}}</td>
+                <td>{{ item.pname}}</td>
+                <td>{{ item.dname}}</td>
+                <td>{{ item.estado}}</td>
+               
+            </tr>
     
             </tbody>
         </table>
-    
+        <pagination-controls (pageChange)="p = $event"
+        previousLabel="Anterior"
+            nextLabel="Siguiente"></pagination-controls>
         
     <br>
     
     </div>
     </div>
+  </div>
       
       
-      
-        <!-- Modal -->
-    <div class="modal fade" id="factura" tabindex="-1" aria-labelledby="costosModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form 
-            autocomplete="off" 
-            id="TarifaForm">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Detalle Factura</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="form-check form-switch">
-              
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Confirmar</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-           </form>
-          </div>
-        </div>
-      </div>
+        

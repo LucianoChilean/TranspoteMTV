@@ -37,6 +37,15 @@ export class DetalleService {
 
   }
 
+  getDetallesByEstado(estado:string): Observable<Detalle[]>{
+
+    return this.http.get<FetchAllResponse>(`${base_url}/detalles/estado/${estado}`)
+    .pipe(
+      map(this.transform)
+    );
+
+  }
+
 
   private transform( resp: FetchAllResponse ) {
 
@@ -77,5 +86,9 @@ export class DetalleService {
  EditaDetalle(id:number,detalles:object){
    return this.http.put(`${base_url}/detalles/${id}`,detalles);
 }
+
+ EditaEstado(id:number,detalles:object){
+  return this.http.put(`${base_url}/detalles/despacho/${id}`,detalles);
+ }
 
 }

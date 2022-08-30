@@ -141,7 +141,6 @@
                             <th  scope="col">Puerto</th>
                             <th  scope="col">Conductor</th>
                             <th  scope="col">Cliente</th>
-                            <th  scope="col">Estado</th>
                             <th  scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -154,8 +153,6 @@
                             <td>{{ despacho.Puertonombre}}</td>
                             <td>{{ despacho.cname}}</td>
                             <td>{{ despacho.cliname}}</td>
-                            <td *ngIf="despacho.estado == 'Finalizado'"><span class="badge bg-success" >{{ despacho.estado}}</span></td>
-                            <td *ngIf="despacho.estado == 'Proceso'" ><span class="badge bg-warning">{{ despacho.estado}}</span></td>
                             <td>
                               <div 
                               class="btn-group" 

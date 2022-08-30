@@ -11,6 +11,7 @@ import { Puerto } from 'src/app/interfaces/puerto.interface';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ConductorService } from 'src/app/services/conductor.service';
 import { DespachoService } from 'src/app/services/despacho.service';
+import { DetalleService } from 'src/app/services/detalle.service';
 
 import { PuertoService } from 'src/app/services/puerto.service';
 
@@ -53,6 +54,10 @@ export class DespachosComponent implements OnInit {
     cliente_id: 0
   }
 
+  public Detalle = {
+    estado: ''
+  }
+
  
   public despachoForm = this.fb.group({
     guia:['',Validators.required],
@@ -69,6 +74,7 @@ export class DespachosComponent implements OnInit {
     private puerto:PuertoService,
     private conductor:ConductorService,
     private cliente:ClienteService,
+    private detalle:DetalleService,
     private fb:FormBuilder
   ) { }
 
@@ -229,6 +235,11 @@ export class DespachosComponent implements OnInit {
           'success'
         )
         despacho.estado = 'Finalizado';
+        this.Detalle.estado = 'Despachado';
+        this.detalle.EditaEstado(despacho.despacho_id,this.Detalle)
+        .subscribe(detail =>{
+          console.log(detail)
+        })
         this.despacho.EditaDespacho(despacho.despacho_id,despacho)
         .subscribe((despacho) =>{
           this.getDespachos();

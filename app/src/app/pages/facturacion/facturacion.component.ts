@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Despacho } from 'src/app/interfaces/despacho.interafece';
-import { DespachoService } from 'src/app/services/despacho.service';
+import { Detalle } from 'src/app/interfaces/detalle.interface';
+import { DetalleService } from 'src/app/services/detalle.service';
 
 @Component({
   selector: 'app-facturacion',
@@ -10,29 +9,27 @@ import { DespachoService } from 'src/app/services/despacho.service';
 })
 export class FacturacionComponent implements OnInit {
 
-  public despachos: Despacho[] = [];
+
+  public detalles: Detalle[] = [];
+  p: number = 1;
 
   constructor(
-    private despacho:DespachoService,
-    private fb:FormBuilder
+    private detalle:DetalleService,
   ) { }
 
   ngOnInit(): void {
 
-    this.getDespachos();
+    this.getAllDetalle();
 
   }
 
-  getDespachos(){
+  getAllDetalle(){
 
-    /*
-    this.despacho.GetDespachosByEstado('Confirmado').subscribe(
-      despachos =>{
-        this.despachos = despachos;
-      }
-    );
-*/
-
-}
+    this.detalle.getDetallesByEstado('Confirmado')
+    .subscribe(alldetalle=>{
+      this.detalles = alldetalle
+      console.log(this.detalles)
+    })
+  }
 
 }

@@ -27,6 +27,28 @@ const getDetalleByDespacho = async (req, res = response) =>{
 
 }
 
+const getDetalleByEstado = async (req, res = response) =>{
+    
+    const {estado} = req.params;
+
+    const detalles = await Detalle.findAll({
+        include: [{ model: Puerto, 
+            attributes:['nombre']},
+            {model: Direccion,
+            attributes: ['direccion']
+             },{
+                model:Despacho,
+                attributes:['numero','cliente_id']
+             }],         
+        where:{
+            estado : estado
+        }
+    });
+
+    res.json({detalles});
+
+}
+
 const getDetalles = async(req, res = response) =>{
 
     const detalles = await Detalle.findAll({
@@ -97,6 +119,32 @@ const putDetalle = async(req,res = response) => {
 
 }
 
+const putDetalleByDespacho = async(req, res = response) =>{
+
+    const {id} = req.params;
+    const {estado} = req.body;
+
+    try {
+        const detalle = await Detalle.update({ 
+            estado:estado
+            },
+            {
+                where:{
+                despacho_id:id
+            }
+        })
+
+        res.json(detalle);
+
+    } catch (error) {
+        console.log(error);
+        res.status(505).json({
+            msg:'Hable con el administrador'
+        })
+    }
+
+} 
+
 const deleteDetalle = async(req, res = response) =>{
 
     const {id} = req.params;
@@ -125,4 +173,6 @@ module.exports = {getDetalles,
     postDetalle,
     putDetalle,
     deleteDetalle,
-    getDetalleByDespacho}
+    getDetalleByDespacho,
+    putDetalleByDespacho,
+    getDetalleByEstado}

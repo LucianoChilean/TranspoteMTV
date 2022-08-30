@@ -2,6 +2,7 @@ import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Outpu
 import { Cliente } from 'src/app/interfaces/cliente.interface';
 import { TarifaDetalle } from 'src/app/interfaces/tarifasdespacho.interface';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { DetalleService } from 'src/app/services/detalle.service';
 import { TarifadespachoService } from 'src/app/services/tarifadespacho.service';
 
 
@@ -26,8 +27,13 @@ export class ModalPrefacturaComponent implements OnInit {
 
   @Output() cerrar = new EventEmitter<boolean>();
 
+  public Detalle = {
+    estado:''
+  }
+
   constructor(
     private tarifad:TarifadespachoService,
+    private detalle:DetalleService,
     private client:ClienteService
   ) { }
 
@@ -59,6 +65,15 @@ export class ModalPrefacturaComponent implements OnInit {
     .subscribe((cliente) =>{
     this.clientes = cliente
       console.log(this.clientes)
+    })
+  }
+
+  confirmaFactura(){
+    this.Detalle.estado = 'Confirmado';
+    this.Estado = 'Confirmado';
+    this.detalle.EditaDetalle(this.idDetails,this.Detalle)
+    .subscribe(detail =>{
+      console.log(detail)
     })
   }
 
