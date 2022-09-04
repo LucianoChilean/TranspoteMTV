@@ -41,8 +41,8 @@
                 <td>{{ item.descripcion}}</td>
                 <td>{{ item.tipo}}</td>
                 <td>{{ item.peso}}</td>
-                <td>{{ item.fecha_retiro}}</td>
-                <td>{{ item.fecha_entrega}}</td>
+                <td>{{ item.fecha_retiro | date:'dd-MM-yyyy HH:mm'}}</td>
+                <td>{{ item.fecha_entrega | date:'dd-MM-yyyy HH:mm'}}</td>
                 <td>{{ item.pname}}</td>
                 <td>{{ item.dname}}</td>
                 <td>{{ item.estado}}</td>

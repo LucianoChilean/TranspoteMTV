@@ -37,12 +37,12 @@ const Conductor = db.define('conductor',{
     imagen:{
         type: DataTypes.STRING(255)
     },
-    propietario_rut:{
+    propietario_id:{
         type: DataTypes.INTEGER.UNSIGNED
-    }/*,
+    },
     ingreso_id:{
         type: DataTypes.INTEGER.UNSIGNED
-    }*/
+    }
 
 });
  

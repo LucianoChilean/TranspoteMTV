@@ -12,8 +12,17 @@ const Tarifa = require('./tarifa');
 const Clientetarifa = require('./clientetarifa');
 const Tarifadespacho = require('./tarifadespacho');
 const Tarifadetalle = require('./tarifadetalle');
+const Vehiculo = require('./vehiculo');
+const Comuna = require('./comuna');
+const Region = require('./region');
+const Ingresos = require('./ingresos');
+const Rampla = require('./rampla');
 
+//Comuna
+Comuna.belongsTo(Region,{as:'RegionId',foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Region.hasMany(Comuna,{as:'RegionId',foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 
+//Usuario
 Usuario.belongsTo(Rol,{as:'rolId', foreignKey : "rol_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 Rol.hasMany(Usuario,{as:'rolId', foreignKey : "rol_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 
@@ -73,5 +82,23 @@ Cliente.hasMany(Direccion, { foreignKey: "cliente_id",onDelete: 'NO ACTION',onUp
 
 
 //Relacion de conductor consigo mismo
-Conductor.belongsTo(Conductor,{ foreignKey: "propietario_rut",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
-Conductor.hasMany(Conductor,{foreignKey: "propietario_rut",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Conductor.belongsTo(Conductor,{ foreignKey: "propietario_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Conductor.hasMany(Conductor,{foreignKey: "propietario_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+//Vehiculo 
+
+Vehiculo.belongsTo(Conductor,{ foreignKey: "conductor_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Conductor.hasMany(Vehiculo, { foreignKey: "conductor_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Vehiculo.belongsTo(Conductor,{ foreignKey: "propietario_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Conductor.hasMany(Vehiculo, { foreignKey: "propietario_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Vehiculo.belongsTo(Rampla,{as:"ramplaId", foreignKey: "rampla_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Rampla.hasMany(Vehiculo, {as:"ramplaId", foreignKey: "rampla_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Ingresos.belongsTo(Conductor,{ foreignKey: "ingreso_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Conductor.hasMany(Ingresos, { foreignKey: "ingreso_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+
+Ingresos.belongsTo(Puerto,{as:"puertoId", foreignKey: "puerto_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Puerto.hasMany(Ingresos, {as:"puertoId", foreignKey: "puerto_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
