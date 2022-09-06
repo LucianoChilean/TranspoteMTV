@@ -17,6 +17,7 @@ const Comuna = require('./comuna');
 const Region = require('./region');
 const Ingresos = require('./ingresos');
 const Rampla = require('./rampla');
+const Tipocliente = require('./tipo_cliente');
 
 //Comuna
 Comuna.belongsTo(Region,{as:'RegionId',foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
@@ -102,3 +103,6 @@ Conductor.hasMany(Ingresos, { foreignKey: "ingreso_id",onDelete: 'NO ACTION',onU
 
 Ingresos.belongsTo(Puerto,{as:"puertoId", foreignKey: "puerto_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 Puerto.hasMany(Ingresos, {as:"puertoId", foreignKey: "puerto_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Cliente.belongsTo(Tipocliente,{ foreignKey: "tipo_cliente_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Tipocliente.hasMany(Cliente, { foreignKey: "tipo_cliente_id",onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});

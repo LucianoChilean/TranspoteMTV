@@ -53,7 +53,10 @@ class Server{
         tarifasDet:   '/api/tarifasdet',
         modulos:      '/api/modulos',
         asignaciones: '/api/asignaciones',
-        roles:        '/api/roles'
+        roles:        '/api/roles',
+        tclientes:    '/api/tipos_clientes',
+        region:       '/api/regiones',
+        comuna:       '/api/comunas',
        };
 
        this.connectDB();
@@ -65,7 +68,7 @@ class Server{
    async connectDB(){
      try {
         await db.authenticate();
-        await db.sync({force:true}); 
+        //await db.sync({force:true}); 
          //await db.sync();
      }catch(e){
         console.log(e)
@@ -100,6 +103,9 @@ class Server{
         this._app.use(this.paths.modulos,require('../routes/modulos'));
         this._app.use(this.paths.asignaciones,require('../routes/asignaciones'));
         this._app.use(this.paths.roles,require('../routes/roles'));
+        this._app.use(this.paths.tclientes,require('../routes/tipocliente'));
+        this._app.use(this.paths.region,require('../routes/region'));
+        this._app.use(this.paths.comuna,require('../routes/comuna'));
         this._app.use(this.paths.swagger,swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 
