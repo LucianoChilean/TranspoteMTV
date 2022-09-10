@@ -57,6 +57,8 @@ class Server{
         tclientes:    '/api/tipos_clientes',
         region:       '/api/regiones',
         comuna:       '/api/comunas',
+        vehiculo:     '/api/vehiculos',
+        rampla:       '/api/ramplas',
        };
 
        this.connectDB();
@@ -106,6 +108,8 @@ class Server{
         this._app.use(this.paths.tclientes,require('../routes/tipocliente'));
         this._app.use(this.paths.region,require('../routes/region'));
         this._app.use(this.paths.comuna,require('../routes/comuna'));
+        this._app.use(this.paths.vehiculo, require('../routes/vehiculos'));
+        this._app.use(this.paths.rampla, require('../routes/ramplas'));
         this._app.use(this.paths.swagger,swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 

@@ -62,14 +62,22 @@ const getTarifaIn = async(req, res = response) => {
 
 const postTarifa = async(req, res = response) => {
 
-    const {body} = req;
-
-    const dataIn = {
-        ...body,
-        estado:true
-    }
+    const {nombre,
+           descripcion,
+           regla,
+           costo,
+           estado = 1,
+           valor_interno,
+           valor_externo} = req.body;
  
-    const tarifa = Tarifa.build(dataIn);
+    const tarifa = Tarifa.build({
+        nombre,
+        descripcion,
+        regla,
+        costo,
+        estado,
+        valor_interno,
+        valor_externo});
 
     await tarifa.save();
     

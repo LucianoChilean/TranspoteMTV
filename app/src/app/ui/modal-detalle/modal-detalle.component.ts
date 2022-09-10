@@ -191,7 +191,7 @@ export class ModalDetalleComponent implements OnInit {
   GuardarTarifa(id:any){
   
    const checkArray: FormArray = this.tForm.get('checkArray') as FormArray;
-   checkArray.push(new FormControl('15'));
+   //checkArray.push(new FormControl('15'));
 
    //Agregar if para ver si devolución es cruzada
 

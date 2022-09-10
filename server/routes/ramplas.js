@@ -30,3 +30,6 @@ router.post('/',[validarJWT],postRampla);
 router.put('/:id',[validarJWT],putRampla);
 
 router.delete('/:id',[validarJWT],deleteRampla);
+
+
+module.exports = router;

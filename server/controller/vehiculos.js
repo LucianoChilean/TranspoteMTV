@@ -30,10 +30,9 @@ const getVehiculo = async(req, res = response) =>{
 const postVehiculo = async(req, res = response) => {
 
    
-    const {rut,nombre,giro,tipo_cliente_id = 1,direccion} = req.body;
+    const {patente,tipo_vehiculo= 'Camion',descripcion,year,chasis,motor,imagen,conductor_id,propietario_id,rampla_id} = req.body;
 
-    const vehiculo = Vehiculo.build({rut,nombre,giro,tipo_cliente_id,direccion});
-
+    const vehiculo = Vehiculo.build({patente,tipo_vehiculo,descripcion,year,chasis,motor,imagen,conductor_id,propietario_id,rampla_id});
 
     await vehiculo.save();
     
@@ -45,7 +44,7 @@ const postVehiculo = async(req, res = response) => {
 const putVehiculo = async(req,res = response) => {
 
     const {id} = req.params;
-    const {rut,nombre,giro,tipo_cliente_id = 1,direccion} = req.body;
+    const {patente,tipo_vehiculo,descripcion,year,chasis,motor,imagen,conductor_id,propietario_id,rampla_id} = req.body;
  
     try{
 
@@ -57,7 +56,18 @@ const putVehiculo = async(req,res = response) => {
         }
 
 
-        await vehiculo.update({rut,nombre,giro,tipo_cliente_id,direccion});
+        await vehiculo.update({
+            patente,
+            tipo_vehiculo,
+            descripcion,
+            year,
+            chasis,
+            motor,
+            imagen,
+            conductor_id,
+            propietario_id,
+            rampla_id
+        });
 
         res.json(vehiculo);
         

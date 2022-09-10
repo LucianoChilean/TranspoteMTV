@@ -36,6 +36,7 @@ export class SidebarComponent implements OnInit {
     this.modules.getUserModule(this.id)
     .subscribe(modulos =>{
      this.usermodulos = modulos
+     console.log(this.usermodulos)
     })
 
 

@@ -40,8 +40,8 @@ const getTarifaDetalle = async(req, res = response) => {
 
 const postTarifaDetalle = async(req, res = response) => {
 
-    const {body} = req;
-    const tarifadetalle = Tarifadetalle.build(body);
+    const {detalle_id,tarifa_id} = req.body;
+    const tarifadetalle = Tarifadetalle.build({detalle_id,tarifa_id});
 
     await tarifadetalle.save();
     

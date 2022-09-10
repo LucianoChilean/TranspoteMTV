@@ -14,6 +14,9 @@ import { ConductorComponent } from './conductor/conductor.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { PuertoComponent } from './puerto/puerto.component';
+import { ProveedorComponent } from './proveedor/proveedor.component';
+import { RolesComponent } from './roles/roles.component';
+import { ModulosComponent } from './modulos/modulos.component';
 
 
 
@@ -33,10 +36,11 @@ const routes: Routes = [
             { path: 'cliente', component: ClienteComponent, data: { titulo: 'Cliente' }},
             { path: 'vehiculos', component: VehiculosComponent, data: { titulo: 'Vehiculos' }},
             { path: 'tarifa', component: TarifaComponent, data: { titulo: 'Tarifa' }},
-            { path: 'puerto', component: PuertoComponent, data: { titulo: 'Puerto' }}
-
-        
-        ]
+            { path: 'puerto', component: PuertoComponent, data: { titulo: 'Puerto' }},
+            { path: 'proveedores', component: ProveedorComponent, data: {titulo: 'Proveedores'}},
+            { path: 'roles', component: RolesComponent, data : {titulo:'Roles'}},
+            { path: 'modulos', component: ModulosComponent, data : {titulo: 'Modulos'}},
+        ],
     },
 ];
 

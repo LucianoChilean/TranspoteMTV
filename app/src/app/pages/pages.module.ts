@@ -19,6 +19,9 @@ import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { SharedUiModule } from '../ui/shared-ui.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PuertoComponent } from './puerto/puerto.component';
+import { ProveedorComponent } from './proveedor/proveedor.component';
+import { RolesComponent } from './roles/roles.component';
+import { ModulosComponent } from './modulos/modulos.component';
 
 
 
@@ -36,7 +39,10 @@ import { PuertoComponent } from './puerto/puerto.component';
     ClienteComponent,
     ConductorComponent,
     VehiculosComponent,
-    PuertoComponent
+    PuertoComponent,
+    ProveedorComponent,
+    RolesComponent,
+    ModulosComponent
   ],
   exports: [
     PagesComponent,

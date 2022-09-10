@@ -47,7 +47,7 @@
                          <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
                          {{item.nombre_modulo}}
                     </a>
-                    <a *ngIf="item.nombre_modulo === 'Facturación'"  
+                    <a *ngIf="item.nombre_modulo === 'Facturacion'"  
                        class="nav-link puntero" 
                        routerLink="facturacion">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
@@ -59,6 +59,13 @@
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-ferry"></i></div>
                     {{item.nombre_modulo}}
                </a>
+               <a  *ngIf="item.nombre_modulo === 'Proveedores'" 
+               class="nav-link puntero" 
+               routerLink="proveedores">
+             <div class="sb-nav-link-icon"><i class="fa-solid fa-ferry"></i></div>
+              {{item.nombre_modulo}}
+                </a>
+                
                    
                   
                     <div *ngIf="ocultaAdministrador" class="sb-sidenav-menu-heading">Administrar</div>
@@ -75,6 +82,13 @@
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                         {{item.nombre_modulo}}
                     </a>
+
+                    <a  *ngIf="item.nombre_modulo === 'Roles'" 
+               class="nav-link puntero" 
+               routerLink="roles">
+             <div class="sb-nav-link-icon"><i class="fa-solid fa-ferry"></i></div>
+                Roles
+                </a>
                 
                 </div>
             </div>
