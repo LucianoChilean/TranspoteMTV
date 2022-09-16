@@ -12,43 +12,139 @@
           <i class="fas fa-table me-1"></i>
          Vehiculo
       </div>
+
+      <div class="card-body">
+
+        <form
+      id="VehiculosForm"
+      [formGroup]="vehiculosForm"
+      autocomplete="off" >
+          <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label>Patente</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Patente"
+                formControlName="patente">
+               
+                 
+            </div>
+          
+            <div class="form-group col-md-3 col-lg-3">
+              <label>Chasis</label>
+              <input 
+              type="text" 
+              name="descripcion"
+              class="form-control"
+              placeholder="chasis"
+              formControlName="chasis">  
+             </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="inputnave">Motor</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="motor"
+              formControlName="motor">
+            </div>
+
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="SelectFormConductor">Año</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="año de motor"
+              formControlName="year">
+            </div>
+
+          </div>
+         
+          <div class="row">
+
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormConductor">Tipo Vehiculo</label>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Escriba el tipo de vehiculo"
+            formControlName="tipo_vehiculo">
+          </div>
+
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormCliente">Imagen</label>
+            <input 
+            (change)="getFile($event)"
+            type="file" 
+            class="form-control" 
+            formControlName="imagen">
+          </div>
+
+          <div class="form-group col-md-3 col-lg-3">
+            <br>
+          <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
+          <div  *ngIf="ocultarEditar">
+          <button  type="button"  class="btn btn-primary" >Editar</button>
+          &nbsp;
+          <button  type="button"  class="btn btn-danger">Cancelar</button>
+          </div>
+          </div>
+
+          
+          </div>
+        </form>
+        
+      </div>
       
       <div class="card-body">
       
-          <input type="text"
-          class="form-control col-lg-3"
-          placeholder="Buscar guia por descripcion" 
-          #txtbuscar
-         />
           <br>
           <br>
           <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th  scope="col">N° Despacho</th>
-                  <th  scope="col">Descripcion</th>
-                  <th  scope="col">Tipo</th>
-                  <th  scope="col">Peso</th>
-                  <th  scope="col">Fecha retiro</th>
-                  <th  scope="col">Fecha entrega</th>
-                  <th  scope="col">Puerto Devolución</th>
-                  <th  scope="col">Dirección Entrega</th>
-                  <th  scope="col">Estado</th>
+                  <th  scope="col">Patente</th>
+                  <th  scope="col">Chasis</th>
+                  <th  scope="col">Motor</th>
+                  <th  scope="col">Año</th>
+                  <th  scope="col">Tipo vehiculo</th>
+                  <th  scope="col">Acciones </th>
               </tr>
               </thead>
               
               <tbody>
-                <tr >
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 
+                <tr *ngFor="let item of vehiculos" >
+                  <td>{{item.patente}}</td>
+                  <td>{{item.chasis}}</td>
+                  <td>{{item.motor}}</td>
+                  <td>{{item.year}}</td>
+                  <td>{{item.tipo_vehiculo}}</td>
+                  <td>
+                    <div 
+                    class="btn-group" 
+                    role="group" aria-label="Button group with nested dropdown">
+                   
+                    <button 
+                    
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top"
+                    title="Editar"
+                    type="button" 
+                    class="btn btn-primary"
+                    ><i class="fa-solid fa-pen-to-square"></i></button>
+                    
+                    <button 
+                    
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top"
+                    title="Eliminar"
+                    type="button" 
+                    class="btn btn-danger"
+                    ><i class="fa-solid fa-eraser"></i></button>
+                  </div>
+
+                  </td>       
               </tr>
       
               </tbody>

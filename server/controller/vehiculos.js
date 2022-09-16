@@ -1,5 +1,7 @@
 const {request,response} = require('express');
 const Vehiculo = require('../models/vehiculo');
+const Conductor = require('../models/conductor');
+const Rampla = require('../models/rampla');
 
 
 

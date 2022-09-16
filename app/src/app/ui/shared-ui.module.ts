@@ -6,6 +6,7 @@ import { ModalPrefacturaComponent } from './modal-prefactura/modal-prefactura.co
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalAsignaConductorComponent } from './modal-asigna-conductor/modal-asigna-conductor.component';
 import { ModalAsignaVehiculoComponent } from './modal-asigna-vehiculo/modal-asigna-vehiculo.component';
+import { ModalCreateVehiculoComponent } from './modal-create-vehiculo/modal-create-vehiculo.component';
 
 
 
@@ -15,7 +16,8 @@ import { ModalAsignaVehiculoComponent } from './modal-asigna-vehiculo/modal-asig
     ModalDetalleComponent,
     ModalPrefacturaComponent,
     ModalAsignaConductorComponent,
-    ModalAsignaVehiculoComponent
+    ModalAsignaVehiculoComponent,
+    ModalCreateVehiculoComponent
   ],
   imports: [
     CommonModule,
