@@ -59,6 +59,7 @@ class Server{
         comuna:       '/api/comunas',
         vehiculo:     '/api/vehiculos',
         rampla:       '/api/ramplas',
+        uploads:      '/api/upload',
        };
 
        this.connectDB();
@@ -110,6 +111,7 @@ class Server{
         this._app.use(this.paths.comuna,require('../routes/comuna'));
         this._app.use(this.paths.vehiculo, require('../routes/vehiculos'));
         this._app.use(this.paths.rampla, require('../routes/ramplas'));
+        this._app.use(this.paths.uploads, require('../routes/uploads'));
         this._app.use(this.paths.swagger,swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 

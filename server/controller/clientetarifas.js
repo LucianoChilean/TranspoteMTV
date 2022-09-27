@@ -1,6 +1,7 @@
 const {response} = require('express');
 
 const Clientetarifa = require('../models/clientetarifa');
+const Tarifa = require('../models/tarifa');
 
 
 const getClientets = async(req, res = response) => {
@@ -15,7 +16,13 @@ const getClientet = async(req, res = response) => {
 
     const {id} = req.params;
 
-    const clientetarifa = await Clientetarifa.findByPk(id);
+    const clientetarifa = await Clientetarifa.findAll({
+        include:[{ model: Tarifa, 
+            attributes:['nombre']}] , 
+        where:{
+            cliente_id:id
+        }
+    });
 
     res.json({clientetarifa});
 

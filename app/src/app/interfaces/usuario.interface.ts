@@ -3,6 +3,7 @@ export interface FetchAllResponse{
     next: null;
     previus: null;
     usuarios: Usuario[];
+    roles: Rol[];
 }
 
 export interface Usuario {
@@ -16,4 +17,11 @@ export interface Usuario {
     rol_id: {
         nombre:string
     };
+}
+
+
+export interface Rol{
+    rol_id:number;
+    nombre:string;
+    descripcion:string;
 }

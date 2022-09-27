@@ -6,6 +6,8 @@ export interface FetchAllResponse{
 }
 
 export interface UserModule {
+    modulo_id:number;
+    asignacion_id:number;
     Modulo:{
         nombre:string,
         descripcion:string,

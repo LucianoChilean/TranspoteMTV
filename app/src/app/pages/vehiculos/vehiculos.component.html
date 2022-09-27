@@ -18,24 +18,25 @@
         <form
       id="VehiculosForm"
       [formGroup]="vehiculosForm"
+      (ngSubmit)="setVehiculo()"
       autocomplete="off" >
           <div class="row">
             <div class="form-group col-md-3 col-lg-3">
                 <label>Patente</label>
                 <input 
                 type="text" 
+                name="patente"
                 class="form-control" 
                 placeholder="Patente"
                 formControlName="patente">
-               
-                 
+
             </div>
           
             <div class="form-group col-md-3 col-lg-3">
               <label>Chasis</label>
               <input 
               type="text" 
-              name="descripcion"
+              name="chasis"
               class="form-control"
               placeholder="chasis"
               formControlName="chasis">  
@@ -73,14 +74,20 @@
           </div>
 
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormCliente">Imagen</label>
-            <input 
-            (change)="getFile($event)"
-            type="file" 
-            class="form-control" 
-            formControlName="imagen">
+            <label for="SelectFormCliente">Region</label>
+            <select  class="form-select">
+              <option value="0">Seleccione Región</option>
+            </select>
           </div>
 
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormCliente">Comuna</label>
+            <select  class="form-select">
+              <option value="0">Seleccione Comuna</option>
+            </select>
+          </div>
+
+    
           <div class="form-group col-md-3 col-lg-3">
             <br>
           <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
@@ -124,7 +131,21 @@
                     <div 
                     class="btn-group" 
                     role="group" aria-label="Button group with nested dropdown">
+
+                    <button 
+                    title="Editar"
+                    type="button" 
+                    class="btn btn-outline-dark"
+                    >Ver Ficha</button>
                    
+                    <button 
+                    title="Editar"
+                    type="button" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#vehiculo"
+                    class="btn btn-outline-secondary"
+                    (click)="goToLoadModal(true,item.vehiculo_id)"><i class="fa-solid fa-upload"></i></button>
+
                     <button 
                     
                     data-bs-toggle="tooltip" 
@@ -156,6 +177,15 @@
       </div>
       </div>
     </div>
-        
+
+
+    <div class="modal fade" id="vehiculo" tabindex="-1" aria-hidden="true" >
+      <div class="modal-dialog  modal-md">
+        <app-imagen-vehiculo
+        [idVehiculo]="idVehiculo"
+        (cerrar)="goToLoadModal($event,0)">
+        </app-imagen-vehiculo>
+      </div>
+   </div>
         
           

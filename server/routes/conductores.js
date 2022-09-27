@@ -16,13 +16,15 @@ const { getCondutores,
         getCondutor, 
         postCondutor, 
         putCondutor, 
-        deleteCondutor } = require('../controller/conductores');
+        deleteCondutor, 
+        getCondutoresByTipo} = require('../controller/conductores');
 
 const router = Router();
 
 
 router.get('/',[validarJWT],getCondutores);
 
+router.get('/tipo/:tipo',[validarJWT],getCondutoresByTipo);
 
  router.get('/:id',[validarJWT],getCondutor);
 

@@ -15,10 +15,13 @@ const Tarifa = db.define('Tarifa',{
         type: DataTypes.TEXT
     },
     regla:{
-        type : DataTypes.INTEGER.UNSIGNED
+        type : DataTypes.STRING(255)
     },
     costo:{
         type: DataTypes.INTEGER
+    },
+    codigo:{
+        type: DataTypes.STRING(155)
     },
     estado:{
         type: DataTypes.BOOLEAN

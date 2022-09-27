@@ -10,6 +10,12 @@ const Region = db.define('Region',{
     },
     nombre:{
         type: DataTypes.STRING,
+    },
+    orden:{
+        type: DataTypes.INTEGER
+    },
+    activo:{
+        type: DataTypes.INTEGER
     }
 });
 

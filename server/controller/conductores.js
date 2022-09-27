@@ -21,6 +21,21 @@ const getCondutores = async(req, res = response) =>{
 
 }
 
+const getCondutoresByTipo = async(req, res = response) =>{
+
+    const {tipo} = req.params;
+
+    const conductores = await Condutor.findAll({
+        where:{
+            tipo
+        }
+    });
+
+    res.json({conductores});
+
+
+}
+
 const getCondutor = async(req, res = response) =>{
 
     const {id} = req.params;
@@ -100,4 +115,5 @@ module.exports = {getCondutores,
                   getCondutor,
                   postCondutor,
                   putCondutor,
-                  deleteCondutor}
+                  deleteCondutor,
+                  getCondutoresByTipo}

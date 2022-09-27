@@ -34,6 +34,7 @@
                 <th  scope="col">Puerto Devolución</th>
                 <th  scope="col">Dirección Entrega</th>
                 <th  scope="col">Estado</th>
+                <th  scope="col">Acciones</th>
             </tr>
             </thead>
             
@@ -48,6 +49,18 @@
                 <td>{{ item.pname}}</td>
                 <td>{{ item.dname}}</td>
                 <td>{{ item.estado}}</td>
+                <td>
+                  <div 
+                  class="btn-group" 
+                  role="group" aria-label="Button group with nested dropdown">
+                  <button 
+                  type="button" 
+                  class="btn btn-outline-secondary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#detalle"
+                  >Guardar Factura</button>
+       
+                </div></td>
                
             </tr>
     

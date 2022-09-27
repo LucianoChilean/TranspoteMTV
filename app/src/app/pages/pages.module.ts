@@ -21,7 +21,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PuertoComponent } from './puerto/puerto.component';
 import { ProveedorComponent } from './proveedor/proveedor.component';
 import { RolesComponent } from './roles/roles.component';
-import { ModulosComponent } from './modulos/modulos.component';
 
 
 
@@ -42,7 +41,6 @@ import { ModulosComponent } from './modulos/modulos.component';
     PuertoComponent,
     ProveedorComponent,
     RolesComponent,
-    ModulosComponent
   ],
   exports: [
     PagesComponent,

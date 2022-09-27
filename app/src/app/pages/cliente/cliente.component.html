@@ -18,7 +18,7 @@
       [formGroup]="clienteForm"
       (ngSubmit)="setCliente()">
           <div class="row">
-            <div class="form-group col-md-2 col-lg-2">
+            <div class="form-group col-md-3 col-lg-3">
                 <label for="inputGuia">Nombre</label>
                 <input 
                 type="text" 
@@ -42,19 +42,33 @@
               formControlName="giro">
             </div>
 
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="SelectFormConductor">direccion</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                formControlName="direccion">
+            </div>
+  
+
           
           </div>
          
           <div class="row">
 
-          <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormConductor">direccion</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              formControlName="direccion">
-          </div>
-
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="SelectFormCliente">Region</label>
+              <select  class="form-select">
+                <option value="0">Seleccione Región</option>
+              </select>
+            </div>
+  
+            <div class="form-group col-md-3 col-lg-3">
+              <label for="SelectFormCliente">Comuna</label>
+              <select  class="form-select">
+                <option value="0">Seleccione Comuna</option>
+              </select>
+            </div>
         
 
           <div class="form-group col-md-3 col-lg-3">
@@ -107,6 +121,19 @@
                             class="btn-group" 
                             role="group" aria-label="Button group with nested dropdown">
 
+                            <button 
+                            data-bs-toggle="modal"
+                            data-bs-target="#tarifas"
+                            type="button" 
+                            class="btn btn-outline-success"
+                            (click)="goToLoadModalTarifa(true,item.cliente_id)">Tarifas Cliente</button>
+
+                            <button 
+                            data-bs-toggle="modal"
+                            data-bs-target="#direcciones"
+                            type="button" 
+                            class="btn btn-outline-primary"
+                            (click)="goToLoadModalDirecciones(true,item.cliente_id)">Direcciones</button>
                        
                             <button 
                             (click)="getDataClient(item)"
@@ -138,3 +165,27 @@
           </div>
       </div>
   </div>
+
+
+
+  <div class="modal fade" id="tarifas" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog  modal-lg">
+      <app-tarifas-cliente
+      *ngIf="ocultarModalTarifa" 
+      [idClient]="idClient"
+      (cerrar)="goToLoadModalTarifa($event,0)">
+      </app-tarifas-cliente>
+    </div>
+ </div>
+
+
+ <div class="modal fade" id="direcciones" tabindex="-1" aria-hidden="true" >
+  <div class="modal-dialog  modal-lg">
+    <app-direcciones-cliente
+    *ngIf="ocultarModalDirecciones" 
+      [idClient]="idClient"
+      (cerrar)="goToLoadModalDirecciones($event,0)">
+    </app-direcciones-cliente>
+
+  </div>
+</div>

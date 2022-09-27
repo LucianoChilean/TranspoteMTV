@@ -19,7 +19,7 @@ const getComuna = async(req, res = response) =>{
 
     const comuna = await Comuna.findAll({
         where:{
-            comuna_id:id
+           region_id:id
         }
     });
 

@@ -1,1 +1,137 @@
-<p>roles works!</p>
+<div class="container-fluid px-2">
+    <h1 class="mt-4">Roles</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a routerLink="dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active">Roles</li>
+    </ol>
+
+      <div class="card mb-4">
+        <div class="card-header">
+          <i class="fas fa-table me-1"></i>
+         Formulario Registro
+      </div>
+        <div class="card-body">
+
+      <form
+      autocomplete="off" 
+      id="RolesForm"
+      [formGroup]="rolesForm"
+      (ngSubmit)="setRol()"
+      >
+          <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label for="inputGuia">Nombre Rol</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                placeholder="nombre del rol nuevo"
+                formControlName="nombre">
+            </div>
+
+            <div class="form-group col-md-6 col-lg-6">
+              <label for="inputGuia">Descripción</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Descripción"
+              formControlName="descripcion">
+          </div>
+
+      
+          
+          <div class="form-group col-md-3 col-lg-3">
+            <br>
+          <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
+          <div  *ngIf="ocultarEditar">
+          <button  type="button"  class="btn btn-primary" (click)="updateRol()" >Editar</button>
+          &nbsp;
+          <button  type="button"  class="btn btn-danger" (click)="cancelEdit()">Cancelar</button>
+          </div>
+          </div>
+
+          </div>
+
+        </form>
+        
+      </div>
+    </div>
+      
+        <br>
+        <br>
+      
+      <div class="card mb-4">
+          <div class="card-header">
+              <i class="fas fa-table me-1"></i>
+             Proveedores
+          </div>
+          
+          <div class="card-body">
+              <br>
+            <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th  scope="col">Rol</th>
+                          <th  scope="col"> Descripción</th>
+                          <th  scope="col">Acciones</th>
+                      </tr>
+                  </thead>
+                  
+                  <tbody>
+                      <tr *ngFor="let item of roles">
+                          <td>{{item.nombre}}</td>
+                          <td>{{item.descripcion}}</td>
+                          <td>
+                            <div 
+                            class="btn-group" 
+                            role="group" aria-label="Button group with nested dropdown">
+
+                            <button 
+                            data-bs-toggle="modal"
+                            data-bs-target="#modulo"
+                            title="Editar"
+                            type="button" 
+                            class="btn btn-outline-secondary"
+                            (click)="goToLoadModal(true,item.rol_id)">Modulos</button>
+                       
+                            <button 
+                            (click)="getRolActual(item)"
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top"
+                            title="Editar"
+                            type="button" 
+                            class="btn btn-primary"
+                            ><i class="fa-solid fa-pen-to-square"></i></button>
+                            
+                            <button 
+                            (click)="deleteRol(item.rol_id)"
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top"
+                            title="Eliminar"
+                            type="button" 
+                            class="btn btn-danger"
+                            ><i class="fa-solid fa-eraser"></i></button>
+                          </div></td>
+                      </tr>
+
+                  </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"
+              previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
+              
+<br>
+          </div>
+      </div>
+  </div>
+
+
+
+  <div class="modal fade" id="modulo" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog  modal-md">
+     <app-modal-modulos
+     *ngIf="ocultarModalModulo" 
+       [idRol]="idRol" 
+       (cerrar)="goToLoadModal($event,0)">
+     </app-modal-modulos>
+    </div>
+ </div>

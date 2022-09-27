@@ -1,6 +1,9 @@
 const {request,response} = require('express');
 
 const Direccion = require('../models/direccion');
+const Region = require('../models/region');
+const Comuna = require('../models/comuna');
+const Cliente = require('../models/cliente');
 
 
 const getDireccionbyCliente = async(req, res = response) =>{
@@ -8,10 +11,19 @@ const getDireccionbyCliente = async(req, res = response) =>{
     const {id} = req.params;
 
     const direcciones = await Direccion.findAll({
+     include: [{ model: Region, 
+        attributes:['region_id','nombre'] },
+        {model: Comuna,
+        attributes: ['comuna_id','nombre']},
+        {model: Cliente,
+        attributes: ['cliente_id','nombre']
+        }] ,
         where:{
             cliente_id: id
         }
     });
+
+    
 
     res.json({direcciones});
 

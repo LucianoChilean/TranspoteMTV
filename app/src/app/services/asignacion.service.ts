@@ -20,6 +20,14 @@ export class AsignacionService {
   ) { }
 
 
+  postAsignacion(assign:object){
+    return this.http.post(`${base_url}/asignaciones`,assign);
+  }
+
+  deleteAssign(id:number){
+    return this.http.delete(`${base_url}/asignaciones/${id}`);
+  }
+
   getUserModule(id:any): Observable<UserModule[]>{
     return this.http.get<FetchAllResponse>(`${base_url}/asignaciones/getModule/${id}`)
     .pipe(
@@ -33,6 +41,8 @@ export class AsignacionService {
     const usuariosList: UserModule[] = resp.usermodule.map( userm => {
  
      return{
+      modulo_id: userm.modulo_id,
+      asignacion_id: userm.asignacion_id,
       Modulo: userm.Modulo,
       nombre_modulo: userm.Modulo.nombre,
       descrip_modulo: userm.Modulo.descripcion,

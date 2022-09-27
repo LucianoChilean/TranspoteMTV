@@ -26,6 +26,14 @@ export class ConductorService {
 
   }
 
+  getConductorByTipo(tipo:string): Observable<Conductor[]>{
+    return this.http.get<FetchAllResponse>(`${base_url}/conductores/tipo/${tipo}`)
+    .pipe(
+      map(this.transform)
+    );
+
+  }
+
 
   private transform( resp: FetchAllResponse ) {
 

@@ -14,7 +14,9 @@ export class VehiculosComponent implements OnInit {
 
   public ocultarEditar : boolean = false;
   public ocultarRegistro : boolean = false;
-  private fileTmp:any;
+  public idVehiculo: number = 0;
+  public ocultarModalVehiculo : boolean = false;
+
 
   public vehiculosForm = this.fb.group({
     vehiculo_id:[''],
@@ -23,7 +25,6 @@ export class VehiculosComponent implements OnInit {
     motor:['',Validators.required],
     year:['',[Validators.required]],
     tipo_vehiculo:['',[Validators.required]],
-    imagen:['',[Validators.required]]
   });
 
 
@@ -49,14 +50,19 @@ export class VehiculosComponent implements OnInit {
     
   }
 
-  getFile($event:any):void{
-    //TODO esto captura el archivo!
-    const [ file ] = $event.target.files;
-    this.fileTmp = {
-      fileRaw:file,
-      fileName:file.name
-    }
-    
+  goToLoadModal(evento:boolean,vehiculo:number){
+    this.ocultarModalVehiculo = evento;
+    this.idVehiculo = vehiculo;
+
+  }
+
+  setVehiculo():void{
+
+    this.vehiculo.setVehiculo(this.vehiculosForm.value)
+    .subscribe( vehiculo => {
+    });
+
+
   }
 
 

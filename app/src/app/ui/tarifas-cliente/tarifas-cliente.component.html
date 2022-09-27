@@ -1,0 +1,100 @@
+<div class="modal-content">
+    <form 
+    autocomplete="off" 
+    id="TarifaForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Tarifas Cliente (nombre)</h5>
+      <button type="button" class="btn-close" (click)="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form
+        autocomplete="off" 
+        id="tClienteForm"
+        [formGroup]="TClienteForm"
+        (ngSubmit)="guardarTarifa()">
+        
+        <div class="row">
+         <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-md-6 col-lg-6">
+                    <label for="exampleFormControlSelect1">Tarifa</label>
+                    <select class="form-select" 
+                    formControlName="tarifa_id">
+                    <option value="0">Seleccione Tarifa</option>
+                    <option  
+                    *ngFor="let item of tarifas" 
+                    [selected]="item.tarifa_id=== ngSelectTarifa"
+                    value="{{item.tarifa_id}}"
+                    >{{item.nombre}}</option>
+                    </select>
+              </div>
+
+              <div class="form-group col-md-3 col-lg-3">
+                <label for="inputtipo">Valor</label>
+                <input type="number" 
+                class="form-control" 
+                placeholder="Valor"
+                formControlName="valor">  
+               </div>
+
+               
+            <div class="form-group col-md-3 col-lg-3">
+                <br>
+              <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Agregar Tarifa</button>
+              <div *ngIf="ocultarEditar">
+              <button  type="button" class="btn btn-primary" >Editar</button>
+              &nbsp;
+              <button  type="button" class="btn btn-danger" >Cancelar</button>
+              </div>
+              </div>
+            </div> 
+
+          
+          </div>
+     
+          
+          </div>
+
+           
+          </form>
+
+          <br><br>
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                   
+                      <th  scope="col">Tarifa</th>
+                      <th  scope="col">Valor</th>
+                      <th  scope="col">Acciones</th>
+                  </tr>
+              </thead>
+              
+              <tbody>
+                  <tr *ngFor="let item of Tcliente" >
+                 
+                      <td>{{item.tnombre}}</td>
+                      <td>{{item.valor}}</td>
+                      <td>
+                        <button 
+                        type="button" 
+                        class="btn btn-danger"
+                        (click)="eliminarTarifa(item.clientetarifa_id)"
+                        ><i class="fa-solid fa-eraser"></i></button>
+                      </td>
+                    
+                      
+                  </tr>
+    
+              </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"
+          previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="cerrarModal()"  data-bs-dismiss="modal">Cerrar</button>
+    </div>
+   </form>
+  </div>

@@ -19,6 +19,32 @@ const Ingresos = require('./ingresos');
 const Rampla = require('./rampla');
 const Tipocliente = require('./tipo_cliente');
 
+
+//Tablas relacionadas con region y comuna 
+Direccion.belongsTo(Comuna,{foreignKey:'comuna_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Comuna.hasMany(Direccion,{foreignKey:'comuna_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Direccion.belongsTo(Region,{foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Region.hasMany(Direccion,{foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Cliente.belongsTo(Comuna,{foreignKey:'comuna_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Comuna.hasMany(Cliente,{foreignKey:'comuna_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Cliente.belongsTo(Region,{foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Region.hasMany(Cliente,{foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Conductor.belongsTo(Comuna,{foreignKey:'comuna_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Comuna.hasMany(Conductor,{foreignKey:'comuna_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Conductor.belongsTo(Region,{foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Region.hasMany(Conductor,{foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Puerto.belongsTo(Comuna,{foreignKey:'comuna_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Comuna.hasMany(Puerto,{foreignKey:'comuna_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
+Puerto.belongsTo(Region,{foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+Region.hasMany(Puerto,{foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
+
 //Comuna
 Comuna.belongsTo(Region,{as:'RegionId',foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});
 Region.hasMany(Comuna,{as:'RegionId',foreignKey:'region_id',onDelete: 'NO ACTION',onUpdate: 'NO ACTION'});

@@ -42,6 +42,12 @@ const Conductor = db.define('conductor',{
     },
     ingreso_id:{
         type: DataTypes.INTEGER.UNSIGNED
+    },
+    region_id:{
+        type: DataTypes.INTEGER.UNSIGNED
+    },
+    comuna_id:{
+        type: DataTypes.INTEGER.UNSIGNED
     }
 
 });

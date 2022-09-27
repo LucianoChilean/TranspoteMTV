@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cliente, FetchAllResponse} from '../interfaces/cliente.interface';
+import { Cliente, Direccion, FetchAllResponse} from '../interfaces/cliente.interface';
 import { tap, map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
@@ -17,6 +17,35 @@ export class ClienteService {
     private http:HttpClient
   ) { }
 
+
+  getDireccionesCliente(id:number): Observable<Direccion[]>{
+    return this.http.get<FetchAllResponse>(`${base_url}/direcciones/DirByCliId/${id}`)
+    .pipe(
+      map(this.tDireccion)
+    );
+  }
+
+  private tDireccion( resp: FetchAllResponse ) {
+
+    const DirList: Direccion[] = resp.direcciones.map( direccion => {
+ 
+     return{
+      direccion_id: direccion.direccion_id,
+      direccion: direccion.direccion,
+      descripcion: direccion.descripcion,
+      region_id: direccion.region_id,
+      comuna_id: direccion.comuna_id,
+      Region: direccion.Region,
+      rnombre: direccion.Region.nombre,
+      Comuna: direccion.Comuna,
+      ccomuna: direccion.Comuna.nombre
+      
+     }
+    })
+
+   
+    return DirList;
+  }
 
   getClientes(): Observable<Cliente[]>{
     return this.http.get<FetchAllResponse>(`${base_url}/clientes`)

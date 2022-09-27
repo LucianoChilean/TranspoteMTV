@@ -3,6 +3,7 @@ export interface FetchAllResponse{
     next: null;
     previus: null;
     tarifas: Tarifa[];
+    clientetarifa: ClienteTarifa[];
 }
 
 export interface Tarifa {
@@ -15,3 +16,14 @@ export interface Tarifa {
     valor_interno:number;
     valor_externo:number;
 }
+
+export interface ClienteTarifa{
+    clientetarifa_id:number;
+    cliente_id:number;
+    tarifa_id:number,
+    valor:number,
+    Tarifa:{
+        nombre:string;
+    }
+    tnombre:string
+}   

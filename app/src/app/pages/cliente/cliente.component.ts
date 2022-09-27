@@ -15,6 +15,9 @@ export class ClienteComponent implements OnInit {
   p: number = 1;
   public ocultarEditar : boolean = false;
   public ocultarRegistro : boolean = false;
+  public ocultarModalTarifa: boolean = false;
+  public ocultarModalDirecciones: boolean = false;
+  public idClient = 0;
 
   public clienteForm = this.fb.group({
     cliente_id:[''],
@@ -140,6 +143,20 @@ export class ClienteComponent implements OnInit {
         });
       }
     })
+
+  }
+
+  goToLoadModalTarifa(evento:boolean,rol:number){
+
+    this.ocultarModalTarifa = evento;
+    this.idClient = rol;
+
+  }
+
+  goToLoadModalDirecciones(evento:boolean,rol:number){
+
+    this.ocultarModalDirecciones = evento;
+    this.idClient = rol;
 
   }
 

@@ -21,9 +21,7 @@ const getModulosByIdRol = async(req, res = response)=>{
     const usermodule = await Asignacion.findAll({
         attributes:{
             exclude:[
-                'asignacion_id',
                 'rol_id',
-                'modulo_id',
                 'createdAt',
                 'updatedAt',
         ]
@@ -31,7 +29,8 @@ const getModulosByIdRol = async(req, res = response)=>{
         include:[{
             model:modulo,
             as:modulo,
-            attributes:["nombre",
+            attributes:["modulo_id",
+                        "nombre",
                         "descripcion",
                         "modulo_padre",
                         "modulo_orden",

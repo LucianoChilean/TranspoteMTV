@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 
 
 import { LoginForm } from '../interfaces/login-form.interface';
-import { Usuario,FetchAllResponse } from '../interfaces/usuario.interface';
+import { Usuario,FetchAllResponse, Rol } from '../interfaces/usuario.interface';
 
 const base_url = environment.base_url;
 @Injectable({
@@ -47,7 +47,6 @@ export class UsuarioService {
     return this.http.put(`${base_url}/usuarios/${id}`,Usuario);
   }
 
-
   getUsuarios(): Observable<Usuario[]>{
     return this.http.get<FetchAllResponse>(`${base_url}/usuarios`)
     .pipe(
@@ -60,6 +59,38 @@ export class UsuarioService {
     return  this.http.get(`${base_url}/usuarios/modules/1`);
   }
 
+  getRoles(): Observable<Rol[]>{
+    return this.http.get<FetchAllResponse>(`${base_url}/roles`) 
+    .pipe(
+      map(this.transforma)
+    );
+  }
+
+  setRol(Roles:object){
+    return this.http.post(`${base_url}/roles`,Roles);
+  }
+
+  putRol(id:number,Roles:object){
+    return this.http.put(`${base_url}/roles/${id}`,Roles);
+  }
+
+  deleteRol(id:number){
+    return this.http.delete(`${base_url}/roles/${id}`);
+  }
+
+  private transforma(resp: FetchAllResponse){
+
+    const rolList: Rol[] = resp.roles.map(roles => {
+      return{
+        rol_id: roles.rol_id,
+        nombre: roles.nombre,
+        descripcion: roles.descripcion,
+      }
+    })
+
+    return rolList;
+
+  }
 
 
   private transform( resp: FetchAllResponse ) {

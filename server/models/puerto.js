@@ -10,6 +10,12 @@ const Puerto = db.define('Puerto',{
     },
     nombre:{
         type: DataTypes.STRING(150)
+    },
+    region_id:{
+        type: DataTypes.INTEGER.UNSIGNED
+    },
+    comuna_id:{
+        type: DataTypes.INTEGER.UNSIGNED
     }
 });
  

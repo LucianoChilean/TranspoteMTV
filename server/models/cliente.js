@@ -23,6 +23,21 @@ const Cliente = db.define('Cliente',{
     },
     direccion:{
         type: DataTypes.STRING
+    },
+    region_id:{
+        type: DataTypes.INTEGER.UNSIGNED,
+    },
+    comuna_id:{
+        type: DataTypes.INTEGER.UNSIGNED,
+    },
+    contacto:{
+        type: DataTypes.STRING
+    },
+    mail:{
+        type: DataTypes.STRING
+    },
+    fecha_emision:{
+        type: DataTypes.DATE
     }
 });
 

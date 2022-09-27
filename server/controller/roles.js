@@ -7,7 +7,11 @@ const Rol = require('../models/rol');
 
 const getRoles = async(req, res = response) =>{
 
-    const roles = await Rol.findAll();
+    const roles = await Rol.findAll({
+        where:{
+            estado:'ACTIVO'
+        }
+    });
 
     res.json({roles});
 
@@ -28,9 +32,9 @@ const getRol = async(req, res = response) =>{
 const postRol = async(req, res = response) => {
 
    
-    const {nombre,descripcion} = req.body;
+    const {nombre,descripcion,estado = 'ACTIVO'} = req.body;
 
-    const rol = Rol.build({nombre,descripcion});
+    const rol = Rol.build({nombre,descripcion,estado});
 
     await rol.save();
     
@@ -78,16 +82,11 @@ const deleteRol = async(req, res = response) =>{
         })
     }
     
-    //Cambiar borrado por estado
-    await rol.destroy({
-        where: {
-           id : id
-        }
-    })
 
-    res.json(rol);
+    await rol.update({estado:'INACTIVO'});
 
-
+    res.json(tarifa);
+  
 }
 
 module.exports = {getRoles,

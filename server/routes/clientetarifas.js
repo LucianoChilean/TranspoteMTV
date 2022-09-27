@@ -12,7 +12,11 @@ const {
         emailExiste,
         ExisteUsuarioPorId } = require('../helpers/db-validators');
 */
-const { getClientets, getClientet, postClientet, putClientet, deleteClientet } = require('../controller/clientetarifas');
+const { getClientets, 
+        getClientet, 
+        postClientet, 
+        putClientet, 
+        deleteClientet } = require('../controller/clientetarifas');
 
 const router = Router();
 

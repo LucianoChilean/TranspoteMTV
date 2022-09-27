@@ -23,7 +23,8 @@ export class UsuariosComponent implements OnInit {
     paterno:['',Validators.required],
     materno:['',Validators.required],
     email:['',[Validators.required,Validators.email]],
-    password:['',Validators.required]
+    password:['',Validators.required],
+    cpassword:['',Validators.required],
   });
 
   constructor(

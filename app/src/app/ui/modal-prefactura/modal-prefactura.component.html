@@ -8,12 +8,12 @@
     </div>
     <div class="modal-body">
       
-
+   
         <div class="container">
             <div class="card animate__animated animate__fadeIn">
                 <div class="card-header">
                   <div class="row">
-                    <div class="col-6 col-md-6">
+                    <div class="col-4 col-md-4">
                     N° Despacho
                     <strong> {{idDespacho}} </strong>
                   </div>
@@ -24,10 +24,15 @@
                     <div class="col-2 col-md-2">
                       <span class="float-right"> <strong>Estado: </strong> <span class="badge rounded-pill bg-success"> {{Estado}} </span></span>
                     </div>
+                    <div class="col-2 col-md-2">
+                        <button type="button" class="btn btn-success btn-sm" (click)="download()">Exportar <i class="fa-regular fa-file-excel"></i></button>
+                      </div>
                   </div>
+
+                 
                    
                 </div>
-                <div class="card-body">
+                <div id="excel-table" class="card-body">
                     
                   <div  *ngFor="let item of clientes" class="row mb-4">
                         <div class="col-8 col-md-8">
@@ -108,6 +113,8 @@
     
                 </div>
             </div>
+
+         
         </div>
    
   

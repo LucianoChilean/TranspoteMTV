@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap, map, catchError } from 'rxjs/operators';
-import { Tarifa, FetchAllResponse } from '../interfaces/tarifa.interface';
+import { Tarifa, FetchAllResponse, ClienteTarifa } from '../interfaces/tarifa.interface';
 
 
 import { environment } from '../../environments/environment';
@@ -41,6 +41,14 @@ export class TarifaService {
   
     }
 
+    getClienteTarifa(id:number): Observable<ClienteTarifa[]>{
+
+      return this.http.get<FetchAllResponse>(`${base_url}/tarifasc/${id}`)
+      .pipe(
+        map(this.transformClientaTarifa)
+      );
+    }
+
     getTarifasByEstado(): Observable<Tarifa[]>{
 
       return this.http.get<FetchAllResponse>(`${base_url}/tarifas/byEstado/1`)
@@ -48,6 +56,14 @@ export class TarifaService {
         map(this.transform)
       );
   
+    }
+
+    postTarifaCliente(tcliente:object){
+      return this.http.post(`${base_url}/tarifasc`,tcliente);
+    }
+
+    deleteTCliente(id:number){
+      return this.http.delete(`${base_url}/tarifasc/${id}`);
     }
   
   
@@ -70,6 +86,28 @@ export class TarifaService {
   
      
       return TarifaList;
+    }
+
+
+    private transformClientaTarifa( resp: FetchAllResponse ) {
+  
+      const ClientList: ClienteTarifa[] = resp.clientetarifa.map( ctarifa => {
+   
+  
+       return{
+        clientetarifa_id: ctarifa.clientetarifa_id,
+        cliente_id: ctarifa.cliente_id,
+        tarifa_id: ctarifa.tarifa_id,
+        valor: ctarifa.valor,
+        Tarifa:ctarifa.Tarifa,
+        tnombre: ctarifa.Tarifa.nombre
+        
+       }
+       
+      })
+  
+     
+      return ClientList;
     }
 
 }

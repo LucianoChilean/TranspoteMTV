@@ -13,6 +13,9 @@ const Rol = db.define('Rol',{
     },
     descripcion:{
         type: DataTypes.STRING
+    },
+    estado:{
+        type: DataTypes.STRING
     }
 });
 

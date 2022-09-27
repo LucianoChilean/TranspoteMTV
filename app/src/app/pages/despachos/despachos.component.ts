@@ -144,13 +144,12 @@ export class DespachosComponent implements OnInit {
 
   crearDespacho(){
     if(this.despachoForm.invalid){
-      const swalWithBootstrapButtons = Swal.mixin({
+      Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success'
         },
         buttonsStyling: false
-      });
-      swalWithBootstrapButtons.fire({
+      }).fire({
         title: 'Campo requerido ',
         text: 'Debe ingresar todos los campos',
         icon: 'error',
@@ -171,9 +170,7 @@ export class DespachosComponent implements OnInit {
           toast.addEventListener('mouseenter', Swal.stopTimer)
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-      })
-      
-      Toast.fire({
+      }).fire({
         icon: 'success',
         title: 'El Despacho se creo exitosamente'
       })

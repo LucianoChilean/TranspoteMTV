@@ -24,10 +24,11 @@ export class ConductorComponent implements OnInit {
     rut:[''],
     fono:[''],
     email:[''],
-    tipo:[''],
+    tipo:['Conductor'],
     giro:[''],
     imagen:['']
-  })
+  });
+
 
   constructor(
     private drive:ConductorService,
@@ -40,7 +41,7 @@ export class ConductorComponent implements OnInit {
   }
 
   getConductores(){
-    this.drive.GetConductores()
+    this.drive.getConductorByTipo('Conductor')
     .subscribe(drive=>{
       this.conductores = drive
     })
@@ -78,7 +79,7 @@ export class ConductorComponent implements OnInit {
       
       Toast.fire({
         icon: 'success',
-        title: 'El Cliente se creo exitosamente'
+        title: 'El Conductor se creo exitosamente'
       })
       this.getConductores();
      })

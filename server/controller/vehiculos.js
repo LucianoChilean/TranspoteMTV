@@ -32,9 +32,9 @@ const getVehiculo = async(req, res = response) =>{
 const postVehiculo = async(req, res = response) => {
 
    
-    const {patente,tipo_vehiculo= 'Camion',descripcion,year,chasis,motor,imagen,conductor_id,propietario_id,rampla_id} = req.body;
+    const {patente,tipo_vehiculo= 'Camion',descripcion,year,chasis,motor} = req.body;
 
-    const vehiculo = Vehiculo.build({patente,tipo_vehiculo,descripcion,year,chasis,motor,imagen,conductor_id,propietario_id,rampla_id});
+    const vehiculo = Vehiculo.build({patente,tipo_vehiculo,descripcion,year,chasis,motor});
 
     await vehiculo.save();
     

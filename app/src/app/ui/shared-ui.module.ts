@@ -6,7 +6,12 @@ import { ModalPrefacturaComponent } from './modal-prefactura/modal-prefactura.co
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalAsignaConductorComponent } from './modal-asigna-conductor/modal-asigna-conductor.component';
 import { ModalAsignaVehiculoComponent } from './modal-asigna-vehiculo/modal-asigna-vehiculo.component';
-import { ModalCreateVehiculoComponent } from './modal-create-vehiculo/modal-create-vehiculo.component';
+import { ImagenVehiculoComponent } from './imagen-vehiculo/imagen-vehiculo.component';
+import { PerfilVehiculoComponent } from './perfil-vehiculo/perfil-vehiculo.component';
+import { PerfilConductorComponent } from './perfil-conductor/perfil-conductor.component';
+import { ModalModulosComponent } from './modal-modulos/modal-modulos.component';
+import { TarifasClienteComponent } from './tarifas-cliente/tarifas-cliente.component';
+import { DireccionesClienteComponent } from './direcciones-cliente/direcciones-cliente.component';
 
 
 
@@ -17,7 +22,12 @@ import { ModalCreateVehiculoComponent } from './modal-create-vehiculo/modal-crea
     ModalPrefacturaComponent,
     ModalAsignaConductorComponent,
     ModalAsignaVehiculoComponent,
-    ModalCreateVehiculoComponent
+    ImagenVehiculoComponent,
+    PerfilVehiculoComponent,
+    PerfilConductorComponent,
+    ModalModulosComponent,
+    TarifasClienteComponent,
+    DireccionesClienteComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +37,15 @@ import { ModalCreateVehiculoComponent } from './modal-create-vehiculo/modal-crea
   ],
   exports:[
     ModalDetalleComponent,
-    ModalPrefacturaComponent
+    ModalPrefacturaComponent,
+    ImagenVehiculoComponent,
+    ModalModulosComponent,
+    ModalAsignaConductorComponent,
+    ModalAsignaVehiculoComponent,
+    PerfilConductorComponent,
+    PerfilVehiculoComponent,
+    TarifasClienteComponent,
+    DireccionesClienteComponent
   ],
   providers:[
     DecimalPipe
