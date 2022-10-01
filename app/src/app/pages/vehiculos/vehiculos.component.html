@@ -54,7 +54,7 @@
             <div class="form-group col-md-3 col-lg-3">
               <label for="SelectFormConductor">Año</label>
               <input 
-              type="text" 
+              type="number" 
               class="form-control" 
               placeholder="año de motor"
               formControlName="year">
@@ -74,31 +74,49 @@
           </div>
 
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormCliente">Region</label>
-            <select  class="form-select">
-              <option value="0">Seleccione Región</option>
+            <label for="inputPuerto">Propietario</label>
+            <select 
+            class="form-select" 
+            formControlName="propietario">
+              <option value="0">Seleccione propietario</option>
             </select>
           </div>
 
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormCliente">Comuna</label>
-            <select  class="form-select">
-              <option value="0">Seleccione Comuna</option>
+            <label for="inputPuerto">Conductor</label>
+            <select 
+            class="form-select" 
+            formControlName="conductor">
+              <option value="0">Seleccione Conductor</option>
             </select>
           </div>
 
+          <div class="form-group col-md-3 col-lg-3">
+            <label for="SelectFormCliente">Imagen</label>
+            <input 
+            (change)="getFile($event)"
+            type="file" 
+            class="form-control">
+          </div>
+
     
+          
+          </div>
+
+          <div class="row">
+            <div class="col-md-9 col-lg-9">
+
+            </div>
           <div class="form-group col-md-3 col-lg-3">
             <br>
           <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
           <div  *ngIf="ocultarEditar">
-          <button  type="button"  class="btn btn-primary" >Editar</button>
+          <button  type="button" (click)="updateVehiculo()"  class="btn btn-primary" >Editar</button>
           &nbsp;
-          <button  type="button"  class="btn btn-danger">Cancelar</button>
+          <button  type="button" (click)="cancelEdit()" class="btn btn-danger">Cancelar</button>
           </div>
           </div>
 
-          
           </div>
         </form>
         
@@ -108,68 +126,74 @@
       
           <br>
           <br>
-          <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th  scope="col">Patente</th>
-                  <th  scope="col">Chasis</th>
-                  <th  scope="col">Motor</th>
-                  <th  scope="col">Año</th>
-                  <th  scope="col">Tipo vehiculo</th>
-                  <th  scope="col">Acciones </th>
-              </tr>
-              </thead>
-              
-              <tbody>
-                <tr *ngFor="let item of vehiculos" >
-                  <td>{{item.patente}}</td>
-                  <td>{{item.chasis}}</td>
-                  <td>{{item.motor}}</td>
-                  <td>{{item.year}}</td>
-                  <td>{{item.tipo_vehiculo}}</td>
-                  <td>
-                    <div 
-                    class="btn-group" 
-                    role="group" aria-label="Button group with nested dropdown">
+          <div class="list-group">
 
-                    <button 
-                    title="Editar"
-                    type="button" 
-                    class="btn btn-outline-dark"
-                    >Ver Ficha</button>
-                   
-                    <button 
-                    title="Editar"
-                    type="button" 
-                    data-bs-toggle="modal"
-                    data-bs-target="#vehiculo"
-                    class="btn btn-outline-secondary"
-                    (click)="goToLoadModal(true,item.vehiculo_id)"><i class="fa-solid fa-upload"></i></button>
+            <div *ngFor="let item of vehiculos | paginate:{itemsPerPage: 5, currentPage: p}"  class="list-group-item list-group-item-action" aria-current="true">
 
-                    <button 
-                    
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top"
-                    title="Editar"
-                    type="button" 
-                    class="btn btn-primary"
-                    ><i class="fa-solid fa-pen-to-square"></i></button>
-                    
-                    <button 
-                    
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top"
-                    title="Eliminar"
-                    type="button" 
-                    class="btn btn-danger"
-                    ><i class="fa-solid fa-eraser"></i></button>
+              <div class="card md-12" >
+                <div class="row g-0">
+
+                  <div class="col-md-4">
+                    <div class="card-body">
+                    <img [src]="item.imagen" class="img-fluid img-thumbnail" width="350" height="250">
+                  </div>
                   </div>
 
-                  </td>       
-              </tr>
+                  <div class="col-md-4">
+                    <div class="card-body">
+                    <h5 class="card-title">Propietario:</h5>
+                    <h5 class="card-title">Conductor:</h5>
+
+                  </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="card-body">
+                      <h5 class="card-title">Tipo: {{item.tipo_vehiculo}}</h5>
+                      <h5 class="card-title">Patente: {{item.patente}}</h5>
+                      <h5 class="card-title">Chasis: {{item.chasis}}</h5>
+                      <h5 class="card-title">Motor: {{item.motor}}</h5>
+                      <h5 class="card-title">Año: {{item.year}}</h5>
+                      
+                      <p class="card-text">
+                        <small class="text-muted">
+                          <div 
+                          class="btn-group" 
+                          role="group" aria-label="Button group with nested dropdown">
       
-              </tbody>
-          </table>
+                    
+                          <button 
+                          data-bs-toggle="tooltip" 
+                          data-bs-placement="top"
+                          title="Editar"
+                          type="button" 
+                          class="btn btn-primary btn-sm"
+                          (click)="getDataVehiculo(item)"><i class="fa-solid fa-pen-to-square"></i></button>
+                          
+                          <button 
+                          data-bs-toggle="tooltip" 
+                          data-bs-placement="top"
+                          title="Eliminar"
+                          type="button" 
+                          class="btn btn-danger btn-sm"
+                          (click)="deleteVehiculo(item.vehiculo_id)"><i class="fa-solid fa-eraser"></i></button>
+                        </div>
+
+                        </small></p>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+            </div>
+           
+            <br>
+            <pagination-controls (pageChange)="p = $event"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"></pagination-controls>
+          </div>
         
           
       <br>

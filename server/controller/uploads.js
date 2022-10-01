@@ -75,11 +75,13 @@ const retornaArchivo = (req, res) =>{
 
    const pathFile = path.join(__dirname, `../uploads/${tipo}/${archivo}`);
 
+ 
     if( fs.existsSync(pathFile)){
         res.sendFile(pathFile);
     }else{
-        const pathFile = path.join(__dirname, `../uploads/no-img.jpg`);
+        const pathFile = path.join(__dirname, `../uploads/no.-img.jpg`);
         res.sendFile(pathFile);
+   
     }
 }
 

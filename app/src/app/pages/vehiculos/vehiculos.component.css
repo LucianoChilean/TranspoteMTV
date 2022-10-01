@@ -1,0 +1,65 @@
+.box {
+    margin: 10px;
+    padding: 5px;
+    background: #eee;
+  }
+  .box img {
+    height : 150px;
+    width: 150px;
+  }
+  .box .right {
+    position:absolute;
+    top:0;
+    margin-right:0;
+    text-align: right;
+    
+  }
+  .cover {object-fit: cover}
+  .fill {object-fit: fill}
+  .contain {object-fit: contain}
+  .scale-down {object-fit: scale-down}
+  .none {object-fit: none}
+  
+  .score {
+    text-align: left;
+    margin-left: 5px;
+  }
+  .firstStar {
+    overflow: hidden;
+      width: 15px;
+      transition: width 0.3s;
+      float: left;
+  }
+  .extraInfo {
+    position: absolute;
+      top: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.65);
+      color: white;
+      box-sizing: border-box;
+      padding: 0px 8px;
+      text-align: left;
+      font-size: 1em;
+      height: 25px;
+      overflow: hidden;
+  }
+  .cajaProductoImg {
+    background-color: black;
+      position: relative;
+      height: 212px;
+      background-position: center center;
+      background-size: cover;
+  }
+  .cajaProducto {
+    background-color: black;
+      position: relative;
+      height: 212px;
+  }
+  
+  .imgCover {
+    background-color: black;
+    position: relative;
+    height: 212px;
+    width: 100%;
+    object-fit: cover;
+  }

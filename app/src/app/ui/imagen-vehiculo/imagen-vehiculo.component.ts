@@ -42,7 +42,6 @@ export class ImagenVehiculoComponent implements OnInit {
     this.upload
       .actualizarFoto( this.imagenSubir, 'vehiculos', this.idVehiculo )
       .then( img => {
-        //this.usuario.img = img;
         Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
       }).catch( err => {
         console.log(err);

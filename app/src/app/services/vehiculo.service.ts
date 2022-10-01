@@ -17,6 +17,9 @@ export class VehiculoService {
     private http:HttpClient
   ) { }
 
+  getImagen(data:string){
+    return `${base_url}/upload/vehiculos/${data}`
+  }
 
   setVehiculo(Vehiculo:object){
     return this.http.post(`${base_url}/vehiculos/`,Vehiculo);
@@ -52,7 +55,7 @@ export class VehiculoService {
       year: vehiculo.year,
       chasis: vehiculo.chasis,
       motor: vehiculo.motor,
-      imagen: vehiculo.imagen,
+      imagen: `${base_url}/upload/vehiculos/${vehiculo.imagen}`,
       conductor_id: vehiculo.conductor_id,
       propietario_id: vehiculo.propietario_id,
       rampla_id: vehiculo.rampla_id,

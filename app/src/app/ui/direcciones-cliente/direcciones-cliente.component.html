@@ -34,7 +34,7 @@
                 formControlName="comuna_id">
                 <option value="0">Seleccione Comuna</option>
                 <option *ngFor="let item of comunas" 
-                value="{{item.comuna_id}">{{item.nombre}}</option>
+                value="{{item.comuna_id}}">{{item.nombre}}</option>
                 </select>
           </div>
 
@@ -60,12 +60,7 @@
             <div class="row">   
                 <div class="form-group offset-md-9 col-md-3 col-lg-3">
                     <br>
-                  <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Agregar Tarifa</button>
-                  <div *ngIf="ocultarEditar">
-                  <button  type="button" class="btn btn-primary" >Editar</button>
-                  &nbsp;
-                  <button  type="button" class="btn btn-danger" >Cancelar</button>
-                  </div>
+                  <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Agregar Direccion</button>
                   </div>
             </div>
           
@@ -102,7 +97,7 @@
                           <button 
                           type="button" 
                           class="btn btn-danger"
-                        
+                         (click)="deleteDireccion(item.direccion_id)"
                           ><i class="fa-solid fa-eraser"></i></button>
                         </td>
                       

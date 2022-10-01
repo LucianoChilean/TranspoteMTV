@@ -30,6 +30,7 @@ export class DireccionesClienteComponent implements OnInit {
   buildForm(data:any){
     this.DirClienteForm = this.fb.group({
      direccion_id:[data.direccion_id],
+     cliente_id:[''],
      region_id:[data.region_id,Validators.required],
      comuna_id:[data.comuna_id,Validators.required],
      direccion:[data.direccion,Validators.required],
@@ -74,7 +75,20 @@ export class DireccionesClienteComponent implements OnInit {
 
 
   guardarDireccion(){
+    this.DirClienteForm.value.cliente_id = this.idClient;
+   this.address.postDireccionesCliente(this.DirClienteForm.value)
+   .subscribe( dir => {
+    console.log(dir)
+    this.getDirCliente(this.idClient);
+   })
+  }
 
+  deleteDireccion(id:number){
+      this.address.deleteDireccionesCliente(id)
+      .subscribe(dir => {
+        console.log(dir)
+        this.getDirCliente(this.idClient);
+      })
   }
 
   cerrarModal():void{

@@ -17,6 +17,14 @@ export class ClienteService {
     private http:HttpClient
   ) { }
 
+  postDireccionesCliente(direccion:object){
+    return this.http.post(`${base_url}/direcciones`,direccion)
+  }
+
+  deleteDireccionesCliente(id:number){
+    return this.http.delete(`${base_url}/direcciones/${id}`)
+  }
+
 
   getDireccionesCliente(id:number): Observable<Direccion[]>{
     return this.http.get<FetchAllResponse>(`${base_url}/direcciones/DirByCliId/${id}`)
