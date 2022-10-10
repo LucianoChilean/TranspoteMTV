@@ -8,4 +8,12 @@ export interface FetchAllResponse{
 export interface Puerto {
     puerto_id:number;
     nombre: string;
+    Region:{
+        nombre:string;
+    }
+    rnombre:string;
+    Comuna:{
+        nombre:string;
+    }
+    cnombre:string;
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Modulo } from 'src/app/interfaces/modulo.interface';
 import { UserModule } from 'src/app/interfaces/userModule.interface';
-import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { AsignacionService } from 'src/app/services/asignacion.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -12,21 +12,22 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class SidebarComponent implements OnInit {
 
   public id:string ='';
-  public usermodulos:UserModule[] =[];
   public ocultaInicio:boolean = false;
   public ocultaSupervisor: boolean = false;
   public ocultaAdministrador: boolean = false;
-
+  public modulosA: Modulo[] = [];
+  public modulosS: Modulo[] = [];
+  public modulosD: Modulo[] = [];
 
   constructor(
-    private users:UsuarioService,
     private modules:AsignacionService
   ) { }
 
   ngOnInit(): void {
-
-  
-   this.getUserModules();
+    this.ocultaInicio = false;
+    this.ocultaSupervisor = false;
+    this.ocultaAdministrador = false;
+    this.getUserModules();
   
   }
 
@@ -35,11 +36,21 @@ export class SidebarComponent implements OnInit {
 
     this.modules.getUserModule(this.id)
     .subscribe(modulos =>{
-     this.usermodulos = modulos
-     console.log(this.usermodulos)
+      modulos.map(moduls =>{
+        if(moduls.modulo_padre === 'Administrador'){
+           this.ocultaAdministrador = true;
+           this.modulosA.push(moduls);
+        }
+        if(moduls.modulo_padre === 'Supervision'){
+          this.ocultaSupervisor = true;
+          this.modulosS.push(moduls);
+       }
+       if(moduls.modulo_padre === 'Inicio'){
+        this.ocultaInicio = true;
+        this.modulosD.push(moduls);
+      }
+      })
     })
-
-
   }
 
 

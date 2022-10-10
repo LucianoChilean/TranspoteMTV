@@ -34,6 +34,13 @@ export class ConductorService {
 
   }
 
+  getConductorByPropietario(id:number):Observable<Conductor[]>{
+    return this.http.get<FetchAllResponse>(`${base_url}/conductores/prop/${id}`)
+    .pipe(
+      map(this.transform)
+    );
+
+  }
 
   private transform( resp: FetchAllResponse ) {
 
@@ -50,7 +57,7 @@ export class ConductorService {
       email: conductor.email,
       tipo: conductor.tipo,
       giro: conductor.giro,
-      imagen: conductor.imagen
+      imagen: `${base_url}/upload/conductores/${conductor.imagen}`,
      }
     })
 

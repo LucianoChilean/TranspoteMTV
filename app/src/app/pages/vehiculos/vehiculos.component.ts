@@ -1,6 +1,8 @@
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Vehiculo } from 'src/app/interfaces/vehiculo.interface';
+import { Conductor } from 'src/app/interfaces/conductor.interface';
+import { Rampla, Vehiculo } from 'src/app/interfaces/vehiculo.interface';
+import { ConductorService } from 'src/app/services/conductor.service';
 import { FileUploadService } from 'src/app/services/subirArchivo.service';
 import { VehiculoService } from 'src/app/services/vehiculo.service';
 import Swal from 'sweetalert2';
@@ -12,7 +14,10 @@ import Swal from 'sweetalert2';
 })
 export class VehiculosComponent implements OnInit {
 
-  public vehiculos:Vehiculo[] =[];
+  public vehiculos:Vehiculo[] = [];
+  public proveedores: Conductor[] = [];
+  public conductores: Conductor[] = [];
+  public ramplas: Rampla[] = [];
 
   public imagenUrl = '';
   public imagenSubir: any = null;
@@ -21,6 +26,7 @@ export class VehiculosComponent implements OnInit {
   public idVehiculo: number = 0;
   public ocultarModalVehiculo : boolean = false;
   public p: number = 1;
+  public ngSelect = 0;
   public vehiculosForm =  this.fb.group({});
 
   buildForm(data:any){
@@ -31,6 +37,9 @@ export class VehiculosComponent implements OnInit {
         motor:[data.motor,Validators.required],
         year:[data.year,[Validators.required]],
         tipo_vehiculo:[data.tipo_vehiculo,[Validators.required]],
+        propietario_id:[data.propietario_id,Validators.required],
+        conductor_id:[data.conductor_id,Validators.required],
+        rampla_id:[data.rampla_id,Validators.required]
       });
   }
  
@@ -39,14 +48,38 @@ export class VehiculosComponent implements OnInit {
   constructor(
     private fb:FormBuilder,
     private vehiculo:VehiculoService,
-    private upload:FileUploadService
+    private upload:FileUploadService,
+    private conductor:ConductorService
   ) { }
 
   ngOnInit(): void {
    this.buildForm(this.vehiculosForm ? this.vehiculosForm : '');
    this.ocultarRegistro = true;
    this.getVehiculos();
+   this.getProveedor();
+   this.getRamplas();
+  }
 
+  getProveedor(){
+    this.conductor.getConductorByTipo('Proveedor')
+    .subscribe(proveedor =>{
+      this.proveedores = proveedor
+    });
+  }
+
+  getConductores(dato:any){
+    this.conductor.getConductorByPropietario(dato.value)
+    .subscribe(conductor =>{
+      this.conductores = conductor
+    })
+  }
+
+  getRamplas(){
+    this.vehiculo.getRamplas()
+    .subscribe(rampla =>{
+      console.log(rampla)
+      this.ramplas = rampla
+    })
   }
 
   getVehiculos(){
@@ -141,8 +174,7 @@ export class VehiculosComponent implements OnInit {
 
 
   setVehiculo(){
-    
-
+  
     if(this.vehiculosForm.invalid){
       Swal.mixin({
         customClass: {
@@ -174,13 +206,20 @@ export class VehiculosComponent implements OnInit {
       })
       this.vehiculo.setVehiculo(this.vehiculosForm.value)
       .subscribe(vh => {
-       let  dataForm:any = vh;
-        console.log(dataForm)
-        this.getVehiculos();
+       this.subirImagen(vh);
       });
     }
+  }
 
-   
+  subirImagen(id:any){
+    this.upload
+      .actualizarFoto( this.imagenSubir, 'vehiculos',id )
+      .then( img => {
+        this.getVehiculos();
+      }).catch( err => {
+        console.log(err);
+        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+      })
   }
 
 

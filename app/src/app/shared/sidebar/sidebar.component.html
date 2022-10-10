@@ -2,99 +2,42 @@
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
-                <div *ngFor="let item of usermodulos" class="nav">
-               
-                    <div *ngIf="ocultaInicio"
-                    class="sb-sidenav-menu-heading">Inicio</div>
-                    <a *ngIf="item.nombre_modulo === 'Dashboard'" 
+                <div class="nav">
+                    
+                    <div *ngIf="ocultaInicio" class="sb-sidenav-menu-heading">Inicio</div>
+                    
+                    <a *ngFor="let item of modulosD" 
                     class="nav-link puntero" 
-                    routerLink="/dashboard">
+                    routerLink="/{{item.nombre}}">
                         <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
-                        {{item.nombre_modulo}}
+                        {{item.nombre}}
                     </a>
-                    <a *ngIf="item.nombre_modulo === 'Despachos'" 
-                       class="nav-link puntero" 
-                       routerLink="despachos">
-                        <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
-                        {{item.nombre_modulo}}
-                    </a>
-                 
-               
+                    
 
                     <div *ngIf="ocultaSupervisor" class="sb-sidenav-menu-heading">Supervision</div>
-                    <a *ngIf="item.nombre_modulo === 'Clientes'" 
-                       class="nav-link puntero" 
-                       routerLink="cliente">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
-                        {{item.nombre_modulo}}
-                    </a>
-                    <a *ngIf="item.nombre_modulo === 'Conductor'" 
-                       class="nav-link puntero" 
-                       routerLink="conductor">
-                        <div class="sb-nav-link-icon"><i class="fa-regular fa-id-card"></i></div>
-                        {{item.nombre_modulo}}
-                    </a>
-                    <a *ngIf="item.nombre_modulo === 'Vehiculos'"  
-                       class="nav-link puntero" 
-                       routerLink="vehiculos">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-truck-fast"></i></div>
-                        {{item.nombre_modulo}}
+                    <a *ngFor="let item of modulosS" 
+                    class="nav-link puntero" 
+                    routerLink="/{{item.nombre}}">
+                        <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
+                        {{item.nombre}}
                     </a>
 
-                   <a *ngIf="item.nombre_modulo === 'PreFacturas'" 
-                      class="nav-link puntero" 
-                      routerLink="facturas">
-                         <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                         {{item.nombre_modulo}}
-                    </a>
-                    <a *ngIf="item.nombre_modulo === 'Facturacion'"  
-                       class="nav-link puntero" 
-                       routerLink="facturacion">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                        {{item.nombre_modulo}}
-                   </a>
-                   <a *ngIf="item.nombre_modulo === 'Puertos'" 
-                      class="nav-link puntero" 
-                      routerLink="puerto">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-ferry"></i></div>
-                    {{item.nombre_modulo}}
-               </a>
-               <a  *ngIf="item.nombre_modulo === 'Proveedores'" 
-               class="nav-link puntero" 
-               routerLink="proveedores">
-             <div class="sb-nav-link-icon"><i class="fa-solid fa-ferry"></i></div>
-              {{item.nombre_modulo}}
-                </a>
-                
-                   
-                  
-                    <div *ngIf="ocultaAdministrador" class="sb-sidenav-menu-heading">Administrar</div>
-                    <a *ngIf="item.nombre_modulo === 'Usuarios'"  
-                       class="nav-link puntero" 
-                       routerLink="usuarios">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                        {{item.nombre_modulo}}
+               
+                    <div *ngIf="ocultaAdministrador" class="sb-sidenav-menu-heading">Administrador</div>
+                    <a *ngFor="let item of modulosA" 
+                    class="nav-link puntero" 
+                    routerLink="/{{item.nombre}}">
+                        <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
+                        {{item.nombre}}
                     </a>
 
-                    <a *ngIf="item.nombre_modulo === 'Tarifas'"  
-                       class="nav-link puntero" 
-                       routerLink="tarifa">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                        {{item.nombre_modulo}}
-                    </a>
 
-                    <a  *ngIf="item.nombre_modulo === 'Roles'" 
-               class="nav-link puntero" 
-               routerLink="roles">
-             <div class="sb-nav-link-icon"><i class="fa-solid fa-ferry"></i></div>
-                Roles
-                </a>
-                
                 </div>
+            
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small"></div>
-               
+        
             </div>
         </nav>
     </div>

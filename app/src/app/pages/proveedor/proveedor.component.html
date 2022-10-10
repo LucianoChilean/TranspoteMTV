@@ -63,21 +63,27 @@
               formControlName="giro">
           </div>
 
-          
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormCliente">Region</label>
-            <select  class="form-select">
-              <option value="0">Seleccione Región</option>
+            <label for="exampleFormControlSelect1">Región</label>
+            <select class="form-select" 
+            formControlName="region_id"
+            (change)="getComunas($event.target)">
+            <option value="0">Seleccione Región</option>
+            <option *ngFor="let item of regiones"
+            [value]="item.region_id">{{item.nombre}}</option>
             </select>
-          </div>
+      </div>
 
-          <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormCliente">Comuna</label>
-            <select  class="form-select">
-              <option value="0">Seleccione Comuna</option>
-            </select>
-          </div>
 
+      <div class="form-group col-md-3 col-lg-3">
+        <label for="exampleFormControlSelect1">Comuna</label>
+        <select class="form-select" 
+        formControlName="comuna_id">
+        <option value="0">Seleccione Comuna</option>
+        <option *ngFor="let item of comunas" 
+        value="{{item.comuna_id}}">{{item.nombre}}</option>
+        </select>
+  </div>
 
           <div class="form-group col-md-3 col-lg-3">
             <br>
@@ -131,6 +137,14 @@
                             class="btn-group" 
                             role="group" aria-label="Button group with nested dropdown">
 
+
+                            <button 
+                            data-bs-toggle="modal"
+                            data-bs-target="#flota"
+                            title="Editar"
+                            type="button" 
+                            class="btn btn-secondary"
+                            >Ver Flota</button>
                        
                             <button 
                             (click)="getDataProvider(item)"
@@ -162,3 +176,20 @@
           </div>
       </div>
   </div>
+
+
+  <div class="modal fade" id="flota" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog  modal-lg">
+      <app-modal-flota></app-modal-flota>
+    <!-- <app-modal-factura   
+       *ngIf="ocultarModalDetalle" 
+       [idDetails]="idDetalle" 
+       [idCliente]="idCliente" 
+       [guia]="guia"
+       (cerrar)="goToLoadModal($event,0,0,'')">
+     </app-modal-detalle>-->
+    </div>
+ </div>
+      
+
+  

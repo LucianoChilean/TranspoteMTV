@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Comuna, Region } from 'src/app/interfaces/ciudades.interface';
 import { Conductor } from 'src/app/interfaces/conductor.interface';
+import { CiudadesService } from 'src/app/services/ciudades.service';
 import { ConductorService } from 'src/app/services/conductor.service';
 
 import Swal from 'sweetalert2';
@@ -13,29 +15,54 @@ import Swal from 'sweetalert2';
 export class ProveedorComponent implements OnInit {
 
   public proveedores: Conductor[] = [];
+  public regiones: Region[] = [];
+  public comunas: Comuna[] = [];
   p: number= 1;
   public ocultarEditar : boolean = false;
   public ocultarRegistro : boolean = false;
+  public proveedorForm = this.fb.group({});
 
-  public proveedorForm = this.fb.group({
-    conductor_id:[''],
-    nombre:[''],
-    rut:[''],
-    fono:[''],
-    email:[''],
-    tipo:['Proveedor'],
-    giro:['']
-  });
+  buildForm(data:any){
+    this.proveedorForm = this.fb.group({
+      conductor_id:[data.conductor_id],
+      nombre:[data.nombre,Validators.required],
+      rut:[data.rut,Validators.required],
+      fono:[data.fono,Validators.required],
+      email:[data.email,Validators.required],
+      tipo:['Proveedor'],
+      giro:[data.giro,Validators.required],
+      region_id:[data.region_id,Validators.required],
+      comuna_id:[data.comuna_id,Validators.required]
+    });
+  }
+
 
 
   constructor(
     private fb:FormBuilder,
-    private proveedor:ConductorService
+    private proveedor:ConductorService,
+    private city:CiudadesService,
   ) { }
 
   ngOnInit(): void {
+    this.buildForm(this.proveedorForm ? this.proveedorForm : '');
     this.ocultarRegistro = true;
     this.getProovedores();
+    this.getRegiones();
+  }
+
+  getRegiones(){
+    this.city.getRegiones()
+    .subscribe(region => {
+      this.regiones = region
+    })
+  }
+
+  getComunas(dato:any){
+    this.city.getComunasByRegion(dato.value)
+    .subscribe(comuna => {
+      this.comunas = comuna
+    })
   }
 
   getProovedores(){
@@ -96,29 +123,13 @@ export class ProveedorComponent implements OnInit {
   getDataProvider(conductores:Conductor){
     this.ocultarRegistro = false;
     this.ocultarEditar = true;
-    this.proveedorForm.setValue({
-      conductor_id:conductores.conductor_id,
-      nombre:conductores.nombre,
-      rut:conductores.rut,
-      fono:conductores.fono,
-      email:conductores.email,
-      giro:conductores.giro,
-      tipo:'Proveedor',
-    });
+    this.buildForm(conductores);
   }
 
   cancelProveedor(){
     this.ocultarRegistro = true;
     this.ocultarEditar = false;
-    this.proveedorForm.setValue({
-      conductor_id:'',
-      nombre:'',
-      rut:'',
-      fono:'',
-      email:'',
-      tipo:'Proveedor',
-      giro:'',
-    });
+    this.buildForm('');
   }
 
   eraseProveedor(id:number){

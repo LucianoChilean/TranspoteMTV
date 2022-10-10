@@ -17,7 +17,8 @@ const { getCondutores,
         postCondutor, 
         putCondutor, 
         deleteCondutor, 
-        getCondutoresByTipo} = require('../controller/conductores');
+        getCondutoresByTipo,
+        getCondutorByPropietario} = require('../controller/conductores');
 
 const router = Router();
 
@@ -26,14 +27,13 @@ router.get('/',[validarJWT],getCondutores);
 
 router.get('/tipo/:tipo',[validarJWT],getCondutoresByTipo);
 
- router.get('/:id',[validarJWT],getCondutor);
+router.get('/prop/:propietario_id',[validarJWT],getCondutorByPropietario);
 
+router.get('/:id',[validarJWT],getCondutor);
 
- router.post('/',[validarJWT],postCondutor);
-
+router.post('/',[validarJWT],postCondutor);
 
 router.put('/:id',[validarJWT],putCondutor);
-
 
 router.delete('/:id',[validarJWT],deleteCondutor);
 

@@ -34,6 +34,13 @@ export class ModuloService {
         modulo_id: modules.modulo_id,
         nombre: modules.nombre,
         descripcion: modules.descripcion,
+        modulo_padre: modules.modulo_padre,
+        modulo_orden: modules.modulo_orden,
+        padre_orden: modules.padre_orden,
+        icons: modules.icons,
+        Asignacions: modules.Asignacions,
+        asignacion_id: modules.asignacion_id
+
       }
     })
 

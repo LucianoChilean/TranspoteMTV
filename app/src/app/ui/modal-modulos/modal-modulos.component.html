@@ -5,9 +5,43 @@
     </div>
     <div class="modal-body">
       <div class="form-group col-md-12 col-lg-12">
-        <label for="inputfecharetiro">Modulos</label>
-        
-        <div *ngFor="let item of moduls" class="form-check form-switch">
+        <br>
+        <label *ngIf="ocultaInicio" for="inputfecharetiro"><strong>Inicio</strong></label>
+        <div *ngFor="let item of modulosD" class="form-check form-switch">
+          <div >
+          <input 
+          style="cursor:pointer;"
+          class="form-check-input" 
+          type="checkbox" 
+          role="switch" 
+          value="{{item.modulo_id}}" 
+          id="{{item.nombre}}" 
+          (change)="onCheckboxChange($event)">
+          <label class="form-check-label" for="flexSwitchCheckDefault">
+            {{item.nombre}}
+          </label>
+        </div>
+        </div>
+        <br>
+        <label *ngIf="ocultaSupervisor" for="inputfecharetiro"><strong>Supervisor</strong></label>
+        <div *ngFor="let item of modulosS" class="form-check form-switch">
+          <div >
+          <input 
+          style="cursor:pointer;"
+          class="form-check-input" 
+          type="checkbox" 
+          role="switch" 
+          value="{{item.modulo_id}}" 
+          id="{{item.nombre}}" 
+          (change)="onCheckboxChange($event)">
+          <label class="form-check-label" for="flexSwitchCheckDefault">
+            {{item.nombre}}
+          </label>
+        </div>
+        </div>
+        <br>
+        <label *ngIf="ocultaAdministrador" for="inputfecharetiro"><strong>Administrador</strong></label>
+        <div *ngFor="let item of modulosA" class="form-check form-switch">
           <div >
           <input 
           style="cursor:pointer;"

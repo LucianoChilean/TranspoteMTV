@@ -15,7 +15,14 @@ import Swal from 'sweetalert2';
 export class ModalModulosComponent implements OnInit {
 
   public moduls: Modulo[] = [];
-  public usermodulos:UserModule[] =[];
+  public usermodulos:Modulo[] =[];
+  public modulosA: Modulo[] = [];
+  public modulosS: Modulo[] = [];
+  public modulosD: Modulo[] = [];
+  public ocultaInicio:boolean = false;
+  public ocultaSupervisor: boolean = false;
+  public ocultaAdministrador: boolean = false;
+
 
   @Input() idRol = 0;
   @Output() cerrar = new EventEmitter<boolean>();
@@ -37,6 +44,9 @@ export class ModalModulosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.ocultaInicio = false;
+    this.ocultaSupervisor = false;
+    this.ocultaAdministrador = false;
     this.getModulos();
     this.getModulosByRol(this.idRol);
   }
@@ -45,6 +55,21 @@ export class ModalModulosComponent implements OnInit {
     this.modulos.getModulos()
     .subscribe( modulo => {
       this.moduls = modulo
+
+      modulo.map(moduls =>{
+        if(moduls.modulo_padre === 'Administrador'){
+           this.ocultaAdministrador = true;
+           this.modulosA.push(moduls);
+        }
+        if(moduls.modulo_padre === 'Supervision'){
+          this.ocultaSupervisor = true;
+          this.modulosS.push(moduls);
+       }
+       if(moduls.modulo_padre === 'Inicio'){
+        this.ocultaInicio = true;
+        this.modulosD.push(moduls);
+      }
+      })
    
     });
   }
@@ -54,7 +79,7 @@ export class ModalModulosComponent implements OnInit {
       .subscribe(asignacion =>{
         this.usermodulos = asignacion
         this.usermodulos.map(userm => {
-          let verificaModulo =  this.moduls.filter(mod => mod.nombre === userm.nombre_modulo);
+          let verificaModulo =  this.moduls.filter(mod => mod.nombre === userm.nombre);
           if(verificaModulo){
             let doc = document.getElementById(verificaModulo[0].nombre);
            doc?.setAttribute('checked','checked');

@@ -3,6 +3,7 @@ export interface FetchAllResponse{
     next: null;
     previus: null;
     vehiculos: Vehiculo[];
+    ramplas: Rampla[];
 }
 
 export interface Vehiculo {
@@ -18,4 +19,10 @@ export interface Vehiculo {
     rampla_id:number;
     patente:string;
 
+}
+
+export interface Rampla{
+    rampla_id: number;
+    nombre: string;
+    descripcion: string;
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { Vehiculo,FetchAllResponse } from '../interfaces/vehiculo.interface';
+import { Vehiculo,FetchAllResponse, Rampla } from '../interfaces/vehiculo.interface';
 
 
 const base_url = environment.base_url;
@@ -42,6 +42,26 @@ export class VehiculoService {
 
   }
 
+  getRamplas(): Observable<Rampla[]>{
+    return this.http.get<FetchAllResponse>(`${base_url}/ramplas`)
+    .pipe(
+      map(this.tRampla)
+    );
+  } 
+
+  private tRampla( resp: FetchAllResponse ) {
+
+    const ramplasList: Rampla[] = resp.ramplas.map( rampla => {
+ 
+     return{
+      rampla_id: rampla.rampla_id,
+      nombre: rampla.nombre,
+      descripcion: rampla.descripcion
+     }
+    })
+
+    return ramplasList;
+  }
 
 
   private transform( resp: FetchAllResponse ) {

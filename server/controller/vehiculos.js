@@ -2,6 +2,7 @@ const {request,response} = require('express');
 const Vehiculo = require('../models/vehiculo');
 const Conductor = require('../models/conductor');
 const Rampla = require('../models/rampla');
+const Upload = require('../controller/uploads');
 
 
 
@@ -13,6 +14,7 @@ const getVehiculos = async(req, res = response) =>{
     res.json({vehiculos});
 
 }
+
 
 const getVehiculo = async(req, res = response) =>{
 
@@ -32,13 +34,29 @@ const getVehiculo = async(req, res = response) =>{
 const postVehiculo = async(req, res = response) => {
 
    
-    const {patente,tipo_vehiculo= 'Camion',descripcion,year,chasis,motor} = req.body;
+    const {patente,
+           tipo_vehiculo= 'Camion',
+           descripcion,
+           year,
+           chasis,
+           motor,
+           conductor_id,
+           propietario_id,
+           rampla_id} = req.body;
 
-    const vehiculo = Vehiculo.build({patente,tipo_vehiculo,descripcion,year,chasis,motor});
+    const vehiculo = Vehiculo.build({patente,
+        tipo_vehiculo,
+        descripcion,
+        year,
+        chasis,
+        motor,
+        conductor_id,
+        propietario_id,
+        rampla_id});
 
     await vehiculo.save();
     
-    res.json({vehiculo})
+    res.json(vehiculo.vehiculo_id);
 
 }
 

@@ -1,4 +1,5 @@
 const {request,response} = require('express');
+const Conductor = require('../models/conductor');
 
 const Condutor = require('../models/conductor');
 
@@ -32,7 +33,19 @@ const getCondutoresByTipo = async(req, res = response) =>{
     });
 
     res.json({conductores});
+}
 
+const getCondutorByPropietario = async(req, res = response) =>{
+
+    const {propietario_id} = req.params;
+
+    const conductores = await Conductor.findAll({
+        where:{
+            propietario_id
+        }
+    });
+
+    res.json({conductores});
 
 }
 
@@ -48,12 +61,12 @@ const getCondutor = async(req, res = response) =>{
 
 const postCondutor = async(req, res = response) => {
 
-    const {nombre,paterno,materno,rut,fono,email,tipo,giro,imagen,propietario_rut} = req.body;
-    const condutor = Condutor.build({nombre,paterno,materno,rut,fono,email,tipo,giro,imagen,propietario_rut});
+    const {nombre,paterno,materno,rut,fono,email,tipo = 'Conductor',propietario_id} = req.body;
+    const condutor = Condutor.build({nombre,paterno,materno,rut,fono,email,tipo,propietario_id});
 
     await condutor.save();
     
-    res.json({condutor})
+    res.json(condutor.conductor_id)
 
 }
 
@@ -116,4 +129,5 @@ module.exports = {getCondutores,
                   postCondutor,
                   putCondutor,
                   deleteCondutor,
-                  getCondutoresByTipo}
+                  getCondutoresByTipo,
+                  getCondutorByPropietario}

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { UserModule,FetchAllResponse } from '../interfaces/userModule.interface';
+import { Modulo,FetchAllResponse } from '../interfaces/modulo.interface';
 
 const base_url = environment.base_url;
 
@@ -13,7 +13,6 @@ const base_url = environment.base_url;
 })
 export class AsignacionService {
 
-  public modulos:UserModule[] = [];
 
   constructor(
     private http:HttpClient
@@ -28,7 +27,7 @@ export class AsignacionService {
     return this.http.delete(`${base_url}/asignaciones/${id}`);
   }
 
-  getUserModule(id:any): Observable<UserModule[]>{
+  getUserModule(id:any): Observable<Modulo[]>{
     return this.http.get<FetchAllResponse>(`${base_url}/asignaciones/getModule/${id}`)
     .pipe(
       map(this.transform)
@@ -38,16 +37,18 @@ export class AsignacionService {
 
   private transform( resp: FetchAllResponse ) {
 
-    const usuariosList: UserModule[] = resp.usermodule.map( userm => {
+    const usuariosList: Modulo[] = resp.modulos.map( userm => {
  
      return{
       modulo_id: userm.modulo_id,
-      asignacion_id: userm.asignacion_id,
-      Modulo: userm.Modulo,
-      nombre_modulo: userm.Modulo.nombre,
-      descrip_modulo: userm.Modulo.descripcion,
-      padre: userm.Modulo.modulo_padre,
-      icons: userm.Modulo.icons
+      nombre: userm.nombre,
+      descripcion: userm.descripcion,
+      modulo_padre: userm.modulo_padre,
+      modulo_orden: userm.modulo_orden,
+      padre_orden: userm.padre_orden,
+      icons: userm.icons,
+      Asignacions: userm.Asignacions,
+      asignacion_id: userm.Asignacions.asignacion_id
 
      }
     })

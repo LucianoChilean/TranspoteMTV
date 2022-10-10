@@ -1,20 +1,19 @@
 const {request,response} = require('express');
 
 const Puerto = require('../models/puerto');
+const Region = require('../models/region');
+const Comuna = require('../models/comuna');
 
 
 const getPuertos = async(req, res = response) =>{
 
-    /*const {page =2 ,size = 5} = req.query;
-
-    let options = {
-        limit: +size,
-        offset: (+page) * (+size)
-    }
-
-    const { count, rows } = await Puerto.findAndCountAll(options);*/
-
-    const puertos = await Puerto.findAll();
+    const puertos = await Puerto.findAll({
+        include: [{ model: Region, 
+            attributes:['region_id','nombre']},
+            {model: Comuna,
+            attributes: ['comuna_id','nombre']}
+        ]   
+    });
 
     res.json({puertos});
 
@@ -33,8 +32,8 @@ const getPuerto = async(req, res = response) =>{
 
 const postPuerto = async(req, res = response) => {
 
-    const {nombre} = req.body;
-    const puerto = Puerto.build({nombre});
+    const {nombre,region_id,comuna_id} = req.body;
+    const puerto = Puerto.build({nombre,region_id,comuna_id});
 
     await puerto.save();
     

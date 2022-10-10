@@ -77,8 +77,13 @@
             <label for="inputPuerto">Propietario</label>
             <select 
             class="form-select" 
-            formControlName="propietario">
-              <option value="0">Seleccione propietario</option>
+            (change)="getConductores($event.target)"
+            formControlName="propietario_id">
+              <option  [value]="0" >Seleccione propietario</option>
+              <option 
+              *ngFor="let item of proveedores"
+              [selected]="item.conductor_id === ngSelect"
+              [value]="item.conductor_id">{{item.nombre}}</option>
             </select>
           </div>
 
@@ -86,27 +91,39 @@
             <label for="inputPuerto">Conductor</label>
             <select 
             class="form-select" 
-            formControlName="conductor">
-              <option value="0">Seleccione Conductor</option>
+            formControlName="conductor_id">
+              <option value="0" [selected]="true">Seleccione Conductor</option>
+              <option *ngFor="let item of conductores"
+              [value]="item.conductor_id">{{item.nombre}}</option>
             </select>
           </div>
 
+
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormCliente">Imagen</label>
-            <input 
-            (change)="getFile($event)"
-            type="file" 
-            class="form-control">
+            <label for="inputPuerto">Rampla</label>
+            <select 
+            class="form-select" 
+            formControlName="rampla_id">
+              <option value="0">Seleccione Rampla</option>
+              <option *ngFor="let item of ramplas"
+              [value]="item.rampla_id">{{item.nombre}}</option>
+            </select>
           </div>
 
+        
     
           
           </div>
 
           <div class="row">
-            <div class="col-md-9 col-lg-9">
-
+            <div class="form-group col-md-6 col-lg-6">
+              <label for="SelectFormCliente">Imagen</label>
+              <input 
+              (change)="getFile($event)"
+              type="file" 
+              class="form-control">
             </div>
+  
           <div class="form-group col-md-3 col-lg-3">
             <br>
           <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
@@ -160,7 +177,7 @@
                           <div 
                           class="btn-group" 
                           role="group" aria-label="Button group with nested dropdown">
-      
+                          
                     
                           <button 
                           data-bs-toggle="tooltip" 
@@ -203,13 +220,4 @@
     </div>
 
 
-    <div class="modal fade" id="vehiculo" tabindex="-1" aria-hidden="true" >
-      <div class="modal-dialog  modal-md">
-        <app-imagen-vehiculo
-        [idVehiculo]="idVehiculo"
-        (cerrar)="goToLoadModal($event,0)">
-        </app-imagen-vehiculo>
-      </div>
-   </div>
-        
-          
+ 

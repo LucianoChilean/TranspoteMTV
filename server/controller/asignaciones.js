@@ -1,7 +1,7 @@
 const {request,response} = require('express');
 const jwt = require('jsonwebtoken');
 const Asignacion = require('../models/asignacion');
-const modulo = require('../models/modulo');
+const Modulo = require('../models/modulo');
 
 
 
@@ -18,35 +18,22 @@ const getModulosByIdRol = async(req, res = response)=>{
 
     const {id} = req.params;
 
-    const usermodule = await Asignacion.findAll({
-        attributes:{
-            exclude:[
-                'rol_id',
-                'createdAt',
-                'updatedAt',
-        ]
-        },
+    const modulos = await Modulo.findAll({
         include:[{
-            model:modulo,
-            as:modulo,
-            attributes:["modulo_id",
-                        "nombre",
-                        "descripcion",
-                        "modulo_padre",
-                        "modulo_orden",
-                        "padre_orden",
-                        "icons"]
+            model:Asignacion,
+            attributes:["asignacion_id"],
+            where:{
+                rol_id: id 
+             },
+            required: true
         }],
-        order: [
-            [ modulo, 'padre_orden', 'ASC' ], 
-            [ modulo, 'modulo_orden', 'ASC' ]
-          ],
-        where:{
-            rol_id: id
-        }
+        order:[
+            ['padre_orden', 'ASC'],
+            ['modulo_orden','ASC']
+        ]
     });
 
-    res.json({usermodule});
+    res.json({modulos});
 
 }
 

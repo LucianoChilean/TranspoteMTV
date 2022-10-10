@@ -14,50 +14,54 @@
 
       <form
       autocomplete="off" 
-      id="RolesForm"
+      id="puertoForm"
+      [formGroup]="puertoForm"
+      (submit)="setPuerto()"
       >
           <div class="row">
             <div class="form-group col-md-3 col-lg-3">
-                <label for="inputGuia">Nombre</label>
-               
-            </div>
-
-          <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormConductor">rut</label>
-           
-          </div>
-          
-          </div>
-         
-          <div class="row">
-          <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormConductor">fono</label>
-          
+              <label for="inputGuia">Nombre</label>
+              <input 
+              type="text" 
+              class="form-control" 
+              formControlName="nombre">
           </div>
 
+
           <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormConductor">email</label>
-          
+            <label for="exampleFormControlSelect1">Región</label>
+            <select class="form-select" 
+            formControlName="region_id"
+            (change)="getComunas($event.target)">
+            <option value="0">Seleccione Región</option>
+            <option *ngFor="let item of regiones"
+            [value]="item.region_id">{{item.nombre}}</option>
+            </select>
           </div>
 
-          
-          <div class="form-group col-md-3 col-lg-3">
-            <label for="SelectFormConductor">Giro</label>
-           
-          </div>
 
+      <div class="form-group col-md-3 col-lg-3">
+        <label for="exampleFormControlSelect1">Comuna</label>
+        <select class="form-select" 
+        formControlName="comuna_id">
+        <option value="0">Seleccione Comuna</option>
+        <option *ngFor="let item of comunas" 
+        value="{{item.comuna_id}}">{{item.nombre}}</option>
+        </select>
+      </div>
+        
           <div class="form-group col-md-3 col-lg-3">
             <br>
           <button *ngIf="ocultarRegistro" type="submit" class="btn btn-success" >Guardar</button>
           <div  *ngIf="ocultarEditar">
-          <button  type="button"  class="btn btn-primary" >Editar</button>
+          <button  type="button" (click)="putPuerto()" class="btn btn-primary" >Editar</button>
           &nbsp;
-          <button  type="button"  class="btn btn-danger">Cancelar</button>
+          <button  type="button" (click)="cancelEdit()" class="btn btn-danger">Cancelar</button>
           </div>
           </div>
-
+          
           </div>
-
+       
         </form>
         
       </div>
@@ -77,30 +81,34 @@
             <table class="table table-bordered">
                   <thead>
                       <tr>
-                          <th  scope="col">Razon Social</th>
-                          <th  scope="col">rut</th>
-                          <th  scope="col">giro</th>
-                          <th  scope="col">fono</th>
-                          <th  scope="col">email</th>
+                          <th  scope="col">Puerto</th>
+                          <th  scope="col">Región</th>
+                          <th  scope="col">Comuna</th>
                           <th  scope="col">Acciones</th>
                       </tr>
                   </thead>
                   
                   <tbody>
-                      <tr >
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                      <tr  *ngFor="let item of puertos">
+                          <td>{{item.nombre}}</td>
+                          <td>{{item.rnombre}}</td>
+                          <td>{{item.cnombre}}</td>
                           <td>
                             <div 
                             class="btn-group" 
                             role="group" aria-label="Button group with nested dropdown">
 
+                             
+                            <button 
+                            data-bs-toggle="modal"
+                            data-bs-target="#rut"
+                            title="Editar"
+                            type="button" 
+                            class="btn btn-secondary"
+                            >Rut Ingreso</button>
                        
                             <button 
-                          
+                            (click)="getDataPuertos(item)"
                             data-bs-toggle="tooltip" 
                             data-bs-placement="top"
                             title="Editar"
@@ -109,7 +117,7 @@
                             ><i class="fa-solid fa-pen-to-square"></i></button>
                             
                             <button 
-                          
+                            (click)="deletePuerto(item.puerto_id)"
                             data-bs-toggle="tooltip" 
                             data-bs-placement="top"
                             title="Eliminar"
@@ -129,3 +137,18 @@
           </div>
       </div>
   </div>
+
+
+  
+  <div class="modal fade" id="rut" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog  modal-lg">
+      <app-modal-rut-ingreso></app-modal-rut-ingreso>
+    <!-- <app-modal-factura   
+       *ngIf="ocultarModalDetalle" 
+       [idDetails]="idDetalle" 
+       [idCliente]="idCliente" 
+       [guia]="guia"
+       (cerrar)="goToLoadModal($event,0,0,'')">
+     </app-modal-detalle>-->
+    </div>
+ </div>

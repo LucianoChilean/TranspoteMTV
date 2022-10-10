@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -10,6 +10,9 @@ import Swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor{
+
+  constructor(private router: Router,
+    private NgZone:NgZone) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -57,5 +60,5 @@ export class TokenInterceptorService implements HttpInterceptor{
   }
 
 
-  constructor() { }
+ 
 }

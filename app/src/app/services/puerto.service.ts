@@ -26,6 +26,19 @@ export class PuertoService {
 
   }
 
+  setPuerto(puerto:object){
+    return this.http.post(`${base_url}/puertos`,puerto)
+  }
+
+  putPuerto(id:number,puerto:object){
+    return this.http.put(`${base_url}/puertos/${id}`,puerto)
+  }
+
+  deletePuerto(id:number){
+    return this.http.delete(`${base_url}/puertos/${id}`)
+  }
+
+
 
   private transform( resp: FetchAllResponse ) {
 
@@ -34,6 +47,10 @@ export class PuertoService {
      return{
       puerto_id:puerto.puerto_id,
       nombre:puerto.nombre,
+      Region: puerto.Region,
+      rnombre: puerto.Region.nombre,
+      Comuna: puerto.Comuna,
+      cnombre: puerto.Comuna.nombre
     
      }
     })

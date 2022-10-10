@@ -30,9 +30,9 @@ const getRampla = async(req, res = response) =>{
 const postRampla = async(req, res = response) => {
 
    
-    const {rut,nombre,giro,tipo_cliente_id = 1,direccion} = req.body;
+    const {nombre,descripcion} = req.body;
 
-    const rampla = Rampla.build({rut,nombre,giro,tipo_cliente_id,direccion});
+    const rampla = Rampla.build({nombre,descripcion});
 
 
     await rampla.save();
@@ -45,19 +45,19 @@ const postRampla = async(req, res = response) => {
 const putRampla = async(req,res = response) => {
 
     const {id} = req.params;
-    const {rut,nombre,giro,tipo_cliente_id = 1,direccion} = req.body;
+    const {nombre,descripcion} = req.body;
  
     try{
 
         const rampla = await Rampla.findByPk(id);
         if(!rampla){
             return res.status(404).json({
-                msg: `no existe un cliente con el id ${id}`
+                msg: `no existe una rampla con el id ${id}`
             })
         }
 
 
-        await rampla.update({rut,nombre,giro,tipo_cliente_id,direccion});
+        await rampla.update({nombre,descripcion});
 
         res.json(rampla);
         

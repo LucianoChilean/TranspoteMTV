@@ -57,7 +57,7 @@
                   type="button" 
                   class="btn btn-outline-secondary"
                   data-bs-toggle="modal"
-                  data-bs-target="#detalle"
+                  data-bs-target="#factura"
                   >Guardar Factura</button>
        
                 </div></td>
@@ -75,6 +75,20 @@
     </div>
     </div>
   </div>
+
+
+  <div class="modal fade" id="factura" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog  modal-md">
+      <app-modal-factura></app-modal-factura>
+    <!-- <app-modal-factura   
+       *ngIf="ocultarModalDetalle" 
+       [idDetails]="idDetalle" 
+       [idCliente]="idCliente" 
+       [guia]="guia"
+       (cerrar)="goToLoadModal($event,0,0,'')">
+     </app-modal-detalle>-->
+    </div>
+ </div>
       
       
         

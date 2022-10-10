@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-//import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -19,25 +19,25 @@ import { RolesComponent } from './roles/roles.component';
 
 
 
+
 const routes: Routes = [
     { 
-        path: 'dashboard', 
+        path: '', 
         component: PagesComponent,
-        //canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
         children: [
-            { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
-            { path: 'despachos', component: DespachosComponent, data: { titulo: 'Despachos' }},
-            { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' }},
-            { path: 'facturas', component: FacturasComponent, data: { titulo: 'Facturas' }},
-            { path: 'facturacion', component: FacturacionComponent, data: { titulo: 'Facturacion' }},
-            { path: 'tarifa', component: TarifaComponent, data: { titulo: 'Tarifa' }},
-            { path: 'conductor', component: ConductorComponent, data: { titulo: 'Conductor' }},
-            { path: 'cliente', component: ClienteComponent, data: { titulo: 'Cliente' }},
-            { path: 'vehiculos', component: VehiculosComponent, data: { titulo: 'Vehiculos' }},
-            { path: 'tarifa', component: TarifaComponent, data: { titulo: 'Tarifa' }},
-            { path: 'puerto', component: PuertoComponent, data: { titulo: 'Puerto' }},
-            { path: 'proveedores', component: ProveedorComponent, data: {titulo: 'Proveedores'}},
-            { path: 'roles', component: RolesComponent, data : {titulo:'Roles'}},
+            { path: 'Dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
+            { path: 'Despachos', component: DespachosComponent, data: { titulo: 'Despachos' }},
+            { path: 'Usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' }},
+            { path: 'PreFacturas', component: FacturasComponent, data: { titulo: 'Facturas' }},
+            { path: 'Facturacion', component: FacturacionComponent, data: { titulo: 'Facturacion' }},
+            { path: 'Tarifas', component: TarifaComponent, data: { titulo: 'Tarifa' }},
+            { path: 'Conductor', component: ConductorComponent, data: { titulo: 'Conductor' }},
+            { path: 'Clientes', component: ClienteComponent, data: { titulo: 'Cliente' }},
+            { path: 'Vehiculos', component: VehiculosComponent, data: { titulo: 'Vehiculos' }},
+            { path: 'Puertos', component: PuertoComponent, data: { titulo: 'Puerto' }},
+            { path: 'Proveedores', component: ProveedorComponent, data: {titulo: 'Proveedores'}},
+            { path: 'Roles', component: RolesComponent, data : {titulo:'Roles'}},
         ],
     },
 ];
