@@ -78,6 +78,7 @@ export class ModalModulosComponent implements OnInit {
       this.asignacion.getUserModule(id)
       .subscribe(asignacion =>{
         this.usermodulos = asignacion
+        console.log(asignacion)
         this.usermodulos.map(userm => {
           let verificaModulo =  this.moduls.filter(mod => mod.nombre === userm.nombre);
           if(verificaModulo){
@@ -112,10 +113,16 @@ export class ModalModulosComponent implements OnInit {
 
 
   GuardarModulos(){
+
+    console.log(this.mForm.value.checkArray);
+
+    console.log(this.mForm.value.unCheckArray);
   
      this.mForm.value.checkArray.forEach((item:number) => {
+      console.log("Check",item)
       let verificarAsignacion = this.usermodulos.find((userm) => userm.modulo_id == item);
       if(!verificarAsignacion){
+        console.log("HOLA")
         this.moduloIn.rol_id = this.idRol;
         this.moduloIn.modulo_id = item; 
         this.asignacion.postAsignacion(this.moduloIn)
@@ -140,7 +147,8 @@ export class ModalModulosComponent implements OnInit {
      this.mForm.value.unCheckArray.forEach((item:number) =>{
       let verificarAsignacion = this.usermodulos.find((userm) => userm.modulo_id == item);
       if(verificarAsignacion){
-        this.asignacion.deleteAssign(verificarAsignacion.asignacion_id)
+        console.log("UnCheck",verificarAsignacion.Asignacions.asignacion_id)
+        this.asignacion.deleteAssign(verificarAsignacion.Asignacions.asignacion_id)
         .subscribe(delAssign =>{
           console.log(delAssign)
         });

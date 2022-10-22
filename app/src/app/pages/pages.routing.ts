@@ -22,11 +22,11 @@ import { RolesComponent } from './roles/roles.component';
 
 const routes: Routes = [
     { 
-        path: '', 
+        path: 'Dashboard', 
         component: PagesComponent,
         canActivate: [ AuthGuard ],
         children: [
-            { path: 'Dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
+            { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
             { path: 'Despachos', component: DespachosComponent, data: { titulo: 'Despachos' }},
             { path: 'Usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' }},
             { path: 'PreFacturas', component: FacturasComponent, data: { titulo: 'Facturas' }},

@@ -52,7 +52,7 @@ export class LoginComponent {
       }).then((result) => {
         /* Read more about handling dismissals below */
         if (result.dismiss === Swal.DismissReason.timer) {
-             this.router.navigate(['']);
+             this.router.navigate(['Dashboard']);
         }
       })
 

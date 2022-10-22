@@ -8,7 +8,7 @@
                     
                     <a *ngFor="let item of modulosD" 
                     class="nav-link puntero" 
-                    routerLink="/{{item.nombre}}">
+                    routerLink="/Dashboard/{{item.nombre}}">
                         <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
                         {{item.nombre}}
                     </a>
@@ -17,7 +17,7 @@
                     <div *ngIf="ocultaSupervisor" class="sb-sidenav-menu-heading">Supervision</div>
                     <a *ngFor="let item of modulosS" 
                     class="nav-link puntero" 
-                    routerLink="/{{item.nombre}}">
+                    routerLink="/Dashboard/{{item.nombre}}">
                         <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
                         {{item.nombre}}
                     </a>
@@ -26,7 +26,7 @@
                     <div *ngIf="ocultaAdministrador" class="sb-sidenav-menu-heading">Administrador</div>
                     <a *ngFor="let item of modulosA" 
                     class="nav-link puntero" 
-                    routerLink="/{{item.nombre}}">
+                    routerLink="/Dashboard/{{item.nombre}}">
                         <div class="sb-nav-link-icon"><i class={{item.icons}}></i></div>
                         {{item.nombre}}
                     </a>

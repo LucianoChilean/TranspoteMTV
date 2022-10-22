@@ -19,14 +19,16 @@ const getModulosByIdRol = async(req, res = response)=>{
     const {id} = req.params;
 
     const modulos = await Modulo.findAll({
-        include:[{
+        include:[
+            {
             model:Asignacion,
-            attributes:["asignacion_id"],
+            as:Asignacion,
+            attributes:['asignacion_id','rol_id'],
             where:{
                 rol_id: id 
              },
-            required: true
-        }],
+            required: true}
+            ],
         order:[
             ['padre_orden', 'ASC'],
             ['modulo_orden','ASC']
